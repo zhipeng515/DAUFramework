@@ -7,7 +7,15 @@
 //
 
 #import "DataCreator.h"
+#import "DataCore.h"
 
 @implementation DataCreator
+
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict
+{
+    DataCore * data = [[DataCore alloc]init];
+    return data;
+}
 
 @end

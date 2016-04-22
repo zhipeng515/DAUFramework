@@ -10,4 +10,24 @@
 
 @implementation UIModel
 
+-(id)initWithUI:(id)ui
+{
+    if(self = [super init])
+    {
+        self.ui = ui;
+    }
+    return self;
+}
+
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+    return self;
+}
+
+- (id)mutableCopyWithZone:(nullable NSZone *)zone;
+{
+    return self;
+}
+
+
 @end

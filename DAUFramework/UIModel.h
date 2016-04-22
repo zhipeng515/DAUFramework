@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UIModel : NSObject
+@interface UIModel : NSObject<NSCopying, NSMutableCopying>
+
+@property(nonatomic, retain)id ui;
+
+- (id)copyWithZone:(nullable NSZone *)zone;
+- (id)mutableCopyWithZone:(nullable NSZone *)zone;
+
+-(id)initWithUI:(id)ui;
+
 
 @end

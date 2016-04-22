@@ -10,4 +10,10 @@
 
 @implementation ModelCreator
 
+-(id)create:(NSString*)key withData:(NSDictionary*)data
+{
+    NSAssert(false, @"forbidden");
+    return nil;
+}
+
 @end

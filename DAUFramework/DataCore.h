@@ -8,12 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DataCore : NSObject
+@interface DataCore : NSObject<NSCopying, NSMutableCopying>
 
 @property(nonatomic, retain) NSString * key;
 @property(nonatomic, retain) id data;
-@property(nonatomic, retain)NSMutableDictionary * coreDict;
+@property(nonatomic, retain)NSMutableDictionary * subdataDict;
 
--(id)create:(NSString*)key withData:(NSDictionary*)data;
+- (id)copyWithZone:(nullable NSZone *)zone;
+- (id)mutableCopyWithZone:(nullable NSZone *)zone;
+
+
+-(id)getData:(NSString*)key;
+-(void)add:(NSString*)key withData:(DataCore*)data;
 
 @end

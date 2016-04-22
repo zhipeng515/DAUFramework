@@ -14,14 +14,36 @@
 @property(nonatomic, retain)id destObject;
 
 -(void)bindObject:(id)src withOtherObject:(id)dest;
+-(void)trigger;
 
 @end
 
-@interface ViewDataBind : Binder
+@interface ViewDataBinder : Binder
 
 @property(nonatomic, retain)NSMutableArray * views;
 
 -(id)init;
 -(void)bindObject:(id)src withOtherObject:(id)dest;
+-(void)trigger;
+
+@end
+
+@interface ViewActionBinder : Binder
+
+@property(nonatomic, retain)NSMutableArray * views;
+
+-(id)init;
+-(void)bindObject:(id)src withOtherObject:(id)dest;
+-(void)trigger;
+
+@end
+
+@interface DataActionBinder : Binder
+
+@property(nonatomic, retain)NSMutableArray * views;
+
+-(id)init;
+-(void)bindObject:(id)src withOtherObject:(id)dest;
+-(void)trigger;
 
 @end

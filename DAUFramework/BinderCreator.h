@@ -1,41 +1,33 @@
 //
-//  ActionCreator.h
+//  BindCreator.h
 //  DAUFramework
 //
-//  Created by zhipeng on 16/4/21.
+//  Created by zhipeng on 16/4/22.
 //  Copyright © 2016年 zhipeng. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "ModelCreator.h"
 
-// Create Action Object
-
-@interface ActionCreator : ModelCreator
+@interface BinderCreator : ModelCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)data;
 
 @end
 
-@interface HttpActionCreator : ActionCreator
+@interface ViewDataBinderCreator : BinderCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)data;
 
 @end
 
-@interface UIActionCreator : ActionCreator
+@interface ViewActionBinderCreator : BinderCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)data;
 
 @end
 
-@interface DataActionCreator : ActionCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)data;
-
-@end
-
-@interface CustomActionCreator : ActionCreator
+@interface DataActionBinderCreator : BinderCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)data;
 

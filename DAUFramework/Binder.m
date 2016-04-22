@@ -15,13 +15,19 @@
     NSAssert(false, @"forbidden");
 }
 
+-(void)trigger
+{
+    NSAssert(false, @"forbidden");
+}
+
+
 @end
 
-@implementation ViewDataBind
+@implementation ViewDataBinder
 
 -(id)init
 {
-    if([super init])
+    if(self = [super init])
     {
         self.views = [[NSMutableArray alloc] init];
     }
@@ -30,7 +36,15 @@
 
 -(void)bindObject:(id)src withOtherObject:(id)dest
 {
-    
+    self.srcObject = src;
+    self.destObject = dest;
 }
+
+-(void)trigger
+{
+    if([self.srcObject respondsToSelector:@selector(updateValue:)])
+        [self.srcObject performSelector:@selector(updateValue:) withObject:self.destObject];
+}
+
 
 @end

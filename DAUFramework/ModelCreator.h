@@ -10,4 +10,6 @@
 
 @interface ModelCreator : NSObject
 
+-(id)create:(NSString*)key withData:(NSDictionary*)data;
+
 @end

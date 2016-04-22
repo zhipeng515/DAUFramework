@@ -7,12 +7,13 @@
 //
 
 #import "BinderCreator.h"
+#import "Binder.h"
 
 @implementation BinderCreator
 
 -(id)init
 {
-    if([super init])
+    if(self = [super init])
     {
         
     }
@@ -22,6 +23,28 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
     return nil;
+}
+
+
+@end
+
+
+@implementation ViewDataBinderCreator
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict
+{
+    ViewDataBinder * viewDataBinder = [[ViewDataBinder alloc] init];
+    [viewDataBinder bindObject:dict[@"src"] withOtherObject:dict[@"dest"]];
+    return viewDataBinder;
 }
 
 

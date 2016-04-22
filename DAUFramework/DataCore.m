@@ -12,10 +12,30 @@
 
 -(id)init
 {
-    if([super init])
+    if(self = [super init])
     {
-        self.coreDict = [[NSMutableDictionary alloc] init];
+        self.subdataDict = [[NSMutableDictionary alloc] init];
     }
+    return self;
+}
+
+-(id)getData:(NSString*)key
+{
+    return nil;
+}
+
+-(void)add:(NSString*)key withData:(DataCore*)data
+{
+    
+}
+
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+    return self;
+}
+
+- (id)mutableCopyWithZone:(nullable NSZone *)zone
+{
     return self;
 }
 

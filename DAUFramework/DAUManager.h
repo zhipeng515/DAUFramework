@@ -10,4 +10,11 @@
 
 @interface DAUManager : NSObject
 
+@property(nonatomic, retain)NSMutableDictionary * binders;
+
++(DAUManager*)shareInstance;
+
+-(void)bindObject:(id)src withOtherObject:(id)dest;
+-(void)trigger:(id)src;
+
 @end

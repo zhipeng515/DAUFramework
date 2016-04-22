@@ -10,4 +10,67 @@
 
 @implementation Action
 
+-(id)initWithParam:(NSDictionary*)param
+{
+    if(self = [super init])
+    {
+        self.param = param;
+    }
+    return self;
+}
+
+-(void)doAction
+{
+    NSAssert(false, @"forbidden");
+}
+
+@end
+
+
+@implementation HttpAction
+
+-(id)initWithParam:(NSDictionary*)param
+{
+    if(self = [super initWithParam:param])
+    {
+    }
+    return self;
+}
+
+-(void)doAction
+{
+}
+
+@end
+
+@implementation UIAction
+
+-(id)initWithParam:(NSDictionary*)param
+{
+    if(self = [super initWithParam:param])
+    {
+    }
+    return self;
+}
+
+-(void)doAction
+{
+}
+
+@end
+
+@implementation CustomAction
+
+-(id)initWithParam:(NSDictionary*)param
+{
+    if(self = [super initWithParam:param])
+    {
+    }
+    return self;
+}
+
+-(void)doAction
+{
+}
+
 @end
