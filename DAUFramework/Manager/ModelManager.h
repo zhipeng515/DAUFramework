@@ -16,10 +16,13 @@
 
 +(ModelManager*)shareInstance;
 
+-(void)loadModelCreator:(NSDictionary*)config;
+
 -(void)registerModelCreator:(ModelCreator*)creator withKey:(id)key;
 -(id)createModel:(NSDictionary*)data withKey:(id)key;
 
 -(void)setModel:(id)model withKey:(id)key;
 -(id)getModel:(id)key;
+-(void)removeModel:(id)key;
 
 @end

@@ -28,6 +28,18 @@
     return self;
 }
 
+-(void)loadModelCreator:(NSDictionary*)config
+{
+    NSArray *creators = config[@"creators"];
+    for (NSDictionary * creator in creators) {
+        if (creator) {
+            NSString * className = creator[@"className"];
+            NSString * creatorName = creator[@"creatorName"];
+            [self registerModelCreator:[[NSClassFromString(className) alloc] init] withKey:creatorName];
+        }
+    }
+}
+
 -(void)registerModelCreator:(ModelCreator*)creator withKey:(id)key
 {
     if([self.modelCreatorDict objectForKey:key] != nil)
@@ -53,6 +65,11 @@
 -(void)setModel:(id)model withKey:(id)key
 {
     [self.modelDict setObject:model forKey:key];
+}
+
+-(void)removeModel:(id)key
+{
+    [self.modelDict removeObjectForKey:key];
 }
 
 -(id)getModel:(id)key
