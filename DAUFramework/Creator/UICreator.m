@@ -45,7 +45,8 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
     UIView * view = [[UIView alloc]init];
-    return view;
+    UI * ui = [[UI alloc] initWithUI:view];
+    return ui;
 }
 
 

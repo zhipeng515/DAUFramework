@@ -1,13 +1,21 @@
 {
     "globalModel":
     {
-        "indexKey":""
         "property":
         {
             "deviceId":"string",
-            "deviceType":"string",
+            "deviceType":"string"
         }
-    }
+    },
+    "repsond":
+    {
+        "property":
+        {
+            "success": "string",
+            "code": "string",
+            "message": "string"
+        }
+    },
     "user":
     {
         "indexKey":"userId",
@@ -27,6 +35,44 @@
             "skilledGameId": "string",
             "bucket": "string",
             "banner": "string"
+        }
+    },
+    "note":
+    {
+        "indexKey":"noteId",
+        "property":
+        {
+            "noteId": "string",
+            "content": "string",
+            "bucket": "string",
+            "attachmentUrl": "string",
+            "attachmentWidth": "string",
+            "attachmentHeight": "string",
+            "likeCount": "string",
+            "hateCount": "string",
+            "commentCount": "string",
+            "userId": "string",
+            "gameId": "string",
+            "time": "string",
+            "collectionCount": "string",
+            "originNoteId": "string",
+            "state": "string",
+            "visible": "string"
+            
+        }
+    },
+    "notes":
+    {
+        "property":
+        {
+            "notes":"array"
+        }
+    },
+    "userExts":
+    {
+        "property":
+        {
+            "userExts":"array"
         }
     },
     "userExt": {

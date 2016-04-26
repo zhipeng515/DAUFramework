@@ -1,5 +1,5 @@
 {
-
+    
     "layoutInfo":
     {
         "rootView":
@@ -43,7 +43,7 @@
             "creator":"createButton",
             "property":
             {
-
+                
             }
         }
     },
@@ -52,7 +52,7 @@
         "userInfo":
         {
             "creator":"createData",
-            "model":"userModel"
+            "model":"userModel",
             "property":
             {
                 "userId":"",
@@ -104,7 +104,7 @@
             "creator":"createCustomAction",
             "property":
             {
-            }
+            },
             "complete":"",
             "failed":""
         },
@@ -113,7 +113,7 @@
             "creator":"createCustomAction",
             "property":
             {
-            }
+            },
             "complete":"",
             "failed":""
         }

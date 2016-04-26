@@ -10,7 +10,7 @@
 
 @implementation Action
 
--(id)initWithParam:(NSDictionary*)param
+-(id)initWithParam:(NSMutableDictionary*)param
 {
     if(self = [super init])
     {

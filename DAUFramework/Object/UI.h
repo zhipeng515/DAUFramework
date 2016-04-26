@@ -10,12 +10,12 @@
 
 @interface UI : NSObject<NSCopying, NSMutableCopying>
 
-@property(nonatomic, retain)id ui;
+@property(nonatomic, retain, nonnull)id ui;
 
-- (id)copyWithZone:(nullable NSZone *)zone;
-- (id)mutableCopyWithZone:(nullable NSZone *)zone;
+- (nonnull id)copyWithZone:(nullable NSZone *)zone;
+- (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
--(id)initWithUI:(id)ui;
+- (nonnull id)initWithUI:(nullable id)ui;
 
 
 @end

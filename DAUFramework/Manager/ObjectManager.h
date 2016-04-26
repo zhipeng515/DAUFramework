@@ -14,14 +14,17 @@
 @property(nonatomic, retain)NSMutableDictionary * objectCreatorDict;
 @property(nonatomic, retain)NSMutableDictionary * objectDict;
 
+
 +(ObjectManager*)shareInstance;
 
--(void)loadObjectCreator:(NSDictionary*)config;
+-(void)loadObjectCreator:(NSDictionary*)objCreators;
 -(void)registerObjectCreator:(ObjectCreator*)creator withKey:(id)key;
 
 -(id)createObject:(NSDictionary*)data withKey:(id)key;
--(void)setObject:(id)model withKey:(id)key;
--(id)getObject:(id)key;
--(void)removeObject:(id)key;
+-(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope;
+-(id)getObject:(id)key withScope:(NSString*)scope;
+-(void)removeObject:(id)key withScope:(NSString*)scope;
+-(void)removeAllObject;
+-(void)removeAllObject:(NSString*)scope;
 
 @end

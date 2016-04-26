@@ -30,8 +30,6 @@
 
 @interface UIAction : Action
 
-@property(nonatomic, retain)NSMutableDictionary * param;
-
 -(id)initWithParam:(NSDictionary*)param;
 -(void)doAction;
 
@@ -39,16 +37,12 @@
 
 @interface DataAction : Action
 
-@property(nonatomic, retain)NSMutableDictionary * param;
-
 -(id)initWithParam:(NSDictionary*)param;
 -(void)doAction;
 
 @end
 
 @interface CustomAction : Action
-
-@property(nonatomic, retain)NSMutableDictionary * param;
 
 -(id)initWithParam:(NSDictionary*)param;
 -(void)doAction;

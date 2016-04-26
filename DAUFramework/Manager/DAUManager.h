@@ -8,14 +8,26 @@
 
 #import <Foundation/Foundation.h>
 
+#define GLOBAL_SCOPE @"global"
+
+@class ModelDefine;
+
 @interface DAUManager : NSObject
 
 @property(nonatomic, retain)NSMutableDictionary * binders;
+@property(nonatomic, retain)NSMutableDictionary * allDataModel;
+@property(nonatomic, retain)NSMutableDictionary * modelDefineDict;
 
 +(DAUManager*)shareInstance;
 
--(void)buildModel:(NSDictionary*)dict;
--(void)bindObject:(id)src withOtherObject:(id)dest;
--(void)trigger:(id)src;
+-(void)loadModelDefine:(NSDictionary*)modelDefines;
+-(id)getModelDefine:(id)define;
+
+-(void)parseDataModel:(NSDictionary*)models withScope:(NSString*)scope;
+-(void)parseLayoutModel:(NSDictionary*)layouts withScope:(NSString*)scope;
+-(void)parseBinderModel:(NSDictionary*)binders withScope:(NSString*)scope;
+
+-(void)bindObject:(id)src withOtherObject:(id)dest withScope:(NSString*)scope;
+-(void)trigger:(id)src withScope:(NSString*)scope;
 
 @end

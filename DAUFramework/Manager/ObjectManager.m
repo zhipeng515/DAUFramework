@@ -8,6 +8,7 @@
 
 #import "ObjectManager.h"
 
+
 @implementation ObjectManager
 
 +(ObjectManager*)shareInstance
@@ -28,24 +29,23 @@
     return self;
 }
 
--(void)loadObjectCreator:(NSDictionary*)config
+-(void)loadObjectCreator:(NSDictionary*)objCreators
 {
-    NSArray *creators = config[@"creators"];
+    NSArray *creators = objCreators[@"creators"];
     for (NSDictionary * creator in creators) {
-        if (creator) {
-            NSString * className = creator[@"className"];
-            NSString * creatorName = creator[@"creatorName"];
-            NSAssert(className != nil, @"class name is nil");
-            NSAssert(creatorName != nil, @"creator name is nil");
+        NSString * className = creator[@"className"];
+        NSString * creatorName = creator[@"creatorName"];
+        NSAssert(className != nil, @"class name is nil");
+        NSAssert(creatorName != nil, @"creator name is nil");
 
-            Class creatorClass = NSClassFromString(className);
-            NSAssert(creatorClass != nil, @"creator %@ is not implement", className);
-            [self registerModelCreator:[[creatorClass alloc] init] withKey:creatorName];
-        }
+        Class creatorClass = NSClassFromString(className);
+        NSAssert(creatorClass != nil, @"creator %@ is not implement", className);
+        [self registerObjectCreator:[[creatorClass alloc] init] withKey:creatorName];
     }
 }
 
--(void)registerModelCreator:(ObjectCreator*)creator withKey:(id)key
+
+-(void)registerObjectCreator:(ObjectCreator*)creator withKey:(id)key
 {
     if([self.objectCreatorDict objectForKey:key] != nil)
     {
@@ -55,7 +55,7 @@
     [ self.objectCreatorDict setObject:creator forKey:key];
 }
 
--(id)createModel:(NSDictionary*)data withKey:(id)key
+-(id)createObject:(NSDictionary*)data withKey:(id)key
 {
     ObjectCreator * creator = [self.objectCreatorDict objectForKey:key];
     if(creator == nil)
@@ -67,22 +67,49 @@
     return [creator create:key withData:data];
 }
 
--(void)setObject:(id)model withKey:(id)key
+-(id)getObjectScope:(NSString*)scope
 {
-    [self.objectDict setObject:model forKey:key];
+    NSMutableDictionary * scopeDict = self.objectDict[scope];
+    if(scopeDict == nil)
+    {
+        scopeDict = [[NSMutableDictionary alloc] init];
+        [self.objectDict setObject:scopeDict forKey:scope];
+    }
+    return scopeDict;
 }
 
--(void)removeObject:(id)key
+-(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
 {
-    [self.objectDict removeObjectForKey:key];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope];
+    [scopeDict setObject:model forKey:key];
 }
 
--(id)getObject:(id)key
+-(void)removeObject:(id)key withScope:(NSString*)scope
 {
-    id model = [self.objectDict objectForKey:key];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope];
+    [scopeDict removeObjectForKey:key];
+}
+
+-(id)getObject:(id)key withScope:(NSString*)scope
+{
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope];
+    id model = [scopeDict objectForKey:key];
     NSAssert(model != nil, @"key %@ not found", key);
     return model;
 }
+
+-(void)removeAllObject
+{
+    [self.objectDict removeAllObjects];
+}
+
+-(void)removeAllObject:(NSString*)scope
+{
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope];
+    [scopeDict removeAllObjects];
+    [self.objectDict removeObjectForKey:scope];
+}
+
 
 
 @end
