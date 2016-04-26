@@ -1,0 +1,48 @@
+{
+    "globalModel":
+    {
+        "indexKey":""
+        "property":
+        {
+            "deviceId":"string",
+            "deviceType":"string",
+        }
+    }
+    "user":
+    {
+        "indexKey":"userId",
+        "property":
+        {
+            "userId": "string",
+            "birthday": "string",
+            "constellation": "string",
+            "sex": "string",
+            "introduction": "string",
+            "phone": "string",
+            "email": "string",
+            "address": "string",
+            "city": "string",
+            "province": "string",
+            "country": "string",
+            "skilledGameId": "string",
+            "bucket": "string",
+            "banner": "string"
+        }
+    },
+    "userExt": {
+        "indexKey":"userId",
+        "property":
+        {
+            "userId": "string",
+            "nickName": "string",
+            "bucket": "string",
+            "headPhoto": "string",
+            "credit": "string",
+            "money": "string",
+            "mood": "string",
+            "followCount": "string",
+            "funsCount": "string",
+            "noteCount": "string"
+        }
+    }
+}

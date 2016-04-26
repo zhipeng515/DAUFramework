@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UIModel : NSObject<NSCopying, NSMutableCopying>
+@interface UI : NSObject<NSCopying, NSMutableCopying>
 
 @property(nonatomic, retain)id ui;
 

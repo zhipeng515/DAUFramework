@@ -43,8 +43,29 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
     ViewDataBinder * viewDataBinder = [[ViewDataBinder alloc] init];
-    [viewDataBinder bindObject:dict[@"src"] withOtherObject:dict[@"dest"]];
+    [viewDataBinder bindObject:dict[@"srcObj"] withOtherObject:dict[@"destObj"]];
     return viewDataBinder;
+}
+
+
+@end
+
+@implementation ViewActionBinderCreator
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict
+{
+    ViewDataBinder * viewActionBinder = [[ViewDataBinder alloc] init];
+    [viewActionBinder bindObject:dict[@"srcObj"] withOtherObject:dict[@"destObj"]];
+    return viewActionBinder;
 }
 
 

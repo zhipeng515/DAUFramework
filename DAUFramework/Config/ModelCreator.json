@@ -1,44 +1,61 @@
 {
-    "creators" : [
-                  {
-                  "className" : "UIViewCreator",
-                  "creatorName" : "createView"
-                  },
-                  {
-                  "className" : "UILabelCreator",
-                  "creatorName" : "createLabel"
-                  },
-                  {
-                  "className" : "UIButtonCreator",
-                  "creatorName" : "createButton"
-                  },
-                  {
-                  "className" : "UIImageViewCreator",
-                  "creatorName" : "createImageView"
-                  },
-                  {
-                  "className" : "DataCreator",
-                  "creatorName" : "createData"
-                  },
-                  {
-                  "className" : "HttpActionCreator",
-                  "creatorName" : "createHttpAction"
-                  },
-                  {
-                  "className" : "UIActionCreator",
-                  "creatorName" : "createUIAction"
-                  },
-                  {
-                  "className" : "DataActionCreator",
-                  "creatorName" : "createDataAction"
-                  },
-                  {
-                  "className" : "CustomActionCreator",
-                  "creatorName" : "createCustomAction"
-                  },
-                  {
-                  "className" : "ViewDataBinderCreator",
-                  "creatorName" : "createViewDataBind"
-                  }
-                  ]
+	"creators" : 
+	[
+		{
+			"className" : "UIViewCreator",
+			"creatorName" : "createView"
+		},
+		{
+			"className" : "UILabelCreator",
+			"creatorName" : "createLabel"
+		},
+		{
+			"className" : "UIButtonCreator",
+			"creatorName" : "createButton"
+		},
+        {
+            "className" : "UITextFieldCreator",
+            "creatorName" : "createTextField"
+        },
+		{
+			"className" : "UIImageViewCreator",
+			"creatorName" : "createImageView"
+		},
+		{
+			"className" : "UIViewControllerCreator",
+			"creatorName" : "createViewController"
+		},
+		{
+			"className" : "UINavigationControllerCreator",
+			"creatorName" : "createNavigationController"
+		},
+		{
+			"className" : "DataCreator",
+			"creatorName" : "createData"
+		},
+		{
+			"className" : "HttpActionCreator",
+			"creatorName" : "createHttpAction"
+		},
+		{
+			"className" : "UIActionCreator",
+			"creatorName" : "createUIAction"
+		},
+		{
+			"className" : "DataActionCreator",
+			"creatorName" : "createDataAction"
+		},
+		{
+			"className" : "CustomActionCreator",
+			"creatorName" : "createCustomAction"
+		},
+		{
+			"className" : "ViewDataBinderCreator",
+			"creatorName" : "createViewDataBinder"
+		},
+		{
+        	"className" : "ViewActionBinderCreator",
+        	"creatorName" : "createViewActionBinder"
+		}
+     ]
 }

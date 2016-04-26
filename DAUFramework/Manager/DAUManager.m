@@ -8,9 +8,9 @@
 
 #import "DAUManager.h"
 #import "Binder.h"
-#import "ModelManager.h"
-#import "DataCore.h"
-#import "UIModel.h"
+#import "ObjectManager.h"
+#import "Data.h"
+#import "UI.h"
 
 @implementation DAUManager
 
@@ -31,19 +31,32 @@
     return self;
 }
 
+-(void)buildModel:(NSDictionary*)dict
+{
+    for (NSString * modelName in dict) {
+		NSDictionary * modelDict = dict[modelName];
+		NSString * creatorName = modelDict[@"creator"];
+		NSDictionary * property = modelDict[@"property"];
+        NSAssert(creatorName != nil, @"creator name is nil");
+        NSAssert(property != nil, @"property is nil");
+
+        id modelValue = [[ObjectManager shareInstance] createObject:property withKey:creatorName];
+		[[ObjectManager shareInstance] setObject:modelValue withKey:modelName];
+	}
+}
 
 -(void)bindObject:(id)src withOtherObject:(id)dest
 {
-    if([src isKindOfClass:[UIModel class]] && [dest isKindOfClass:[DataCore class]])
+    if([src isKindOfClass:[UI class]] && [dest isKindOfClass:[Data class]])
     {
-        ViewDataBinder * viewDataBinder = [[ModelManager shareInstance] createModel:@{@"src":src, @"dest":dest} withKey:@"createViewDataBind"];
-        [[ModelManager shareInstance] setModel:viewDataBinder withKey:src];
+        ViewDataBinder * viewDataBinder = [[ObjectManager shareInstance] createObject:@{@"src":src, @"dest":dest} withKey:@"createViewDataBind"];
+        [[ObjectManager shareInstance] setObject:viewDataBinder withKey:src];
     }
 }
 
 -(void)trigger:(id)src
 {
-    id binder = [[ModelManager shareInstance] getModel:src];
+    id binder = [[ObjectManager shareInstance] getObject:src];
     if(binder == nil)
     {
         NSAssert(![binder isKindOfClass:[Binder class]], @"object %@ class is not a Binder", src);

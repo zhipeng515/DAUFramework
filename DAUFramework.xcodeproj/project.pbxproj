@@ -11,15 +11,17 @@
 		85A10FD81CCA13C8008626FA /* ActionCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FBD1CCA13C8008626FA /* ActionCreator.m */; };
 		85A10FD91CCA13C8008626FA /* BinderCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FBF1CCA13C8008626FA /* BinderCreator.m */; };
 		85A10FDA1CCA13C8008626FA /* DataCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC11CCA13C8008626FA /* DataCreator.m */; };
-		85A10FDB1CCA13C8008626FA /* ModelCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC31CCA13C8008626FA /* ModelCreator.m */; };
+		85A10FDB1CCA13C8008626FA /* ObjectCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC31CCA13C8008626FA /* ObjectCreator.m */; };
 		85A10FDC1CCA13C8008626FA /* UICreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC51CCA13C8008626FA /* UICreator.m */; };
 		85A10FDD1CCA13C8008626FA /* DAUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC81CCA13C8008626FA /* DAUManager.m */; };
-		85A10FDE1CCA13C8008626FA /* ModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FCA1CCA13C8008626FA /* ModelManager.m */; };
+		85A10FDE1CCA13C8008626FA /* ObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FCA1CCA13C8008626FA /* ObjectManager.m */; };
 		85A10FDF1CCA13C8008626FA /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FCD1CCA13C8008626FA /* Action.m */; };
 		85A10FE01CCA13C8008626FA /* Binder.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FCF1CCA13C8008626FA /* Binder.m */; };
-		85A10FE11CCA13C8008626FA /* DataCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FD11CCA13C8008626FA /* DataCore.m */; };
-		85A10FE21CCA13C8008626FA /* UIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FD31CCA13C8008626FA /* UIModel.m */; };
+		85A10FE11CCA13C8008626FA /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FD11CCA13C8008626FA /* Data.m */; };
+		85A10FE21CCA13C8008626FA /* UI.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FD31CCA13C8008626FA /* UI.m */; };
 		85A10FE31CCA13C8008626FA /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FD61CCA13C8008626FA /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		85A10FE51CCA161B008626FA /* RegisterViewLayout.json in Resources */ = {isa = PBXBuildFile; fileRef = 85A10FE41CCA161B008626FA /* RegisterViewLayout.json */; };
+		85C750C21CCE27E200481D36 /* ModelData.json in Resources */ = {isa = PBXBuildFile; fileRef = 85C750C11CCE27E200481D36 /* ModelData.json */; };
 		85DD9E321CC9244100DF09FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DD9E311CC9244100DF09FB /* main.m */; };
 		85DD9E351CC9244100DF09FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DD9E341CC9244100DF09FB /* AppDelegate.m */; };
 		85DD9E381CC9244200DF09FB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DD9E371CC9244200DF09FB /* ViewController.m */; };
@@ -55,24 +57,26 @@
 		85A10FBF1CCA13C8008626FA /* BinderCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinderCreator.m; sourceTree = "<group>"; };
 		85A10FC01CCA13C8008626FA /* DataCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCreator.h; sourceTree = "<group>"; };
 		85A10FC11CCA13C8008626FA /* DataCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCreator.m; sourceTree = "<group>"; };
-		85A10FC21CCA13C8008626FA /* ModelCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelCreator.h; sourceTree = "<group>"; };
-		85A10FC31CCA13C8008626FA /* ModelCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelCreator.m; sourceTree = "<group>"; };
+		85A10FC21CCA13C8008626FA /* ObjectCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectCreator.h; sourceTree = "<group>"; };
+		85A10FC31CCA13C8008626FA /* ObjectCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectCreator.m; sourceTree = "<group>"; };
 		85A10FC41CCA13C8008626FA /* UICreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICreator.h; sourceTree = "<group>"; };
 		85A10FC51CCA13C8008626FA /* UICreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICreator.m; sourceTree = "<group>"; };
 		85A10FC71CCA13C8008626FA /* DAUManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAUManager.h; sourceTree = "<group>"; };
 		85A10FC81CCA13C8008626FA /* DAUManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAUManager.m; sourceTree = "<group>"; };
-		85A10FC91CCA13C8008626FA /* ModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelManager.h; sourceTree = "<group>"; };
-		85A10FCA1CCA13C8008626FA /* ModelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelManager.m; sourceTree = "<group>"; };
+		85A10FC91CCA13C8008626FA /* ObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectManager.h; sourceTree = "<group>"; };
+		85A10FCA1CCA13C8008626FA /* ObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectManager.m; sourceTree = "<group>"; };
 		85A10FCC1CCA13C8008626FA /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		85A10FCD1CCA13C8008626FA /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
 		85A10FCE1CCA13C8008626FA /* Binder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Binder.h; sourceTree = "<group>"; };
 		85A10FCF1CCA13C8008626FA /* Binder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Binder.m; sourceTree = "<group>"; };
-		85A10FD01CCA13C8008626FA /* DataCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCore.h; sourceTree = "<group>"; };
-		85A10FD11CCA13C8008626FA /* DataCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCore.m; sourceTree = "<group>"; };
-		85A10FD21CCA13C8008626FA /* UIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIModel.h; sourceTree = "<group>"; };
-		85A10FD31CCA13C8008626FA /* UIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIModel.m; sourceTree = "<group>"; };
+		85A10FD01CCA13C8008626FA /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
+		85A10FD11CCA13C8008626FA /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
+		85A10FD21CCA13C8008626FA /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
+		85A10FD31CCA13C8008626FA /* UI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UI.m; sourceTree = "<group>"; };
 		85A10FD51CCA13C8008626FA /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		85A10FD61CCA13C8008626FA /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		85A10FE41CCA161B008626FA /* RegisterViewLayout.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RegisterViewLayout.json; sourceTree = "<group>"; };
+		85C750C11CCE27E200481D36 /* ModelData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ModelData.json; sourceTree = "<group>"; };
 		85DD9E2D1CC9244100DF09FB /* DAUFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DAUFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85DD9E311CC9244100DF09FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		85DD9E331CC9244100DF09FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				85A10FBA1CCA13C8008626FA /* ModelCreator.json */,
+				85A10FE41CCA161B008626FA /* RegisterViewLayout.json */,
+				85C750C11CCE27E200481D36 /* ModelData.json */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -133,8 +139,8 @@
 				85A10FBF1CCA13C8008626FA /* BinderCreator.m */,
 				85A10FC01CCA13C8008626FA /* DataCreator.h */,
 				85A10FC11CCA13C8008626FA /* DataCreator.m */,
-				85A10FC21CCA13C8008626FA /* ModelCreator.h */,
-				85A10FC31CCA13C8008626FA /* ModelCreator.m */,
+				85A10FC21CCA13C8008626FA /* ObjectCreator.h */,
+				85A10FC31CCA13C8008626FA /* ObjectCreator.m */,
 				85A10FC41CCA13C8008626FA /* UICreator.h */,
 				85A10FC51CCA13C8008626FA /* UICreator.m */,
 			);
@@ -146,8 +152,8 @@
 			children = (
 				85A10FC71CCA13C8008626FA /* DAUManager.h */,
 				85A10FC81CCA13C8008626FA /* DAUManager.m */,
-				85A10FC91CCA13C8008626FA /* ModelManager.h */,
-				85A10FCA1CCA13C8008626FA /* ModelManager.m */,
+				85A10FC91CCA13C8008626FA /* ObjectManager.h */,
+				85A10FCA1CCA13C8008626FA /* ObjectManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -159,10 +165,10 @@
 				85A10FCD1CCA13C8008626FA /* Action.m */,
 				85A10FCE1CCA13C8008626FA /* Binder.h */,
 				85A10FCF1CCA13C8008626FA /* Binder.m */,
-				85A10FD01CCA13C8008626FA /* DataCore.h */,
-				85A10FD11CCA13C8008626FA /* DataCore.m */,
-				85A10FD21CCA13C8008626FA /* UIModel.h */,
-				85A10FD31CCA13C8008626FA /* UIModel.m */,
+				85A10FD01CCA13C8008626FA /* Data.h */,
+				85A10FD11CCA13C8008626FA /* Data.m */,
+				85A10FD21CCA13C8008626FA /* UI.h */,
+				85A10FD31CCA13C8008626FA /* UI.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -349,7 +355,9 @@
 				85DD9E401CC9244200DF09FB /* LaunchScreen.storyboard in Resources */,
 				85DD9E3D1CC9244200DF09FB /* Assets.xcassets in Resources */,
 				85A10FD71CCA13C8008626FA /* ModelCreator.json in Resources */,
+				85C750C21CCE27E200481D36 /* ModelData.json in Resources */,
 				85DD9E3B1CC9244200DF09FB /* Main.storyboard in Resources */,
+				85A10FE51CCA161B008626FA /* RegisterViewLayout.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,16 +382,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85A10FDB1CCA13C8008626FA /* ModelCreator.m in Sources */,
+				85A10FDB1CCA13C8008626FA /* ObjectCreator.m in Sources */,
 				85A10FD81CCA13C8008626FA /* ActionCreator.m in Sources */,
 				85A10FD91CCA13C8008626FA /* BinderCreator.m in Sources */,
-				85A10FDE1CCA13C8008626FA /* ModelManager.m in Sources */,
+				85A10FDE1CCA13C8008626FA /* ObjectManager.m in Sources */,
 				85DD9E381CC9244200DF09FB /* ViewController.m in Sources */,
 				85A10FDC1CCA13C8008626FA /* UICreator.m in Sources */,
 				85DD9E351CC9244100DF09FB /* AppDelegate.m in Sources */,
-				85A10FE11CCA13C8008626FA /* DataCore.m in Sources */,
+				85A10FE11CCA13C8008626FA /* Data.m in Sources */,
 				85A10FE01CCA13C8008626FA /* Binder.m in Sources */,
-				85A10FE21CCA13C8008626FA /* UIModel.m in Sources */,
+				85A10FE21CCA13C8008626FA /* UI.m in Sources */,
 				85A10FDF1CCA13C8008626FA /* Action.m in Sources */,
 				85A10FDD1CCA13C8008626FA /* DAUManager.m in Sources */,
 				85A10FDA1CCA13C8008626FA /* DataCreator.m in Sources */,

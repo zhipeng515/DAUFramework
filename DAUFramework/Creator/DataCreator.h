@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ModelCreator.h"
+#import "ObjectCreator.h"
 
 
 // Create DataCore Object
 
-@interface DataCreator : ModelCreator
+@interface DataCreator : ObjectCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict;
 

@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ModelCreator.h"
+#import "ObjectCreator.h"
 
 // Create UI Object
 
-@interface UICreator : ModelCreator
+@interface UICreator : ObjectCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict;
 
@@ -36,6 +36,25 @@
 @end
 
 @interface UILabelCreator : UICreator
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict;
+
+@end
+
+
+@interface UITextFieldCreator : UICreator
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict;
+
+@end
+
+@interface UIViewControllerCreator : UICreator
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict;
+
+@end
+
+@interface UINavigationControllerCreator : UICreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict;
 

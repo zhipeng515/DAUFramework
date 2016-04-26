@@ -8,7 +8,7 @@
 
 #import "UICreator.h"
 #import <UIKit/Uikit.h>
-#import "UIModel.h"
+#import "UI.h"
 
 @implementation UICreator
 
@@ -67,7 +67,7 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
     UIImageView * imageView = [[UIImageView alloc]init];
-    UIModel * ui = [[UIModel alloc] initWithUI:imageView];
+    UI * ui = [[UI alloc] initWithUI:imageView];
     return ui;
 }
 
@@ -88,7 +88,31 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    return nil;
+    UILabel * label = [[UILabel alloc] init];
+    UI * ui = [[UI alloc] initWithUI:label];
+    return ui;
+}
+
+
+
+@end
+
+@implementation UITextFieldCreator
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict
+{
+    UITextField * textField = [[UITextField alloc] init];
+    UI * ui = [[UI alloc] initWithUI:textField];
+    return ui;
 }
 
 
@@ -108,7 +132,54 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    return nil;
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UI * ui = [[UI alloc] initWithUI:button];
+    return ui;
+}
+
+
+
+@end
+
+
+@implementation UIViewControllerCreator
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict
+{
+	UIViewController * viewController = [[UIViewController alloc] init];
+	UI * ui = [[UI alloc] initWithUI:viewController];
+    return ui;
+}
+
+
+
+@end
+
+@implementation UINavigationControllerCreator
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict
+{
+	UINavigationController * naviController = [[UINavigationController alloc] init];
+	UI * ui = [[UI alloc] initWithUI:naviController];
+    return ui;
 }
 
 

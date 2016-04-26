@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ModelCreator.h"
+#import "ObjectCreator.h"
 
-@interface BinderCreator : ModelCreator
+@interface BinderCreator : ObjectCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)data;
 

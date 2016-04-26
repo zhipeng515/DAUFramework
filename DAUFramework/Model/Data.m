@@ -6,9 +6,9 @@
 //  Copyright © 2016年 zhipeng. All rights reserved.
 //
 
-#import "DataCore.h"
+#import "Data.h"
 
-@implementation DataCore
+@implementation Data
 
 -(id)init
 {
@@ -24,7 +24,7 @@
     return nil;
 }
 
--(void)add:(NSString*)key withData:(DataCore*)data
+-(void)add:(NSString*)key withData:(Data*)data
 {
     
 }

@@ -48,3 +48,30 @@
 
 
 @end
+
+
+@implementation ViewActionBinder
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        self.views = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+-(void)bindObject:(id)src withOtherObject:(id)dest
+{
+    self.srcObject = src;
+    self.destObject = dest;
+}
+
+-(void)trigger
+{
+    if([self.srcObject respondsToSelector:@selector(updateValue:)])
+        [self.srcObject performSelector:@selector(updateValue:) withObject:self.destObject];
+}
+
+
+@end

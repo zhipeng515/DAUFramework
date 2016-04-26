@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ModelCreator : NSObject
+@interface ObjectCreator : NSObject
 
 -(id)create:(NSString*)key withData:(NSDictionary*)data;
 

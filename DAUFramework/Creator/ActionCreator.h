@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ModelCreator.h"
+#import "ObjectCreator.h"
 
 // Create Action Object
 
-@interface ActionCreator : ModelCreator
+@interface ActionCreator : ObjectCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)data;
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DataCore : NSObject<NSCopying, NSMutableCopying>
+@interface Data : NSObject<NSCopying, NSMutableCopying>
 
 @property(nonatomic, retain) NSString * key;
 @property(nonatomic, retain) id data;
@@ -19,6 +19,6 @@
 
 
 -(id)getData:(NSString*)key;
--(void)add:(NSString*)key withData:(DataCore*)data;
+-(void)add:(NSString*)key withData:(Data*)data;
 
 @end

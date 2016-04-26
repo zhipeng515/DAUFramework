@@ -12,6 +12,8 @@
 
 @property(nonatomic, retain)NSString * condition;
 @property(nonatomic, retain)NSMutableDictionary * param;
+@property(nonatomic, retain)Action * complete;
+@property(nonatomic, retain)Action * failed;
 
 -(id)initWithParam:(NSDictionary*)param;
 -(void)doAction;

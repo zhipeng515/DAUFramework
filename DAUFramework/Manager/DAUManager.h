@@ -14,6 +14,7 @@
 
 +(DAUManager*)shareInstance;
 
+-(void)buildModel:(NSDictionary*)dict;
 -(void)bindObject:(id)src withOtherObject:(id)dest;
 -(void)trigger:(id)src;
 

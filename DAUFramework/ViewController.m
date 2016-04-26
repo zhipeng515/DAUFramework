@@ -7,16 +7,16 @@
 //
 
 #import "ViewController.h"
-#import "ModelManager.h"
+#import "ObjectManager.h"
 
 #import "UICreator.h"
 #import "DataCreator.h"
 #import "ActionCreator.h"
 #import "BinderCreator.h"
 
-#import "DataCore.h"
+#import "Data.h"
 #import "Action.h"
-#import "UIModel.h"
+#import "UI.h"
 #import "DAUManager.h"
 
 #import "JSONKit.h"
@@ -33,10 +33,17 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"ModelCreator" ofType:@"json"];
     NSString * configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     NSDictionary * creatorDict = [configString objectFromJSONString];
+
+    [[ObjectManager shareInstance] loadObjectCreator:creatorDict];
+
+    path = [[NSBundle mainBundle] pathForResource:@"RegisterViewLayout" ofType:@"json"];
+    configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    creatorDict = [configString objectFromJSONString];
     
-    [[ModelManager shareInstance] loadModelCreator:creatorDict];
+    [[DAUManager shareInstance] buildModel:creatorDict];
     
-    
+    return;
+
 //    [[ModelManager shareInstance] registerModelCreator:[[UIViewCreator alloc]init] withKey:@"createView"];
 //    [[ModelManager shareInstance] registerModelCreator:[[UILabelCreator alloc]init] withKey:@"createLabel"];
 //    [[ModelManager shareInstance] registerModelCreator:[[UIButtonCreator alloc]init] withKey:@"createButton"];
@@ -58,8 +65,8 @@
     [image setValue:@"20" forKey:@"y"];
     [image setValue:@"100" forKey:@"width"];
     [image setValue:@"100" forKey:@"height"];
-    UIModel * imageView = [[ModelManager shareInstance] createModel:image withKey:@"createImageView"];
-    [[ModelManager shareInstance] setModel:imageView withKey:@"userAvatar"];
+    UI * imageView = [[ObjectManager shareInstance] createObject:image withKey:@"createImageView"];
+    [[ObjectManager shareInstance] setObject:imageView withKey:@"userAvatar"];
     
 
     
@@ -70,8 +77,8 @@
     NSMutableDictionary * http = [[NSMutableDictionary alloc] init];
     [http setValue:@"http://api.com" forKey:@"url"];
     [http setValue:@"getTop" forKey:@"param"];
-    HttpAction * http1 = [[ModelManager shareInstance] createModel:http withKey:@"createHttpAction"];
-    [[ModelManager shareInstance] setModel:http1 withKey:@"getTopHttp"];
+    HttpAction * http1 = [[ObjectManager shareInstance] createObject:http withKey:@"createHttpAction"];
+    [[ObjectManager shareInstance] setObject:http1 withKey:@"getTopHttp"];
 
 
     
@@ -81,20 +88,20 @@
     [http setValue:imageView forKey:@"view"];
     [http setValue:@"tap" forKey:@"condition"];
     [http setValue:http1 forKey:@"action"];
-    UIAction * tapimage = [[ModelManager shareInstance] createModel:tap withKey:@"createUIAction"];
-    [[ModelManager shareInstance] setModel:tapimage withKey:@"tapimage"];
+    UIAction * tapimage = [[ObjectManager shareInstance] createObject:tap withKey:@"createUIAction"];
+    [[ObjectManager shareInstance] setObject:tapimage withKey:@"tapimage"];
 
     NSMutableDictionary * custom = [[NSMutableDictionary alloc] init];
-    CustomAction * customfunc = [[ModelManager shareInstance] createModel:custom withKey:@"createCustomAction"];
-    [[ModelManager shareInstance] setModel:customfunc withKey:@"customfunc"];
+    CustomAction * customfunc = [[ObjectManager shareInstance] createObject:custom withKey:@"createCustomAction"];
+    [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc"];
 
     
     NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
     [data setValue:@"11111" forKey:@"id"];
     [data setValue:@"张三" forKey:@"name"];
     [data setValue:@"13811111111" forKey:@"phone"];
-    DataCore * user1 = [[ModelManager shareInstance] createModel:data withKey:@"createData"];
-    [[ModelManager shareInstance] setModel:user1 withKey:@"clientUser"];
+    Data * user1 = [[ObjectManager shareInstance] createObject:data withKey:@"createData"];
+    [[ObjectManager shareInstance] setObject:user1 withKey:@"clientUser"];
 
     [[DAUManager shareInstance] bindObject:imageView withOtherObject:user1];
 //    [[DAUManager shareInstance] bind:imageView withData:tap];
@@ -103,12 +110,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    UIModel* imageView = [[ModelManager shareInstance] getModel:@"userAvatar"];
-    HttpAction * http1 = [[ModelManager shareInstance] getModel:@"getTopHttp"];
-    [http1 doAction];
-    DataCore * user1 = [[ModelManager shareInstance] getModel:@"clientUser"];
-    
-    [[DAUManager shareInstance] trigger:imageView];
+//    UIModel* imageView = [[ModelManager shareInstance] getModel:@"userAvatar"];
+//    HttpAction * http1 = [[ModelManager shareInstance] getModel:@"getTopHttp"];
+//    [http1 doAction];
+//    DataCore * user1 = [[ModelManager shareInstance] getModel:@"clientUser"];
+//    
+//    [[DAUManager shareInstance] trigger:imageView];
 //    [[DAUManager shareInstance] bind:imageView withData:user1];
     
 }

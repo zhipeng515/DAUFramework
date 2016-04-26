@@ -6,9 +6,9 @@
 //  Copyright © 2016年 zhipeng. All rights reserved.
 //
 
-#import "UIModel.h"
+#import "UI.h"
 
-@implementation UIModel
+@implementation UI
 
 -(id)initWithUI:(id)ui
 {

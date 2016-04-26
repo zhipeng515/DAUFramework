@@ -6,9 +6,9 @@
 //  Copyright © 2016年 zhipeng. All rights reserved.
 //
 
-#import "ModelCreator.h"
+#import "ObjectCreator.h"
 
-@implementation ModelCreator
+@implementation ObjectCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)data
 {
