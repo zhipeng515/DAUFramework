@@ -20,6 +20,8 @@
 
 +(DAUManager*)shareInstance;
 
+-(id)init;
+
 -(void)loadModelDefine:(NSDictionary*)modelDefines;
 -(id)getModelDefine:(id)define;
 

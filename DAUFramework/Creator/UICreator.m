@@ -45,11 +45,16 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
     UIView * view = [[UIView alloc]init];
+    [self parseProperty:dict withObject:view];
     UI * ui = [[UI alloc] initWithUI:view];
     return ui;
 }
 
-
+-(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
+{
+    UIView * view = obj;
+    view.frame = CGRectMake([dict[@"x"] floatValue], [dict[@"y"] floatValue], [dict[@"w"] floatValue], [dict[@"h"] floatValue]);
+}
 
 @end
 
@@ -67,12 +72,11 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
+    
     UIImageView * imageView = [[UIImageView alloc]init];
     UI * ui = [[UI alloc] initWithUI:imageView];
     return ui;
 }
-
-
 
 @end
 
