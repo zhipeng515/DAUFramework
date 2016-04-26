@@ -67,35 +67,61 @@
     return [creator create:key withData:data];
 }
 
--(id)getObjectScope:(NSString*)scope
+-(id)getObjectScope:(NSString*)scope withObjectDict:(NSMutableDictionary*)objDict
 {
-    NSMutableDictionary * scopeDict = self.objectDict[scope];
+    NSString * key;
+    NSString * remainKey;
+    NSRange range = [scope rangeOfString:@"."];
+    if(range.location == NSNotFound)
+    {
+        key = scope;
+        remainKey = @"";
+    }
+    else
+    {
+        key = [scope substringWithRange:NSMakeRange(0, range.location)];
+        NSUInteger location = range.location+range.length;
+        remainKey = [scope substringWithRange:NSMakeRange(location, scope.length-location)];
+    }
+    
+    NSMutableDictionary * scopeDict = objDict[key];
     if(scopeDict == nil)
     {
         scopeDict = [[NSMutableDictionary alloc] init];
-        [self.objectDict setObject:scopeDict forKey:scope];
+        [objDict setObject:scopeDict forKey:key];
     }
+    if(![remainKey isEqualToString:@""])
+    {
+        return [self getObjectScope:remainKey withObjectDict:scopeDict];
+    }
+    
     return scopeDict;
 }
 
 -(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope];
-    [scopeDict setObject:model forKey:key];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
+    NSMutableArray * valueArray = scopeDict[key];
+    if(valueArray == nil)
+    {
+        valueArray = [[NSMutableArray alloc] init];
+        [scopeDict setObject:valueArray forKey:key];
+    }
+    [valueArray addObject:model];
 }
 
 -(void)removeObject:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
     [scopeDict removeObjectForKey:key];
 }
 
 -(id)getObject:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope];
-    id model = [scopeDict objectForKey:key];
-    NSAssert(model != nil, @"key %@ not found", key);
-    return model;
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
+    NSArray * valueArray = [scopeDict objectForKey:key];
+    NSAssert(valueArray != nil, @"key %@ not found", key);
+    return valueArray.count > 1 ? valueArray : valueArray[0];
 }
 
 -(void)removeAllObject
@@ -105,9 +131,9 @@
 
 -(void)removeAllObject:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
     [scopeDict removeAllObjects];
-    [self.objectDict removeObjectForKey:scope];
+//    [self.objectDict removeObjectForKey:scope];
 }
 
 

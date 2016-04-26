@@ -71,7 +71,7 @@
     {
         NSDictionary * data = [define buildModel:models];
         if([define hasIndexKey])
-            [[ObjectManager shareInstance] setObject:data withKey:data[define.indexKey] withScope:GLOBAL_SCOPE];
+            [[ObjectManager shareInstance] setObject:data withKey:data[define.indexKey] withScope:define.modelName];
         else
             [[ObjectManager shareInstance] setObject:data withKey:define.modelName withScope:scope];
     }

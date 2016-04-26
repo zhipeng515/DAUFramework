@@ -35,7 +35,7 @@
     NSDictionary * creatorDict = [configString objectFromJSONString];
 
     [[ObjectManager shareInstance] loadObjectCreator:creatorDict];
-
+    
     path = [[NSBundle mainBundle] pathForResource:@"ModelDefine" ofType:@"json"];
     configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     creatorDict = [configString objectFromJSONString];
@@ -54,7 +54,8 @@
     
     [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
     
-    [[ObjectManager shareInstance] removeAllObject:@"RegisterView"];
+    [[ObjectManager shareInstance] setObject:@"aaa" withKey:@"ffff" withScope:@"a.b.c.dee.ff"];
+    
 
     path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     path = [path stringByAppendingString:@"/savedata.json"];
@@ -139,9 +140,10 @@
 //    [[DAUManager shareInstance] trigger:imageView];
 //    [[DAUManager shareInstance] bind:imageView withData:user1];
     
-    
-    NSLog(@"%@", [ObjectManager shareInstance].objectDict[GLOBAL_SCOPE]);
-    NSLog(@"%@", [ObjectManager shareInstance].objectDict[@"RegisterView"]);
+
+    NSLog(@"%@", [ObjectManager shareInstance].objectDict);
+//    NSLog(@"%@", [ObjectManager shareInstance].objectDict[GLOBAL_SCOPE]);
+//    NSLog(@"%@", [ObjectManager shareInstance].objectDict[@"RegisterView"]);
     
     [[ObjectManager shareInstance] removeAllObject:@"RegisterView"];
 }

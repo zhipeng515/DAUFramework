@@ -31,8 +31,8 @@
     int matchCount = 0;
     if([model isKindOfClass:[NSDictionary class]])
     {
-        id checkIndex = model[_indexKey];
-        if([self hasIndexKey] && checkIndex == nil)
+        id indexValue = model[self.indexKey];
+        if([self hasIndexKey] && indexValue == nil)
             return false;
         for(NSString * key in model)
         {
