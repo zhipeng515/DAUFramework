@@ -17,7 +17,7 @@
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
--(id)init:(id)data withKey:(NSString*)key withScope:(NSString *)scope;
+-(nonnull id)init:(nonnull id)data withKey:(nonnull NSString*)key withScope:(nonnull NSString *)scope;
 -(nullable id)getData;
 -(void)setData:(nonnull id)data;
 
