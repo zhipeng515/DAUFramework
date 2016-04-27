@@ -65,14 +65,14 @@
     {
         "property":
         {
-            "notes.noteId":"string"
+            "notes":"array"
         }
     },
     "userExts":
     {
         "property":
         {
-            "userExts.userId":"string"
+            "userExts":"array"
         }
     },
     "userExt": {

@@ -55,16 +55,21 @@
     [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
     
     [[ObjectManager shareInstance] setObject:@"aaa" withKey:@"ffff" withScope:@"a.b.c.dee.ff"];
+    [[ObjectManager shareInstance] setObject:@"bbb" withKey:@"ffff" withScope:@"a.b.c.dee.ff"];
+    
+    id notes = [[ObjectManager shareInstance] getObject:@"notes" withScope:@"RegisterView"];
+    NSLog( @"%@", notes[@"notes"]);
+    
+    [[ObjectManager shareInstance] setObject:@"ios" withKey:@"deviceType" withScope:@"global.device"];
+    [[ObjectManager shareInstance] setObject:@"fasdfasdfasdf" withKey:@"deviceId" withScope:@"global.device"];
     
 
-    path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    path = [path stringByAppendingString:@"/savedata.json"];
-    NSError * error;
-    BOOL write = [[[ObjectManager shareInstance].objectDict JSONStringWithOptions:JKSerializeOptionPretty error:&error]
-                  writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"wrtie %@, %d", path, write);
-
-    return;
+//    path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+//    path = [path stringByAppendingString:@"/savedata.json"];
+//    NSError * error;
+//    BOOL write = [[[ObjectManager shareInstance].objectDict JSONStringWithOptions:JKSerializeOptionPretty error:&error]
+//                  writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+//    NSLog(@"wrtie %@, %d", path, write);
 
 //    [[ModelManager shareInstance] registerModelCreator:[[UIViewCreator alloc]init] withKey:@"createView"];
 //    [[ModelManager shareInstance] registerModelCreator:[[UILabelCreator alloc]init] withKey:@"createLabel"];
@@ -118,12 +123,20 @@
     [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
 
     
+    NSMutableDictionary * user = [[NSMutableDictionary alloc] init];
+    [user setValue:@"11111" forKey:@"id"];
+    [user setValue:@"张三" forKey:@"name"];
+    [user setValue:@"13811111111" forKey:@"phone"];
+
+    
     NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
-    [data setValue:@"11111" forKey:@"id"];
-    [data setValue:@"张三" forKey:@"name"];
-    [data setValue:@"13811111111" forKey:@"phone"];
+    [data setValue:user forKey:@"data"];
+    [data setValue:@"clientUser" forKey:@"key"];
+    [data setValue:GLOBAL_SCOPE forKey:@"scope"];
     Data * user1 = [[ObjectManager shareInstance] createObject:data withKey:@"createData"];
-    [[ObjectManager shareInstance] setObject:user1 withKey:@"clientUser" withScope:GLOBAL_SCOPE];
+    
+    
+    NSLog(@"user1 %@", [user1 getData]);
 
     [[DAUManager shareInstance] bindObject:imageView withOtherObject:user1 withScope:@"RegisterView"];
 //    [[DAUManager shareInstance] bind:imageView withData:tap];

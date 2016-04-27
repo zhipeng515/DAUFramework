@@ -7,26 +7,29 @@
 //
 
 #import "Data.h"
+#import "ObjectManager.h"
 
 @implementation Data
 
--(id)init
+-(id)init:(id)data withKey:(NSString*)key withScope:(NSString *)scope
 {
     if(self = [super init])
     {
-        self.subdataDict = [[NSMutableDictionary alloc] init];
+        self.key = key;
+        self.scope = scope;
+        [self setData:data];
     }
     return self;
 }
 
--(id)getData:(NSString*)key
+-(nullable id)getData
 {
-    return nil;
+    return [[ObjectManager shareInstance] getObject:self.key withScope:self.scope];
 }
 
--(void)add:(NSString*)key withData:(Data*)data
+-(void)setData:(id)data
 {
-    
+    [[ObjectManager shareInstance] setObject:data withKey:self.key withScope:self.scope];
 }
 
 - (id)copyWithZone:(nullable NSZone *)zone

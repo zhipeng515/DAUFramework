@@ -21,7 +21,7 @@
 -(void)registerObjectCreator:(ObjectCreator*)creator withKey:(id)key;
 
 -(id)createObject:(NSDictionary*)data withKey:(id)key;
--(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope;
+-(BOOL)setObject:(id)model withKey:(id)key withScope:(NSString*)scope;
 -(id)getObject:(id)key withScope:(NSString*)scope;
 -(void)removeObject:(id)key withScope:(NSString*)scope;
 -(void)removeAllObject;

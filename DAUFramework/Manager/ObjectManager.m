@@ -98,16 +98,21 @@
     return scopeDict;
 }
 
--(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
+-(BOOL)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
 {
     NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
-    NSMutableArray * valueArray = scopeDict[key];
-    if(valueArray == nil)
-    {
-        valueArray = [[NSMutableArray alloc] init];
-        [scopeDict setObject:valueArray forKey:key];
-    }
-    [valueArray addObject:model];
+    
+    id oldModel = scopeDict[key];
+    [scopeDict setObject:model forKey:key];
+    return oldModel != nil && oldModel != model;
+    
+//    NSMutableArray * valueArray = scopeDict[key];
+//    if(valueArray == nil)
+//    {
+//        valueArray = [[NSMutableArray alloc] init];
+//        [scopeDict setObject:valueArray forKey:key];
+//    }
+//    [valueArray addObject:model];
 }
 
 -(void)removeObject:(id)key withScope:(NSString*)scope
@@ -119,9 +124,11 @@
 -(id)getObject:(id)key withScope:(NSString*)scope
 {
     NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
-    NSArray * valueArray = [scopeDict objectForKey:key];
-    NSAssert(valueArray != nil, @"key %@ not found", key);
-    return valueArray.count > 1 ? valueArray : valueArray[0];
+    return [scopeDict objectForKey:key];
+
+//    NSArray * valueArray = [scopeDict objectForKey:key];
+//    NSAssert(valueArray != nil, @"key %@ not found", key);
+//    return valueArray.count > 1 ? valueArray : valueArray[0];
 }
 
 -(void)removeAllObject

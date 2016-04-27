@@ -36,8 +36,19 @@
             return false;
         for(NSString * key in model)
         {
-            if(self.propertys[key])
-                matchCount++;
+			NSString * propertyType = self.propertys[key];
+            if(propertyType)
+			{
+                id modelValue = model[key];
+                if([modelValue isKindOfClass:[NSString class]] && [propertyType isEqualToString:@"string"])
+                    matchCount++;
+                else if([modelValue isKindOfClass:[NSDictionary class]] && [propertyType isEqualToString:@"kv"])
+                    matchCount++;
+                else if([modelValue isKindOfClass:[NSNumber class]] && ([propertyType isEqualToString:@"int"] || [propertyType isEqualToString:@"float"] || [propertyType isEqualToString:@"bool"]))
+                    matchCount++;
+				else if([modelValue isKindOfClass:[NSArray class]] && [propertyType isEqualToString:@"array"])
+                    matchCount++;
+			}
         }
     }
     return matchCount == [self.propertys count];

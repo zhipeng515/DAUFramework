@@ -38,12 +38,31 @@
 -(void)loadModelDefine:(NSDictionary*)modelDefines
 {
     for (NSString * modelKey in modelDefines) {
-        NSDictionary * modelDef = modelDefines[modelKey];
-        NSString * indexKey = modelDef[@"indexKey"];
-        NSDictionary * property = modelDef[@"property"];
-        
-        ModelDefine * model = [[ModelDefine alloc] init:modelKey withIndexKey:indexKey withPropertys:property];
-        [self.modelDefineDict setValue:model forKey:modelKey];
+        id modelDefine = modelDefines[modelKey];
+        if([modelDefine isKindOfClass:[NSDictionary class]])
+        {
+            NSString * indexKey = modelDefine[@"indexKey"];
+            NSDictionary * property = modelDefine[@"property"];
+            
+            ModelDefine * model = [[ModelDefine alloc] init:modelKey withIndexKey:indexKey withPropertys:property];
+            [self.modelDefineDict setValue:model forKey:modelKey];
+        }
+//        else if([modelDefine isKindOfClass:[NSString class]])
+//        {
+//            NSString * modelType = modelDefine;
+//            if([modelType isEqualToString:@"array"])
+//            {
+//                
+//            }
+//            else if([modelType isEqualToString:@"string"])
+//            {
+//                
+//            }
+//            else if[(modelType isEqualToString:@"kv"))]
+//            {
+//                
+//            }
+//        }
     }
 }
 
@@ -109,7 +128,7 @@
 {
     if([src isKindOfClass:[UI class]] && [dest isKindOfClass:[Data class]])
     {
-        ViewDataBinder * viewDataBinder = [[ObjectManager shareInstance] createObject:@{@"src":src, @"dest":dest} withKey:@"createViewDataBind"];
+        ViewDataBinder * viewDataBinder = [[ObjectManager shareInstance] createObject:@{@"src":src, @"dest":dest} withKey:@"createViewDataBinder"];
         [[ObjectManager shareInstance] setObject:viewDataBinder withKey:src withScope:scope];
     }
 }
