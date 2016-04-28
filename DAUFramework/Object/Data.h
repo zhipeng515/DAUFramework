@@ -8,13 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDictionary(MutableDeepCopy)
-- (nonnull NSMutableDictionary *)mutableDeepCopy;
-@end
-
 @interface Data : NSObject<NSCopying, NSMutableCopying>
 
-@property(nonatomic, retain, nonnull) NSMutableDictionary * dict;
+@property(nonatomic, retain, nonnull) NSMutableDictionary * propertys;
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;

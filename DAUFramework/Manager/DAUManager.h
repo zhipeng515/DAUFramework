@@ -17,6 +17,7 @@
 @property(nonatomic, retain)NSMutableDictionary * binders;
 @property(nonatomic, retain)NSMutableDictionary * allDataModel;
 @property(nonatomic, retain)NSMutableDictionary * modelDefineDict;
+@property(nonatomic, retain)NSMutableDictionary * modelDefineKeyDict;
 
 +(DAUManager*)shareInstance;
 

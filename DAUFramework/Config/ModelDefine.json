@@ -2,7 +2,7 @@
     "device":
     {
         "scope":"global",
-        "property":
+        "propertys":
         {
             "deviceId":"string",
             "deviceType":"string"
@@ -10,7 +10,7 @@
     },
     "repsond":
     {
-        "property":
+        "propertys":
         {
             "success": "string",
             "code": "string",
@@ -21,7 +21,7 @@
     {
         "scope":"user",
         "indexKey":"userId",
-        "property":
+        "propertys":
         {
             "userId": "string",
             "birthday": "string",
@@ -43,7 +43,7 @@
     {
         "scope":"note",
         "indexKey":"noteId",
-        "property":
+        "propertys":
         {
             "noteId": "string",
             "content": "string",
@@ -64,11 +64,24 @@
             
         }
     },
+    "noteGeo":
+    {
+        "scope":"noteGeo",
+        "indexKey":"noteId",
+        "propertys":
+        {
+            "noteId": "string",
+            "longitude": "string",
+            "latitude": "string",
+            "poiType": "string",
+            "poiName": "string"
+        }
+    },
     "search_note":
     {
         "scope":"note",
         "indexKey":"id",
-        "property":
+        "propertys":
         {
             "id": "string",
             "userId": "string",
@@ -84,16 +97,34 @@
             "commentCount": "string"
         }
     },
+    "game":
+    {
+        "scope":"game",
+        "indexKey":"gameId",
+        "propertys":
+        {
+            "gameId": "string",
+            "name": "string",
+            "content": "string",
+            "sub1": "string",
+            "sub2": "string",
+            "follows": "string",
+            "makers": "string",
+            "address": "string",
+            "banner": "string",
+            "phone": "string"
+        }
+    },
     "notes":
     {
-        "property":
+        "propertys":
         {
             "notes":"array"
         }
     },
     "userExts":
     {
-        "property":
+        "propertys":
         {
             "userExts":"array"
         }
@@ -101,7 +132,7 @@
     "userExt": {
         "scope":"userExt",
         "indexKey":"userId",
-        "property":
+        "propertys":
         {
             "userId": "string",
             "nickName": "string",

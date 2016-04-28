@@ -30,6 +30,7 @@
         self.binders = [[NSMutableDictionary alloc] init];
         self.allDataModel = [[NSMutableDictionary alloc] init];
         self.modelDefineDict = [[NSMutableDictionary alloc] init];
+        self.modelDefineKeyDict = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -37,16 +38,27 @@
 
 -(void)loadModelDefine:(NSDictionary*)modelDefines
 {
-    for (NSString * modelName in modelDefines) {
-        id modelDefine = modelDefines[modelName];
+    [modelDefines enumerateKeysAndObjectsUsingBlock:^(id modelName, id modelDefine, BOOL *stop) {
         if([modelDefine isKindOfClass:[NSDictionary class]])
         {
             NSString * indexKey = modelDefine[@"indexKey"];
             NSString * scope = modelDefine[@"scope"];
-            NSDictionary * property = modelDefine[@"property"];
+            NSDictionary * propertys = modelDefine[@"propertys"];
             
-            ModelDefine * model = [[ModelDefine alloc] init:modelName withIndexKey:indexKey withScope:scope withPropertys:property];
+            ModelDefine * model = [[ModelDefine alloc] init:modelName withIndexKey:indexKey withScope:scope withPropertys:propertys];
             [self.modelDefineDict setValue:model forKey:modelName];
+            
+            // 保存propertys的key对应的ModelDefine，优化匹配效率
+            for(NSString * key in propertys)
+            {
+                NSMutableArray * keyArray = self.modelDefineKeyDict[key];
+                if(keyArray == nil)
+                {
+                    keyArray = [[NSMutableArray alloc] init];
+                    [self.modelDefineKeyDict setValue:keyArray forKey:key];
+                }
+                [keyArray addObject:model];
+            }
         }
 //        else if([modelDefine isKindOfClass:[NSString class]])
 //        {
@@ -64,23 +76,36 @@
 //                
 //            }
 //        }
-    }
+    }];
 }
 
 -(id)getModelDefine:(id)data
 {
     if(![data isKindOfClass:[NSDictionary class]])
         return nil;
-    
+
     NSMutableArray * defines = [[NSMutableArray alloc] init];
-    for(NSString * modelName in self.modelDefineDict)
+    
+    NSMutableSet * keyMatched = [NSMutableSet setWithCapacity:self.modelDefineDict.count];
+    [data enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        NSArray * modelDefines = self.modelDefineKeyDict[key];
+        if(modelDefines)
+           [keyMatched addObjectsFromArray:modelDefines];
+    }];
+    for(ModelDefine * modelDefine in keyMatched)
     {
-        ModelDefine * modelDef = self.modelDefineDict[modelName];
-        if([modelDef checkDefine:data])
+        if([modelDefine isModelDefine:data])
         {
-            [defines addObject:modelDef];
+            [defines addObject:modelDefine];
         }
     }
+    
+//    [self.modelDefineDict enumerateKeysAndObjectsUsingBlock:^(id modelName, id modelDefine, BOOL *stop) {
+//        if([modelDefine isModelDefine:data])
+//        {
+//            [defines addObject:modelDefine];
+//        }
+//    }];
     return defines;
 }
 
@@ -119,8 +144,7 @@
 
 -(void)parseLayoutModel:(NSDictionary*)layout withScope:(NSString*)scope
 {
-    for (NSString * layoutName in layout) {
-		NSDictionary * layoutDict = layout[layoutName];
+    [layout enumerateKeysAndObjectsUsingBlock:^(id layoutName, id layoutDict, BOOL *stop) {
 		NSString * creatorName = layoutDict[@"creator"];
 		NSDictionary * property = layoutDict[@"property"];
         NSAssert(creatorName != nil, @"creator name is nil");
@@ -128,7 +152,7 @@
 
         id layoutValue = [[ObjectManager shareInstance] createObject:property withKey:creatorName];
 		[[ObjectManager shareInstance] setObject:layoutValue withKey:layoutName withScope:scope];
-	}
+    }];
 }
 
 -(void)parseBinderModel:(NSDictionary*)binders withScope:(NSString*)scope

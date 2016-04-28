@@ -13,7 +13,7 @@
 
 -(id)init:(NSString*)name withIndexKey:(NSString*)key withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys
 {
-    if([super init])
+    if(self = [super init])
     {
         self.modelName = name;
         self.indexKey = key;
@@ -33,20 +33,18 @@
     return self.scope && ![self.scope isEqualToString:@""];
 }
 
--(bool)checkDefine:(id)model
+-(bool)isModelDefine:(id)model
 {
-    int matchCount = 0;
+    __block int matchCount = 0;
     if([model isKindOfClass:[NSDictionary class]])
     {
         id indexValue = model[self.indexKey];
         if([self hasIndexKey] && indexValue == nil)
             return false;
-        for(NSString * key in model)
-        {
-			NSString * propertyType = self.propertys[key];
+        [model enumerateKeysAndObjectsUsingBlock:^(id key, id modelValue, BOOL *stop) {
+            NSString * propertyType = self.propertys[key];
             if(propertyType)
 			{
-                id modelValue = model[key];
                 if([modelValue isKindOfClass:[NSString class]] && [propertyType isEqualToString:@"string"])
                     matchCount++;
                 else if([modelValue isKindOfClass:[NSDictionary class]] && [propertyType isEqualToString:@"kv"])
@@ -56,18 +54,17 @@
 				else if([modelValue isKindOfClass:[NSArray class]] && [propertyType isEqualToString:@"array"])
                     matchCount++;
 			}
-        }
+        }];
     }
     return matchCount == [self.propertys count];
 }
 
--(id)buildModel:(id)property
+-(id)buildModel:(id)propertys
 {
     Data * data = [[Data alloc] init];
-    for(NSString * key in self.propertys)
-    {
-        [data setValue:property[key] forKey:key];
-    }
+    [self.propertys enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        [data setValue:propertys[key] forKey:key];
+    }];
     return data;
 }
 

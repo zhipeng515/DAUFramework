@@ -22,6 +22,23 @@
 #import "JSONKit.h"
 #import "JJRSObjectDescription.h"
 
+#import <mach/mach_time.h>  // for mach_absolute_time() and friends
+
+
+CGFloat BNRTimeBlock (void (^block)(void)) {
+    mach_timebase_info_data_t info;
+    if (mach_timebase_info(&info) != KERN_SUCCESS) return -1.0;
+    
+    uint64_t start = mach_absolute_time ();
+    block ();
+    uint64_t end = mach_absolute_time ();
+    uint64_t elapsed = end - start;
+    
+    uint64_t nanos = elapsed * info.numer / info.denom;
+    return (CGFloat)nanos / NSEC_PER_SEC;
+    
+} // BNRTimeBlock
+
 @interface ViewController ()
 
 @end
@@ -48,24 +65,31 @@
     creatorDict = [configString objectFromJSONString];
     
     [[DAUManager shareInstance] parseLayoutModel:creatorDict[@"layoutInfo"] withScope:@"RegisterView"];
+    
+    CGFloat time = BNRTimeBlock(^{
+//        for(int i = 0; i < 100; i++)
+        {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"testdata" ofType:@"json"];
+        NSString *configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        NSDictionary *creatorDict = [configString objectFromJSONString];
+        
+        [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+        
+        Data * note = [[ObjectManager shareInstance] getObject:@"175469173324290048" withScope:@"note"];
+        note[@"userId"] = @"ccc";
+        
+        [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+        
+        path = [[NSBundle mainBundle] pathForResource:@"testdata_1" ofType:@"json"];
+        configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        creatorDict = [configString objectFromJSONString];
+        
+        [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+        }
+    });
+    NSLog(@"time: %f", time);
 
-    path = [[NSBundle mainBundle] pathForResource:@"testdata" ofType:@"json"];
-    configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    creatorDict = [configString objectFromJSONString];
-    
-    [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
-    
-    Data * note = [[ObjectManager shareInstance] getObject:@"175469173324290048" withScope:@"note"];
-    note[@"userId"] = @"ccc";
-    
-    [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
-
-    path = [[NSBundle mainBundle] pathForResource:@"testdata_1" ofType:@"json"];
-    configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    creatorDict = [configString objectFromJSONString];
-    
-    [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
-
+    return;
     
     [[ObjectManager shareInstance] setObject:@"aaa" withKey:@"ffff" withScope:@"a.b.c.dee.ff"];
     [[ObjectManager shareInstance] setObject:@"bbb" withKey:@"ffff" withScope:@"a.b.c.dee.ff"];
@@ -180,18 +204,20 @@
 //    NSLog(@"%@", [ObjectManager shareInstance].objectDict[GLOBAL_SCOPE]);
 //    NSLog(@"%@", [ObjectManager shareInstance].objectDict[@"RegisterView"]);
     
-    NSAttributedString * debugString = [JJRSObjectDescription attributedDescriptionForObject:[ObjectManager shareInstance].objects];
-    [[ObjectManager shareInstance] setObject:debugString withKey:@"debugString" withScope:@"RegisterView"];
+//    NSAttributedString * debugString = [JJRSObjectDescription attributedDescriptionForObject:[ObjectManager shareInstance].objects];
+//    [[ObjectManager shareInstance] setObject:debugString withKey:@"debugString" withScope:@"RegisterView"];
+//    
+//    id data = [[ObjectManager shareInstance] getObject:@"debugString" withScope:@"RegisterView"];
+//    
+//    NSLog(@"%@", [ObjectManager shareInstance].objects);
+//
+//    UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
+//    ((UITextView*)label.ui).attributedText = data;
+//
+//    
+//    [[ObjectManager shareInstance] removeAllObject:@"RegisterView"];
     
-    id data = [[ObjectManager shareInstance] getObject:@"debugString" withScope:@"RegisterView"];
-    
-    NSLog(@"%@", [ObjectManager shareInstance].objects);
-
-    UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
-    ((UITextView*)label.ui).attributedText = data;
-
-    
-    [[ObjectManager shareInstance] removeAllObject:@"RegisterView"];
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {

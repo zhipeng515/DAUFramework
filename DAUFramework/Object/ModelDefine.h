@@ -16,10 +16,10 @@
 @property(nonatomic,retain)NSDictionary * propertys;
 
 -(id)init:(NSString*)name withIndexKey:(NSString*)key withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys;
--(bool)checkDefine:(id)model;
+-(bool)isModelDefine:(id)model;
 -(bool)hasIndexKey;
 -(bool)hasScope;
 
--(id)buildModel:(id)property;
+-(id)buildModel:(id)propertys;
 
 @end
