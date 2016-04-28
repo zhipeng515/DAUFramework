@@ -37,15 +37,16 @@
 
 -(void)loadModelDefine:(NSDictionary*)modelDefines
 {
-    for (NSString * modelKey in modelDefines) {
-        id modelDefine = modelDefines[modelKey];
+    for (NSString * modelName in modelDefines) {
+        id modelDefine = modelDefines[modelName];
         if([modelDefine isKindOfClass:[NSDictionary class]])
         {
             NSString * indexKey = modelDefine[@"indexKey"];
+            NSString * scope = modelDefine[@"scope"];
             NSDictionary * property = modelDefine[@"property"];
             
-            ModelDefine * model = [[ModelDefine alloc] init:modelKey withIndexKey:indexKey withPropertys:property];
-            [self.modelDefineDict setValue:model forKey:modelKey];
+            ModelDefine * model = [[ModelDefine alloc] init:modelName withIndexKey:indexKey withScope:scope withPropertys:property];
+            [self.modelDefineDict setValue:model forKey:modelName];
         }
 //        else if([modelDefine isKindOfClass:[NSString class]])
 //        {
@@ -66,16 +67,16 @@
     }
 }
 
--(id)getModelDefine:(id)define
+-(id)getModelDefine:(id)data
 {
-    if(![define isKindOfClass:[NSDictionary class]])
+    if(![data isKindOfClass:[NSDictionary class]])
         return nil;
     
     NSMutableArray * defines = [[NSMutableArray alloc] init];
     for(NSString * modelName in self.modelDefineDict)
     {
         ModelDefine * modelDef = self.modelDefineDict[modelName];
-        if([modelDef checkDefine:define])
+        if([modelDef checkDefine:data])
         {
             [defines addObject:modelDef];
         }
@@ -88,11 +89,22 @@
     NSArray * defines = [self getModelDefine:models];
     for(ModelDefine * define in defines)
     {
-        NSDictionary * data = [define buildModel:models];
+        Data * data = [define buildModel:models];
+        NSString * dataScope = scope;
+        NSString * key = define.modelName;
+        if([define hasScope])
+            dataScope = define.scope;
         if([define hasIndexKey])
-            [[ObjectManager shareInstance] setObject:data withKey:data[define.indexKey] withScope:define.modelName];
+            key = [data objectForKey:define.indexKey];
+        Data * oldData = [[ObjectManager shareInstance] getObject:key withScope:dataScope];
+        if(oldData == nil)
+        {
+            [[ObjectManager shareInstance] setObject:data withKey:key withScope:dataScope];
+        }
         else
-            [[ObjectManager shareInstance] setObject:data withKey:define.modelName withScope:scope];
+        {
+            [Data dataCopy:oldData withSource:data];
+        }
     }
     
     if([models isKindOfClass:[NSDictionary class]] || [models isKindOfClass:[NSArray class]])

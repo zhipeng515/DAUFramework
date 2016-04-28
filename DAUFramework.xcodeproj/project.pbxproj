@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		852A0BF61CD1BBD90081B206 /* testdata_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 852A0BF51CD1BBD90081B206 /* testdata_1.json */; };
+		852A0BF91CD1F86A0081B206 /* ICHObjectPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 852A0BF81CD1F86A0081B206 /* ICHObjectPrinter.m */; };
+		852A0BFC1CD202FE0081B206 /* JJRSObjectDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 852A0BFB1CD202FE0081B206 /* JJRSObjectDescription.m */; };
 		85A10FD71CCA13C8008626FA /* ObjectCreator.json in Resources */ = {isa = PBXBuildFile; fileRef = 85A10FBA1CCA13C8008626FA /* ObjectCreator.json */; };
 		85A10FD81CCA13C8008626FA /* ActionCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FBD1CCA13C8008626FA /* ActionCreator.m */; };
 		85A10FD91CCA13C8008626FA /* BinderCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FBF1CCA13C8008626FA /* BinderCreator.m */; };
@@ -53,6 +56,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		852A0BF51CD1BBD90081B206 /* testdata_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata_1.json; sourceTree = "<group>"; };
+		852A0BF71CD1F86A0081B206 /* ICHObjectPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICHObjectPrinter.h; sourceTree = "<group>"; };
+		852A0BF81CD1F86A0081B206 /* ICHObjectPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICHObjectPrinter.m; sourceTree = "<group>"; };
+		852A0BFA1CD202FE0081B206 /* JJRSObjectDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJRSObjectDescription.h; sourceTree = "<group>"; };
+		852A0BFB1CD202FE0081B206 /* JJRSObjectDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJRSObjectDescription.m; sourceTree = "<group>"; };
 		85A10FBA1CCA13C8008626FA /* ObjectCreator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ObjectCreator.json; sourceTree = "<group>"; };
 		85A10FBC1CCA13C8008626FA /* ActionCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCreator.h; sourceTree = "<group>"; };
 		85A10FBD1CCA13C8008626FA /* ActionCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCreator.m; sourceTree = "<group>"; };
@@ -135,6 +143,7 @@
 				85A10FE41CCA161B008626FA /* RegisterViewLayout.json */,
 				85C750C11CCE27E200481D36 /* ModelDefine.json */,
 				85C750D41CCF354400481D36 /* testdata.json */,
+				852A0BF51CD1BBD90081B206 /* testdata_1.json */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -188,6 +197,10 @@
 		85A10FD41CCA13C8008626FA /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				852A0BFA1CD202FE0081B206 /* JJRSObjectDescription.h */,
+				852A0BFB1CD202FE0081B206 /* JJRSObjectDescription.m */,
+				852A0BF71CD1F86A0081B206 /* ICHObjectPrinter.h */,
+				852A0BF81CD1F86A0081B206 /* ICHObjectPrinter.m */,
 				85A10FD51CCA13C8008626FA /* JSONKit.h */,
 				85A10FD61CCA13C8008626FA /* JSONKit.m */,
 			);
@@ -368,6 +381,7 @@
 				85DD9E3D1CC9244200DF09FB /* Assets.xcassets in Resources */,
 				85A10FD71CCA13C8008626FA /* ObjectCreator.json in Resources */,
 				85C750C21CCE27E200481D36 /* ModelDefine.json in Resources */,
+				852A0BF61CD1BBD90081B206 /* testdata_1.json in Resources */,
 				85DD9E3B1CC9244200DF09FB /* Main.storyboard in Resources */,
 				85C750C41CCF15AA00481D36 /* FirstViewLayout.json in Resources */,
 				85A10FE51CCA161B008626FA /* RegisterViewLayout.json in Resources */,
@@ -397,10 +411,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				85A10FDB1CCA13C8008626FA /* ObjectCreator.m in Sources */,
+				852A0BF91CD1F86A0081B206 /* ICHObjectPrinter.m in Sources */,
 				85A10FD81CCA13C8008626FA /* ActionCreator.m in Sources */,
 				85C750CE1CCF1C4500481D36 /* Binder.m in Sources */,
 				85A10FD91CCA13C8008626FA /* BinderCreator.m in Sources */,
 				85C750D31CCF1CA600481D36 /* ModelDefine.m in Sources */,
+				852A0BFC1CD202FE0081B206 /* JJRSObjectDescription.m in Sources */,
 				85A10FDE1CCA13C8008626FA /* ObjectManager.m in Sources */,
 				85DD9E381CC9244200DF09FB /* ViewController.m in Sources */,
 				85C750D01CCF1C4500481D36 /* UI.m in Sources */,

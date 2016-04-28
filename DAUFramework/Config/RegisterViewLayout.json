@@ -11,6 +11,15 @@
                 "bgcolor":"{255,255,255,255}"
             }
         },
+        "debugInfo":
+        {
+            "creator":"createTextView",
+            "property":
+            {
+                "frame":"{0,0,320,568}",
+                "bgcolor":"{255,255,255,255}"
+            }
+        },
         "logoView":
         {
             "creator":"createImageView",

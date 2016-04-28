@@ -19,6 +19,14 @@
     return self;
 }
 
+-(void)encodeWithCoder:(nonnull NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.param forKey:@"param"];
+    [aCoder encodeObject:self.condition forKey:@"condition"];
+    [aCoder encodeObject:self.param forKey:@"complete"];
+    [aCoder encodeObject:self.param forKey:@"failed"];
+}
+
 -(void)doAction
 {
     NSAssert(false, @"forbidden");

@@ -1,6 +1,7 @@
 {
-    "globalModel":
+    "device":
     {
+        "scope":"global",
         "property":
         {
             "deviceId":"string",
@@ -18,6 +19,7 @@
     },
     "user":
     {
+        "scope":"user",
         "indexKey":"userId",
         "property":
         {
@@ -39,6 +41,7 @@
     },
     "note":
     {
+        "scope":"note",
         "indexKey":"noteId",
         "property":
         {
@@ -61,6 +64,26 @@
             
         }
     },
+    "search_note":
+    {
+        "scope":"note",
+        "indexKey":"id",
+        "property":
+        {
+            "id": "string",
+            "userId": "string",
+            "gameId": "string",
+            "time": "string",
+            "content": "string",
+            "bucket": "string",
+            "attachmentUrl": "string",
+            "originNoteId": "string",
+            "visible": "string",
+            "likeCount": "string",
+            "hateCount": "string",
+            "commentCount": "string"
+        }
+    },
     "notes":
     {
         "property":
@@ -76,6 +99,7 @@
         }
     },
     "userExt": {
+        "scope":"userExt",
         "indexKey":"userId",
         "property":
         {

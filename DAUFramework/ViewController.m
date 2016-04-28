@@ -20,6 +20,8 @@
 #import "DAUManager.h"
 
 #import "JSONKit.h"
+#import "ICHObjectPrinter.h"
+#import "JJRSObjectDescription.h"
 
 @interface ViewController ()
 
@@ -54,14 +56,31 @@
     
     [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
     
+    Data * note = [[ObjectManager shareInstance] getObject:@"175469173324290048" withScope:@"note"];
+    note[@"userId"] = @"ccc";
+    
+    [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+
+    path = [[NSBundle mainBundle] pathForResource:@"testdata_1" ofType:@"json"];
+    configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    creatorDict = [configString objectFromJSONString];
+    
+    [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+
+    
     [[ObjectManager shareInstance] setObject:@"aaa" withKey:@"ffff" withScope:@"a.b.c.dee.ff"];
     [[ObjectManager shareInstance] setObject:@"bbb" withKey:@"ffff" withScope:@"a.b.c.dee.ff"];
     
     id notes = [[ObjectManager shareInstance] getObject:@"notes" withScope:@"RegisterView"];
     NSLog( @"%@", notes[@"notes"]);
     
+    Data * device = [[Data alloc] init];
+    device[@"deviceType"] = @"ios";
+    device[@"deviceId"] = @"123123123123123";
+    [[ObjectManager shareInstance] setObject:device withKey:@"device" withScope:@"global"];
+    
     [[ObjectManager shareInstance] setObject:@"ios" withKey:@"deviceType" withScope:@"global.device"];
-    [[ObjectManager shareInstance] setObject:@"fasdfasdfasdf" withKey:@"deviceId" withScope:@"global.device"];
+    [[ObjectManager shareInstance] setObject:@"123123123123123" withKey:@"deviceId" withScope:@"global.device"];
     
 
 //    path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
@@ -121,24 +140,29 @@
     NSMutableDictionary * custom = [[NSMutableDictionary alloc] init];
     CustomAction * customfunc = [[ObjectManager shareInstance] createObject:custom withKey:@"createCustomAction"];
     [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
+    
+    UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
+    ((UITextView*)label.ui).frame = CGRectMake(0, 0, 320, 568);
+    [self.view addSubview:label.ui];
 
     
-    NSMutableDictionary * user = [[NSMutableDictionary alloc] init];
-    [user setValue:@"11111" forKey:@"id"];
-    [user setValue:@"张三" forKey:@"name"];
-    [user setValue:@"13811111111" forKey:@"phone"];
+//    NSMutableDictionary * user = [[NSMutableDictionary alloc] init];
+//    [user setValue:@"11111" forKey:@"id"];
+//    [user setValue:@"张三" forKey:@"name"];
+//    [user setValue:@"13811111111" forKey:@"phone"];
+//
+//    
+//    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+//    [data setValue:user forKey:@"data"];
+//    [data setValue:@"clientUser" forKey:@"key"];
+//    [data setValue:GLOBAL_SCOPE forKey:@"scope"];
+//    Data * user1 = [[ObjectManager shareInstance] createObject:data withKey:@"createData"];
+//    
+    
+//    NSLog(@"user1 %@", [user1 getData]);
+    
 
-    
-    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
-    [data setValue:user forKey:@"data"];
-    [data setValue:@"clientUser" forKey:@"key"];
-    [data setValue:GLOBAL_SCOPE forKey:@"scope"];
-    Data * user1 = [[ObjectManager shareInstance] createObject:data withKey:@"createData"];
-    
-    
-    NSLog(@"user1 %@", [user1 getData]);
-
-    [[DAUManager shareInstance] bindObject:imageView withOtherObject:user1 withScope:@"RegisterView"];
+//    [[DAUManager shareInstance] bindObject:imageView withOtherObject:user1 withScope:@"RegisterView"];
 //    [[DAUManager shareInstance] bind:imageView withData:tap];
 }
 
@@ -153,10 +177,20 @@
 //    [[DAUManager shareInstance] trigger:imageView];
 //    [[DAUManager shareInstance] bind:imageView withData:user1];
     
-
-    NSLog(@"%@", [ObjectManager shareInstance].objectDict);
+//    NSLog(@"%@", [ICHObjectPrinter descriptionForObject:[ObjectManager shareInstance].objects]);
 //    NSLog(@"%@", [ObjectManager shareInstance].objectDict[GLOBAL_SCOPE]);
 //    NSLog(@"%@", [ObjectManager shareInstance].objectDict[@"RegisterView"]);
+    
+    NSAttributedString * debugString = [JJRSObjectDescription attributedDescriptionForObject:[ObjectManager shareInstance].objects];
+    [[ObjectManager shareInstance] setObject:debugString withKey:@"debugString" withScope:@"RegisterView"];
+    
+    id data = [[ObjectManager shareInstance] getObject:@"debugString" withScope:@"RegisterView"];
+    
+    NSLog(@"%@", [ObjectManager shareInstance].objects);
+
+    UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
+    ((UITextView*)label.ui).attributedText = data;
+
     
     [[ObjectManager shareInstance] removeAllObject:@"RegisterView"];
 }

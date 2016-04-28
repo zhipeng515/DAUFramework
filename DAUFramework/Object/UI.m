@@ -7,6 +7,7 @@
 //
 
 #import "UI.h"
+#import "JJRSObjectDescription.h"
 
 @implementation UI
 
@@ -29,5 +30,14 @@
     return self;
 }
 
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.ui forKey:@"ui"];
+}
 
+- (nonnull NSString*)description
+{
+    NSString * desc = [JJRSObjectDescription descriptionForObject:self.ui];
+    return desc;
+}
 @end

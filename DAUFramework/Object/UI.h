@@ -17,5 +17,6 @@
 
 - (nonnull id)initWithUI:(nullable id)ui;
 
+- (nonnull NSString*)description;
 
 @end

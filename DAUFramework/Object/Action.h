@@ -10,12 +10,14 @@
 
 @interface Action : NSObject
 
-@property(nonatomic, retain)NSString * condition;
-@property(nonatomic, retain)NSMutableDictionary * param;
-@property(nonatomic, retain)Action * complete;
-@property(nonatomic, retain)Action * failed;
+@property(nonatomic, retain, nullable)NSString * condition;
+@property(nonatomic, retain, nonnull)NSMutableDictionary * param;
+@property(nonatomic, retain, nullable)Action * complete;
+@property(nonatomic, retain, nullable)Action * failed;
 
--(id)initWithParam:(NSDictionary*)param;
+-(void)encodeWithCoder:(nonnull NSCoder *)aCoder;
+
+-(nonnull id)initWithParam:(nonnull NSDictionary*)param;
 -(void)doAction;
 
 @end
@@ -23,28 +25,28 @@
 
 @interface HttpAction : Action
 
--(id)initWithParam:(NSDictionary*)param;
+-(nonnull id)initWithParam:(nonnull NSDictionary*)param;
 -(void)doAction;
 
 @end
 
 @interface UIAction : Action
 
--(id)initWithParam:(NSDictionary*)param;
+-(nonnull id)initWithParam:(nonnull NSDictionary*)param;
 -(void)doAction;
 
 @end
 
 @interface DataAction : Action
 
--(id)initWithParam:(NSDictionary*)param;
+-(nonnull id)initWithParam:(nonnull NSDictionary*)param;
 -(void)doAction;
 
 @end
 
 @interface CustomAction : Action
 
--(id)initWithParam:(NSDictionary*)param;
+-(nonnull id)initWithParam:(nonnull NSDictionary*)param;
 -(void)doAction;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "ObjectManager.h"
-
+#import "Data.h"
 
 @implementation ObjectManager
 
@@ -23,8 +23,8 @@
 {
     if(self = [super init])
     {
-        self.objectCreatorDict = [[NSMutableDictionary alloc] init];
-        self.objectDict = [[NSMutableDictionary alloc] init];
+        self.objectCreators = [[Data alloc] init];
+        self.objects = [[Data alloc] init];
     }
     return self;
 }
@@ -47,17 +47,17 @@
 
 -(void)registerObjectCreator:(ObjectCreator*)creator withKey:(id)key
 {
-    if([self.objectCreatorDict objectForKey:key] != nil)
+    if([self.objectCreators objectForKey:key] != nil)
     {
         NSAssert(false, @"key %@ already exists", key);
         return;
     }
-    [ self.objectCreatorDict setObject:creator forKey:key];
+    [ self.objectCreators setObject:creator forKey:key];
 }
 
 -(id)createObject:(NSDictionary*)data withKey:(id)key
 {
-    ObjectCreator * creator = [self.objectCreatorDict objectForKey:key];
+    ObjectCreator * creator = [self.objectCreators objectForKey:key];
     if(creator == nil)
     {
         NSAssert(true, @"key %@ not found", key);
@@ -67,7 +67,7 @@
     return [creator create:key withData:data];
 }
 
--(id)getObjectScope:(NSString*)scope withObjectDict:(NSMutableDictionary*)objDict
+-(id)getObjectScope:(NSString*)scope withobjects:(Data*)objDict
 {
     NSString * key;
     NSString * remainKey;
@@ -84,15 +84,15 @@
         remainKey = [scope substringWithRange:NSMakeRange(location, scope.length-location)];
     }
     
-    NSMutableDictionary * scopeDict = objDict[key];
+    Data * scopeDict = objDict[key];
     if(scopeDict == nil)
     {
-        scopeDict = [[NSMutableDictionary alloc] init];
+        scopeDict = [[Data alloc] init];
         [objDict setObject:scopeDict forKey:key];
     }
     if(![remainKey isEqualToString:@""])
     {
-        return [self getObjectScope:remainKey withObjectDict:scopeDict];
+        return [self getObjectScope:remainKey withobjects:scopeDict];
     }
     
     return scopeDict;
@@ -100,7 +100,7 @@
 
 -(BOOL)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     
     id oldModel = scopeDict[key];
     [scopeDict setObject:model forKey:key];
@@ -117,13 +117,13 @@
 
 -(void)removeObject:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     [scopeDict removeObjectForKey:key];
 }
 
 -(id)getObject:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     return [scopeDict objectForKey:key];
 
 //    NSArray * valueArray = [scopeDict objectForKey:key];
@@ -133,14 +133,14 @@
 
 -(void)removeAllObject
 {
-    [self.objectDict removeAllObjects];
+    [self.objects removeAllObjects];
 }
 
 -(void)removeAllObject:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withObjectDict:self.objectDict];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     [scopeDict removeAllObjects];
-//    [self.objectDict removeObjectForKey:scope];
+//    [self.objects removeObjectForKey:scope];
 }
 
 

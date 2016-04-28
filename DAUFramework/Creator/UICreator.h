@@ -46,6 +46,13 @@
 
 @end
 
+@interface UITextViewCreator : UIViewCreator
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict;
+-(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
+
+@end
+
 
 @interface UITextFieldCreator : UIViewCreator
 

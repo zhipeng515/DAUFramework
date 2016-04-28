@@ -14,9 +14,9 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    
-    Data * data = [[Data alloc] init:dict[@"data"] withKey:dict[@"key"] withScope:dict[@"scope"]];
-    return data;
+    return nil;
+//    Data * data = [[Data alloc] init:dict[@"data"] withKey:dict[@"key"] withScope:dict[@"scope"]];
+//    return data;
 }
 
 @end

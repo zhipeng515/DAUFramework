@@ -9,6 +9,10 @@
 			"className" : "UILabelCreator",
 			"creatorName" : "createLabel"
 		},
+        {
+            "className" : "UITextViewCreator",
+            "creatorName" : "createTextView"
+        },
 		{
 			"className" : "UIButtonCreator",
 			"creatorName" : "createButton"

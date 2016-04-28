@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "ObjectCreator.h"
 
+@class Data;
+
 @interface ObjectManager : NSObject
 
-@property(nonatomic, retain)NSMutableDictionary * objectCreatorDict;
-@property(nonatomic, retain)NSMutableDictionary * objectDict;
+@property(nonatomic, retain)Data * objectCreators;
+@property(nonatomic, retain)Data * objects;
 
 
 +(ObjectManager*)shareInstance;

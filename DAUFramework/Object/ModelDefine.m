@@ -7,15 +7,17 @@
 //
 
 #import "ModelDefine.h"
+#import "Data.h"
 
 @implementation ModelDefine
 
--(id)init:(NSString*)name withIndexKey:(NSString*)key withPropertys:(NSDictionary*)propertys
+-(id)init:(NSString*)name withIndexKey:(NSString*)key withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys
 {
     if([super init])
     {
         self.modelName = name;
         self.indexKey = key;
+        self.scope = scope;
         self.propertys = propertys;
     }
     return self;
@@ -24,6 +26,11 @@
 -(bool)hasIndexKey
 {
     return self.indexKey && ![self.indexKey isEqualToString:@""];
+}
+
+-(bool)hasScope
+{
+    return self.scope && ![self.scope isEqualToString:@""];
 }
 
 -(bool)checkDefine:(id)model
@@ -56,7 +63,7 @@
 
 -(id)buildModel:(id)property
 {
-    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+    Data * data = [[Data alloc] init];
     for(NSString * key in self.propertys)
     {
         [data setValue:property[key] forKey:key];

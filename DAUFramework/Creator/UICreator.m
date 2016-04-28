@@ -102,6 +102,28 @@
 
 @end
 
+@implementation UITextViewCreator
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict
+{
+    UITextView * textView = [[UITextView alloc] init];
+    UI * ui = [[UI alloc] initWithUI:textView];
+    return ui;
+}
+
+
+
+@end
+
 @implementation UITextFieldCreator
 
 -(id)init
