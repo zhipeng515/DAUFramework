@@ -10,7 +10,7 @@
 #import "Binder.h"
 #import "ObjectManager.h"
 #import "Data.h"
-#import "UI.h"
+#import "UIWrapper.h"
 #import "ModelDefine.h"
 
 @implementation DAUManager
@@ -162,22 +162,10 @@
 
 -(void)bindObject:(id)src withOtherObject:(id)dest withScope:(NSString*)scope
 {
-    if([src isKindOfClass:[UI class]] && [dest isKindOfClass:[Data class]])
-    {
-        ViewDataBinder * viewDataBinder = [[ObjectManager shareInstance] createObject:@{@"src":src, @"dest":dest} withKey:@"createViewDataBinder"];
-        [[ObjectManager shareInstance] setObject:viewDataBinder withKey:src withScope:scope];
-    }
 }
 
 -(void)trigger:(id)src withScope:(NSString*)scope
 {
-    id binder = [[ObjectManager shareInstance] getObject:src withScope:scope];
-    if(binder == nil)
-    {
-        NSAssert(![binder isKindOfClass:[Binder class]], @"object %@ class is not a Binder", src);
-        return;
-    }
-    [binder trigger];
 }
 
 @end

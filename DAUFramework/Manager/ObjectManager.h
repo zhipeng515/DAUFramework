@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "ObjectCreator.h"
 
+#define GLOBAL_SCOPE @"global"
+
+
 @class Data;
 
 @interface ObjectManager : NSObject

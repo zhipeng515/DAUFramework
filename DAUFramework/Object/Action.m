@@ -73,6 +73,7 @@
 
 -(void)doAction
 {
+    NSLog(@"ui action run");
 }
 
 @end
@@ -89,6 +90,7 @@
 
 -(void)doAction
 {
+    NSLog(@"custom action run");
 }
 
 @end

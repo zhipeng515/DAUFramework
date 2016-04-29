@@ -7,6 +7,10 @@
 //
 
 #import "DAUUIViewController.h"
+#import "Binder.h"
+#import "ObjectManager.h"
+#import "Action.h"
+#import "UIWrapper.h"
 
 @interface DAUUIViewController ()
 
@@ -17,12 +21,67 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    [binder doAction:@"viewDidLoad"];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    [binder doAction:@"viewWillAppear"];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    [binder doAction:@"viewDidAppear"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    [binder doAction:@"viewWillDisappear"];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+
+    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    [binder doAction:@"viewDidDisappear"];
+}
+
+// Called just before the view controller's view's layoutSubviews method is invoked. Subclasses can implement as necessary. The default is a nop.
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+
+    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    [binder doAction:@"viewWillLayoutSubviews"];
+}
+
+// Called just after the view controller's view's layoutSubviews method is invoked. Subclasses can implement as necessary. The default is a nop.
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+
+    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    [binder doAction:@"viewDidLayoutSubviews"];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation

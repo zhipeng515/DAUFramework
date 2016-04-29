@@ -29,6 +29,10 @@
 			"className" : "UIViewControllerCreator",
 			"creatorName" : "createViewController"
 		},
+        {
+            "className" : "DAUUIViewControllerCreator",
+            "creatorName" : "createDAUViewController"
+        },
 		{
 			"className" : "UINavigationControllerCreator",
 			"creatorName" : "createNavigationController"
@@ -52,14 +56,6 @@
 		{
 			"className" : "CustomActionCreator",
 			"creatorName" : "createCustomAction"
-		},
-		{
-			"className" : "ViewDataBinderCreator",
-			"creatorName" : "createViewDataBinder"
-		},
-		{
-        	"className" : "ViewActionBinderCreator",
-        	"creatorName" : "createViewActionBinder"
 		}
      ]
 }

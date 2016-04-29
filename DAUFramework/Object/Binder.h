@@ -7,43 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Data.h"
 
-@interface Binder : NSObject
+@interface Binder : Data
 
-@property(nonatomic, retain)id srcObject;
-@property(nonatomic, retain)id destObject;
-
--(void)bindObject:(id)src withOtherObject:(id)dest;
--(void)trigger;
-
-@end
-
-@interface ViewDataBinder : Binder
-
-@property(nonatomic, retain)NSMutableArray * views;
-
--(id)init;
--(void)bindObject:(id)src withOtherObject:(id)dest;
--(void)trigger;
-
-@end
-
-@interface ViewActionBinder : Binder
-
-@property(nonatomic, retain)NSMutableArray * views;
-
--(id)init;
--(void)bindObject:(id)src withOtherObject:(id)dest;
--(void)trigger;
-
-@end
-
-@interface DataActionBinder : Binder
-
-@property(nonatomic, retain)NSMutableArray * views;
-
--(id)init;
--(void)bindObject:(id)src withOtherObject:(id)dest;
--(void)trigger;
++ (nonnull id)binderWithObject:(nonnull id)sourceObject withScope:(nonnull NSString*)scope;
+- (BOOL)doAction:(nonnull NSString*)condition;
 
 @end

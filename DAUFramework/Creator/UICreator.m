@@ -8,7 +8,9 @@
 
 #import "UICreator.h"
 #import <UIKit/Uikit.h>
-#import "UI.h"
+#import "UIWrapper.h"
+#import "UIColor+HexString.h"
+#import "DAUUIViewController.h"
 
 @implementation UICreator
 
@@ -46,14 +48,15 @@
 {
     UIView * view = [[UIView alloc]init];
     [self parseProperty:dict withObject:view];
-    UI * ui = [[UI alloc] initWithUI:view];
+    UIWrapper * ui = [[UIWrapper alloc] initWithUI:view];
     return ui;
 }
 
 -(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
 {
     UIView * view = obj;
-    view.frame = CGRectMake([dict[@"x"] floatValue], [dict[@"y"] floatValue], [dict[@"w"] floatValue], [dict[@"h"] floatValue]);
+    view.frame = CGRectFromString(dict[@"frame"]);
+    view.backgroundColor = [UIColor colorWithHexString:dict[@"bgcolor"]];
 }
 
 @end
@@ -74,7 +77,7 @@
 {
     
     UIImageView * imageView = [[UIImageView alloc]init];
-    UI * ui = [[UI alloc] initWithUI:imageView];
+    UIWrapper * ui = [[UIWrapper alloc] initWithUI:imageView];
     return ui;
 }
 
@@ -94,7 +97,7 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
     UILabel * label = [[UILabel alloc] init];
-    UI * ui = [[UI alloc] initWithUI:label];
+    UIWrapper * ui = [[UIWrapper alloc] initWithUI:label];
     return ui;
 }
 
@@ -116,7 +119,7 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
     UITextView * textView = [[UITextView alloc] init];
-    UI * ui = [[UI alloc] initWithUI:textView];
+    UIWrapper * ui = [[UIWrapper alloc] initWithUI:textView];
     return ui;
 }
 
@@ -138,7 +141,7 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
     UITextField * textField = [[UITextField alloc] init];
-    UI * ui = [[UI alloc] initWithUI:textField];
+    UIWrapper * ui = [[UIWrapper alloc] initWithUI:textField];
     return ui;
 }
 
@@ -160,10 +163,19 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
     UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    UI * ui = [[UI alloc] initWithUI:button];
+    [self parseProperty:dict withObject:button];
+    UIWrapper * ui = [[UIWrapper alloc] initWithUI:button];
+    [button addTarget:ui action:@selector(onTap:) forControlEvents:UIControlEventTouchUpInside];
+    
     return ui;
 }
 
+-(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
+{
+    [super parseProperty:dict withObject:obj];
+    UIButton * button = obj;
+    [button setTitle:dict[@"title"] forState: UIControlStateNormal];
+}
 
 
 @end
@@ -183,13 +195,37 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
 	UIViewController * viewController = [[UIViewController alloc] init];
-	UI * ui = [[UI alloc] initWithUI:viewController];
+	UIWrapper * ui = [[UIWrapper alloc] initWithUI:viewController];
     return ui;
 }
 
 
 
 @end
+
+@implementation DAUUIViewControllerCreator
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict
+{
+    DAUUIViewController * viewController = [[DAUUIViewController alloc] init];
+    UIWrapper * ui = [[UIWrapper alloc] initWithUI:viewController];
+    viewController.uiWrapper = ui;
+    return ui;
+}
+
+
+
+@end
+
 
 @implementation UINavigationControllerCreator
 
@@ -205,7 +241,7 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
 	UINavigationController * naviController = [[UINavigationController alloc] init];
-	UI * ui = [[UI alloc] initWithUI:naviController];
+	UIWrapper * ui = [[UIWrapper alloc] initWithUI:naviController];
     return ui;
 }
 

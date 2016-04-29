@@ -16,8 +16,10 @@
 
 #import "Data.h"
 #import "Action.h"
-#import "UI.h"
+#import "UIWrapper.h"
+#import "Binder.h"
 #import "DAUManager.h"
+#import "DAUUIViewController.h"
 
 #import "JJRSObjectDescription.h"
 
@@ -139,7 +141,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [image setValue:@"20" forKey:@"y"];
     [image setValue:@"100" forKey:@"width"];
     [image setValue:@"100" forKey:@"height"];
-    UI * imageView = [[ObjectManager shareInstance] createObject:image withKey:@"createImageView"];
+    UIWrapper * imageView = [[ObjectManager shareInstance] createObject:image withKey:@"createImageView"];
     [[ObjectManager shareInstance] setObject:imageView withKey:@"userAvatar" withScope:GLOBAL_SCOPE];
     
 
@@ -161,11 +163,12 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     CustomAction * customfunc = [[ObjectManager shareInstance] createObject:custom withKey:@"createCustomAction"];
     [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
     
-    UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
-    ((UITextView*)label.ui).frame = CGRectMake(0, 0, 320, 568);
-    [self.view addSubview:label.ui];
-    
-    [[ObjectManager shareInstance] removeAllObject];
+//    UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
+//    ((UITextView*)label.ui).frame = CGRectMake(0, 0, 320, 568);
+//    [self.view addSubview:label.ui];
+
+
+//    [[ObjectManager shareInstance] removeAllObject];
     
     NSMutableDictionary * tap = [[NSMutableDictionary alloc] init];
     [http setValue:imageView forKey:@"view"];
@@ -174,24 +177,40 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     UIAction * tapimage = [[ObjectManager shareInstance] createObject:tap withKey:@"createUIAction"];
     [[ObjectManager shareInstance] setObject:tapimage withKey:@"tapimage" withScope:GLOBAL_SCOPE];
 
-    UI * view = [[ObjectManager shareInstance] createObject:@{} withKey:@"createView"];
-    [[ObjectManager shareInstance] setObject:view withKey:@"view" withScope:GLOBAL_SCOPE];
-
-    Data * d3 = [Data dataWithKey:view withScope:@"RegisterView"];
-    d3[@"actions"] = tapimage;
-    d3[@"datas"] = d2;
-
-    Data * d4 = [Data dataWithKey:d2 withScope:@"RegisterView"];
-    d4[@"views"] = view;
-    d4[@"actions"] = tapimage;
-
-    UIAction * act = d3[@"tap"];
-    [act doAction];
+    UIWrapper * button = [[ObjectManager shareInstance] getObject:@"registerButton" withScope:@"RegisterView"];
+    [self.view addSubview:button.ui];
     
-    for(id key in [ObjectManager shareInstance].objects)
-    {
-        NSLog(@"%@", key);
-    }
+    Binder * binder1 = [Binder binderWithObject:button withScope:GLOBAL_SCOPE];
+    binder1[@"onTap"] = customfunc;
+    binder1[@"onTap"] = tapimage;
+    
+    UIWrapper * controller = [[ObjectManager shareInstance] createObject:@{} withKey:@"createDAUViewController"];
+    Binder * binder2 = [Binder binderWithObject:controller withScope:GLOBAL_SCOPE];
+    binder2[@"viewDidLoad"] = customfunc;
+    binder2[@"viewDidLoad"] = tapimage;
+    binder2[@"viewWillAppear"] = customfunc;
+    binder2[@"viewWillAppear"] = tapimage;
+    
+    [controller.ui presentViewController:self animated:NO completion:nil];
+
+//    UI * view = [[ObjectManager shareInstance] createObject:@{} withKey:@"createView"];
+//    [[ObjectManager shareInstance] setObject:view withKey:@"view" withScope:GLOBAL_SCOPE];
+//
+//    Data * d3 = [Data dataWithKey:view withScope:@"RegisterView"];
+//    d3[@"actions"] = tapimage;
+//    d3[@"datas"] = d2;
+//
+//    Data * d4 = [Data dataWithKey:d2 withScope:@"RegisterView"];
+//    d4[@"views"] = view;
+//    d4[@"actions"] = tapimage;
+//
+//    UIAction * act = d3[@"tap"];
+//    [act doAction];
+//    
+//    for(id key in [ObjectManager shareInstance].objects)
+//    {
+//        NSLog(@"%@", key);
+//    }
 
     
 //    NSMutableDictionary * user = [[NSMutableDictionary alloc] init];

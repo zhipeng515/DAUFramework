@@ -21,11 +21,11 @@
 
 - (void)encodeWithCoder:(nonnull NSCoder *)aCoder;
 
-// 支持下标方法访问
-- (nullable id)objectForKeyedSubscript:(nonnull id)key;
-
 - (void)removeAllObjects;
 - (void)removeObjectForKey:(nonnull id)aKey;
+
+// 支持下标方法访问
+- (nullable id)objectForKeyedSubscript:(nonnull id)key;
 
 - (void)setValue:(nullable id)value forKey:(nonnull NSString *)key;
 - (void)setObject:(nonnull id)anObject forKey:(nonnull id <NSCopying>)aKey;

@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@interface UIResponder (UIWrapper)
+
+@property(nonatomic, retain, nonnull)id uiWrapper;
+
+@end
+
 @interface UIWrapper : NSObject<NSCopying, NSMutableCopying, UITextFieldDelegate>
 
 @property(nonatomic, retain, nonnull)id ui;

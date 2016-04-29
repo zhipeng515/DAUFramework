@@ -40,14 +40,19 @@
     return self;
 }
 
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+    return self;
+}
+
+- (id)mutableCopyWithZone:(nullable NSZone *)zone
+{
+    return self;
+}
+
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.propertys forKey:@"dict"];
-}
-
-- (nullable id)objectForKeyedSubscript:(nonnull id)key
-{
-    return [self.propertys objectForKeyedSubscript:key];
 }
 
 - (void)removeAllObjects
@@ -58,6 +63,11 @@
 - (void)removeObjectForKey:(nonnull id)aKey
 {
     [self.propertys removeObjectForKey:aKey];
+}
+
+- (nullable id)objectForKeyedSubscript:(nonnull id)key
+{
+    return [self.propertys objectForKeyedSubscript:key];
 }
 
 - (void)setValue:(nullable id)value forKey:(nonnull NSString *)key;
@@ -87,16 +97,6 @@
 - (id)objectForKey:(id)aKey
 {
     return [self.propertys objectForKey:aKey];
-}
-
-- (id)copyWithZone:(nullable NSZone *)zone
-{
-    return self;
-}
-
-- (id)mutableCopyWithZone:(nullable NSZone *)zone
-{
-    return self;
 }
 
 - (nullable NSEnumerator<id> *)objectEnumerator

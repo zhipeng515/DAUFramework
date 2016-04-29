@@ -11,6 +11,19 @@
 #import "ObjectManager.h"
 #import "Action.h"
 #import "Binder.h"
+#import <objc/runtime.h>
+
+@implementation UIResponder (UIWrapper)
+
+- (id)uiWrapper {
+    return objc_getAssociatedObject(self, @selector(uiWrapper));
+}
+
+- (void)setUiWrapper:(id)uiWrapper {
+    objc_setAssociatedObject(self, @selector(uiWrapper), uiWrapper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
 
 @implementation UIWrapper
 

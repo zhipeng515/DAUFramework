@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define GLOBAL_SCOPE @"global"
-
 @class ModelDefine;
 
 @interface DAUManager : NSObject

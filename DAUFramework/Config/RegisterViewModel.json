@@ -1,0 +1,19 @@
+{
+    "clientUser" :
+    {
+        "userId": "",
+        "birthday": "1980-01-01",
+        "constellation": "1",
+        "sex": "0",
+        "introduction": "很懒，什么都没写",
+        "phone": "",
+        "email": "",
+        "address": "",
+        "city": "",
+        "province": "",
+        "country": "",
+        "skilledGameId": "",
+        "bucket": "",
+        "banner": ""
+    }
+}

@@ -7,67 +7,63 @@
 //
 
 #import "Binder.h"
+#import "ObjectManager.h"
+#import "Action.h"
 
 @implementation Binder
 
--(void)bindObject:(id)src withOtherObject:(id)dest
++ (id)binderWithObject:(nonnull id)sourceObject withScope:(nonnull NSString*)scope
 {
-    NSAssert(false, @"forbidden");
-}
-
--(void)trigger
-{
-    NSAssert(false, @"forbidden");
-}
-
-
-@end
-
-@implementation ViewDataBinder
-
--(id)init
-{
-    if(self = [super init])
+    Binder * binder = [[ObjectManager shareInstance] getObject:sourceObject withScope:scope];
+    if(binder == nil)
     {
-        self.views = [[NSMutableArray alloc] init];
+        binder = [[Binder alloc] init];
+        [[ObjectManager shareInstance] setObject:binder withKey:sourceObject withScope:scope];
     }
-    return self;
+    return binder;
 }
 
--(void)bindObject:(id)src withOtherObject:(id)dest
+- (BOOL)doAction:(NSString*)condition
 {
-    self.srcObject = src;
-    self.destObject = dest;
+    BOOL result = YES;
+    NSArray * actions = self[condition];
+    for(UIAction * action in actions)
+        [action doAction];
+    return result;
 }
 
--(void)trigger
+- (void)setValue:(nullable id)value forKey:(nonnull NSString *)aKey;
 {
-}
-
-
-@end
-
-
-@implementation ViewActionBinder
-
--(id)init
-{
-    if(self = [super init])
+    NSMutableArray * valueArray = self.propertys[aKey];
+    if(valueArray == nil)
     {
-        self.views = [[NSMutableArray alloc] init];
+        valueArray = [[NSMutableArray alloc] init];
+        [self.propertys setObject:valueArray forKey:aKey];
     }
-    return self;
+    [valueArray addObject:value];
 }
 
--(void)bindObject:(id)src withOtherObject:(id)dest
+- (void)setObject:(nonnull id)anObject forKey:(nonnull id <NSCopying>)aKey
 {
-    self.srcObject = src;
-    self.destObject = dest;
+    NSMutableArray * valueArray = self.propertys[aKey];
+    if(valueArray == nil)
+    {
+        valueArray = [[NSMutableArray alloc] init];
+        [self.propertys setObject:valueArray forKey:aKey];
+    }
+    [valueArray addObject:anObject];
 }
 
--(void)trigger
+- (void)setObject:(nullable id)anObject forKeyedSubscript:(nonnull id <NSCopying>)aKey
 {
+    NSMutableArray * valueArray = self.propertys[aKey];
+    if(valueArray == nil)
+    {
+        valueArray = [[NSMutableArray alloc] init];
+        [self.propertys setObject:valueArray forKeyedSubscript:aKey];
+    }
+    [valueArray addObject:anObject];
 }
-
 
 @end
+

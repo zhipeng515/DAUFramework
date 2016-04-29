@@ -13,64 +13,46 @@
 
 @interface UICreator : ObjectCreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict;
--(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
-
 @end
 
 @interface UIViewCreator : UICreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict;
--(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
 
 @end
 
 @interface UIImageViewCreator : UIViewCreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict;
--(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
 
 @end
 
 @interface UIButtonCreator : UIViewCreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict;
--(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
 
 @end
 
 @interface UILabelCreator : UIViewCreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict;
--(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
 
 @end
 
 @interface UITextViewCreator : UIViewCreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict;
--(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
 
 @end
 
 
 @interface UITextFieldCreator : UIViewCreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict;
--(void)parseProperty:(NSDictionary*)dict withObject:(id)obj;
-
 @end
 
 @interface UIViewControllerCreator : UICreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict;
--(void)parseProperty:(NSDictionary*)dict;
+@end
+
+@interface DAUUIViewControllerCreator : UIViewControllerCreator
 
 @end
 
 @interface UINavigationControllerCreator : UIViewControllerCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)dict;
--(void)parseProperty:(NSDictionary*)dict;
 
 @end
