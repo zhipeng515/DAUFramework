@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface UI : NSObject<NSCopying, NSMutableCopying>
+@interface UIWrapper : NSObject<NSCopying, NSMutableCopying, UITextFieldDelegate>
 
 @property(nonatomic, retain, nonnull)id ui;
 
@@ -18,5 +19,7 @@
 - (nonnull id)initWithUI:(nullable id)ui;
 
 - (nonnull NSString*)description;
+
+- (void)onTap:(nonnull id)sender;
 
 @end
