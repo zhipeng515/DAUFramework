@@ -19,6 +19,16 @@
     return self;
 }
 
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+    return self;
+}
+
+- (id)mutableCopyWithZone:(nullable NSZone *)zone;
+{
+    return self;
+}
+
 -(void)encodeWithCoder:(nonnull NSCoder *)aCoder
 {
     [aCoder encodeObject:self.param forKey:@"param"];

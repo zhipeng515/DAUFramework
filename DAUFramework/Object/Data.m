@@ -13,6 +13,24 @@
 
 @implementation Data
 
++ (id)dataWithKey:(nonnull id)key withScope:(nonnull NSString*)scope
+{
+    Data * data = [[ObjectManager shareInstance] getObject:key withScope:scope];
+    if(data == nil)
+    {
+        data = [[Data alloc] init];
+        [[ObjectManager shareInstance] setObject:data withKey:key withScope:scope];
+    }
+    return data;
+}
+
++ (void)dataCopy:(Data*)dest withSource:(Data*)source
+{
+    [source.propertys enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        dest[key] = obj;
+    }];
+}
+
 - (id)init
 {
     if(self = [super init])
@@ -81,22 +99,20 @@
     return self;
 }
 
-- (nonnull NSString*)description
-{
-    NSString * desc = [JJRSObjectDescription descriptionForObject:self.propertys];
-    return desc;
-}
-
 - (nullable NSEnumerator<id> *)objectEnumerator
 {
     return [self.propertys objectEnumerator];
 }
 
-+ (void)dataCopy:(Data*)dest withSource:(Data*)source
+- (NSUInteger)countByEnumeratingWithState:(nullable NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
 {
-    [source.propertys enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        dest[key] = obj;
-    }];
+    return [self.propertys countByEnumeratingWithState:state objects:buffer count:len];
+}
+
+- (nonnull NSString*)description
+{
+    NSString * desc = [JJRSObjectDescription descriptionForObject:self.propertys];
+    return desc;
 }
 
 @end

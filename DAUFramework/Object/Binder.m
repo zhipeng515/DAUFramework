@@ -42,8 +42,6 @@
 
 -(void)trigger
 {
-    if([self.srcObject respondsToSelector:@selector(updateValue:)])
-        [self.srcObject performSelector:@selector(updateValue:) withObject:self.destObject];
 }
 
 
@@ -69,8 +67,6 @@
 
 -(void)trigger
 {
-    if([self.srcObject respondsToSelector:@selector(updateValue:)])
-        [self.srcObject performSelector:@selector(updateValue:) withObject:self.destObject];
 }
 
 

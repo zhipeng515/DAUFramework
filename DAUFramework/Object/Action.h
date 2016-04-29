@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Action : NSObject
+@interface Action : NSObject<NSCopying, NSMutableCopying>
 
 @property(nonatomic, retain, nullable)NSString * condition;
 @property(nonatomic, retain, nonnull)NSMutableDictionary * param;
@@ -16,6 +16,9 @@
 @property(nonatomic, retain, nullable)Action * failed;
 
 -(void)encodeWithCoder:(nonnull NSCoder *)aCoder;
+
+- (nonnull id)copyWithZone:(nullable NSZone *)zone;
+- (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
 -(nonnull id)initWithParam:(nonnull NSDictionary*)param;
 -(void)doAction;

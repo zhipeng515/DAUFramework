@@ -80,8 +80,8 @@
     else
     {
         key = [scope substringWithRange:NSMakeRange(0, range.location)];
-        NSUInteger location = range.location+range.length;
-        remainKey = [scope substringWithRange:NSMakeRange(location, scope.length-location)];
+        NSUInteger location = range.location + range.length;
+        remainKey = [scope substringWithRange:NSMakeRange(location, scope.length - location)];
     }
     
     Data * scopeDict = objDict[key];
@@ -98,13 +98,10 @@
     return scopeDict;
 }
 
--(BOOL)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
+-(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
-    
-    id oldModel = scopeDict[key];
+    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     [scopeDict setObject:model forKey:key];
-    return oldModel != nil && oldModel != model;
     
 //    NSMutableArray * valueArray = scopeDict[key];
 //    if(valueArray == nil)
@@ -117,13 +114,13 @@
 
 -(void)removeObject:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     [scopeDict removeObjectForKey:key];
 }
 
 -(id)getObject:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     return [scopeDict objectForKey:key];
 
 //    NSArray * valueArray = [scopeDict objectForKey:key];
@@ -138,7 +135,7 @@
 
 -(void)removeAllObject:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     [scopeDict removeAllObjects];
 //    [self.objects removeObjectForKey:scope];
 }

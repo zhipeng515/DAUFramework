@@ -12,6 +12,10 @@
 
 @property(nonatomic, retain, nonnull) NSMutableDictionary * propertys;
 
++ (nonnull id)dataWithKey:(nonnull id)key withScope:(nonnull NSString*)scope;
++ (void)dataCopy:(nonnull Data*)dest withSource:(nonnull Data*)source;
+
+
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
@@ -29,9 +33,8 @@
 
 - (nullable id)objectForKey:(nonnull id)aKey;
 - (nullable NSEnumerator<id> *)objectEnumerator;
+- (NSUInteger)countByEnumeratingWithState:(nullable NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len;
 
 - (nonnull NSString*)description;
-
-+ (void)dataCopy:(nonnull Data*)dest withSource:(nonnull Data*)source;
 
 @end

@@ -19,7 +19,6 @@
 #import "UI.h"
 #import "DAUManager.h"
 
-#import "JSONKit.h"
 #import "JJRSObjectDescription.h"
 
 #import <mach/mach_time.h>  // for mach_absolute_time() and friends
@@ -45,55 +44,61 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 
 @implementation ViewController
 
+- (void)benchmark
+{
+    CGFloat time = BNRTimeBlock(^{
+        for(int i = 0; i < 100; i++)
+        {
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"testdata" ofType:@"json"];
+            NSData * configString = [NSData dataWithContentsOfFile:path];
+            NSDictionary * creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
+            
+            [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+            
+            Data * note = [Data dataWithKey:@"175469173324290048" withScope:@"note"];
+            note[@"userId"] = @"ccc";
+            
+            [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+            
+            path = [[NSBundle mainBundle] pathForResource:@"testdata_1" ofType:@"json"];
+            configString = [NSData dataWithContentsOfFile:path];
+            creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
+            
+            [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+        }
+    });
+    NSLog(@"time: %f", time);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     NSString *path = [[NSBundle mainBundle] pathForResource:@"ObjectCreator" ofType:@"json"];
-    NSString * configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    NSDictionary * creatorDict = [configString objectFromJSONString];
+    NSData * configString = [NSData dataWithContentsOfFile:path];
+    NSDictionary * creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
 
     [[ObjectManager shareInstance] loadObjectCreator:creatorDict];
     
     path = [[NSBundle mainBundle] pathForResource:@"ModelDefine" ofType:@"json"];
-    configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    creatorDict = [configString objectFromJSONString];
-    
+    configString = [NSData dataWithContentsOfFile:path];
+    creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
     [[DAUManager shareInstance] loadModelDefine:creatorDict];
 
     path = [[NSBundle mainBundle] pathForResource:@"RegisterViewLayout" ofType:@"json"];
-    configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    creatorDict = [configString objectFromJSONString];
+    configString = [NSData dataWithContentsOfFile:path];
+    creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
     
     [[DAUManager shareInstance] parseLayoutModel:creatorDict[@"layoutInfo"] withScope:@"RegisterView"];
     
-    CGFloat time = BNRTimeBlock(^{
-//        for(int i = 0; i < 100; i++)
-        {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"testdata" ofType:@"json"];
-        NSString *configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        NSDictionary *creatorDict = [configString objectFromJSONString];
-        
-        [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
-        
-        Data * note = [[ObjectManager shareInstance] getObject:@"175469173324290048" withScope:@"note"];
-        note[@"userId"] = @"ccc";
-        
-        [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
-        
-        path = [[NSBundle mainBundle] pathForResource:@"testdata_1" ofType:@"json"];
-        configString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        creatorDict = [configString objectFromJSONString];
-        
-        [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
-        }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self benchmark];
     });
-    NSLog(@"time: %f", time);
 
-    return;
-    
-    [[ObjectManager shareInstance] setObject:@"aaa" withKey:@"ffff" withScope:@"a.b.c.dee.ff"];
-    [[ObjectManager shareInstance] setObject:@"bbb" withKey:@"ffff" withScope:@"a.b.c.dee.ff"];
-    
+    Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
+    d1[@"ffffff"] = @"ggggggg";
+    Data * d2 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
+    d2[@"fffff"] = @"hhhhhhh";
+
     id notes = [[ObjectManager shareInstance] getObject:@"notes" withScope:@"RegisterView"];
     NSLog( @"%@", notes[@"notes"]);
     
@@ -151,14 +156,6 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 
 
     
-    
-    
-    NSMutableDictionary * tap = [[NSMutableDictionary alloc] init];
-    [http setValue:imageView forKey:@"view"];
-    [http setValue:@"tap" forKey:@"condition"];
-    [http setValue:http1 forKey:@"action"];
-    UIAction * tapimage = [[ObjectManager shareInstance] createObject:tap withKey:@"createUIAction"];
-    [[ObjectManager shareInstance] setObject:tapimage withKey:@"tapimage" withScope:GLOBAL_SCOPE];
 
     NSMutableDictionary * custom = [[NSMutableDictionary alloc] init];
     CustomAction * customfunc = [[ObjectManager shareInstance] createObject:custom withKey:@"createCustomAction"];
@@ -167,6 +164,34 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
     ((UITextView*)label.ui).frame = CGRectMake(0, 0, 320, 568);
     [self.view addSubview:label.ui];
+    
+    [[ObjectManager shareInstance] removeAllObject];
+    
+    NSMutableDictionary * tap = [[NSMutableDictionary alloc] init];
+    [http setValue:imageView forKey:@"view"];
+    [http setValue:@"tap" forKey:@"condition"];
+    [http setValue:http1 forKey:@"action"];
+    UIAction * tapimage = [[ObjectManager shareInstance] createObject:tap withKey:@"createUIAction"];
+    [[ObjectManager shareInstance] setObject:tapimage withKey:@"tapimage" withScope:GLOBAL_SCOPE];
+
+    UI * view = [[ObjectManager shareInstance] createObject:@{} withKey:@"createView"];
+    [[ObjectManager shareInstance] setObject:view withKey:@"view" withScope:GLOBAL_SCOPE];
+
+    Data * d3 = [Data dataWithKey:view withScope:@"RegisterView"];
+    d3[@"actions"] = tapimage;
+    d3[@"datas"] = d2;
+
+    Data * d4 = [Data dataWithKey:d2 withScope:@"RegisterView"];
+    d4[@"views"] = view;
+    d4[@"actions"] = tapimage;
+
+    UIAction * act = d3[@"tap"];
+    [act doAction];
+    
+    for(id key in [ObjectManager shareInstance].objects)
+    {
+        NSLog(@"%@", key);
+    }
 
     
 //    NSMutableDictionary * user = [[NSMutableDictionary alloc] init];
