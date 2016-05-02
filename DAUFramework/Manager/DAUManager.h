@@ -8,27 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
-@class ModelDefine;
+@class ModelDefine, Data;
 
 @interface DAUManager : NSObject
 
-@property(nonatomic, retain)NSMutableDictionary * binders;
-@property(nonatomic, retain)NSMutableDictionary * allDataModel;
-@property(nonatomic, retain)NSMutableDictionary * modelDefineDict;
-@property(nonatomic, retain)NSMutableDictionary * modelDefineKeyDict;
+@property(nonatomic, retain, nonnull)NSMutableDictionary * allDataModel;
+@property(nonatomic, retain, nonnull)NSMutableDictionary * modelDefineDict;
+@property(nonatomic, retain, nonnull)NSMutableDictionary * modelDefineKeyDict;
 
-+(DAUManager*)shareInstance;
++ (nonnull DAUManager*)shareInstance;
 
--(id)init;
+- (nonnull id)init;
 
--(void)loadModelDefine:(NSDictionary*)modelDefines;
--(id)getModelDefine:(id)define;
+- (void)loadModelDefine:(nonnull NSDictionary*)modelDefines;
+- (nonnull id)getModelDefine:(nonnull id)define;
 
--(void)parseDataModel:(NSDictionary*)models withScope:(NSString*)scope;
--(void)parseLayoutModel:(NSDictionary*)layouts withScope:(NSString*)scope;
--(void)parseBinderModel:(NSDictionary*)binders withScope:(NSString*)scope;
+- (void)parseDataModel:(nonnull NSDictionary*)models withScope:(nonnull NSString*)scope;
+- (void)parseLayoutModel:(nonnull NSDictionary*)layouts withScope:(nonnull NSString*)scope;
+- (void)parseBinderModel:(nonnull NSDictionary*)binders withScope:(nonnull NSString*)scope;
 
--(void)bindObject:(id)src withOtherObject:(id)dest withScope:(NSString*)scope;
--(void)trigger:(id)src withScope:(NSString*)scope;
+- (void)dataChanged:(nonnull Data*)data withKey:(nullable id)key withObject:(nonnull id)anObject;
 
 @end

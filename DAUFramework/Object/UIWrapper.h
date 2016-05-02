@@ -28,4 +28,6 @@
 
 - (void)onTap:(nonnull id)sender;
 
+- (void)updateUI;
+
 @end

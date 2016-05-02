@@ -16,20 +16,20 @@
 
 @interface ObjectManager : NSObject
 
-@property(nonatomic, retain)Data * objectCreators;
-@property(nonatomic, retain)Data * objects;
+@property(nonatomic, retain)NSMutableDictionary * objectCreators;
+@property(nonatomic, retain)NSMutableDictionary * objects;
 
 
-+(ObjectManager*)shareInstance;
++ (ObjectManager*)shareInstance;
 
--(void)loadObjectCreator:(NSDictionary*)objCreators;
--(void)registerObjectCreator:(ObjectCreator*)creator withKey:(id)key;
+- (void)loadObjectCreator:(NSDictionary*)objCreators;
+- (void)registerObjectCreator:(ObjectCreator*)creator withKey:(id)key;
 
--(id)createObject:(NSDictionary*)data withKey:(id)key;
--(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope;
--(id)getObject:(id)key withScope:(NSString*)scope;
--(void)removeObject:(id)key withScope:(NSString*)scope;
--(void)removeAllObject;
--(void)removeAllObject:(NSString*)scope;
+- (id)createObject:(NSDictionary*)data withKey:(id)key;
+- (void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope;
+- (id)getObject:(id)key withScope:(NSString*)scope;
+- (void)removeObject:(id)key withScope:(NSString*)scope;
+- (void)removeAllObject;
+- (void)removeAllObject:(NSString*)scope;
 
 @end

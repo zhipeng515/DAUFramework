@@ -96,21 +96,8 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
         [self benchmark];
     });
 
-    Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
-    d1[@"ffffff"] = @"ggggggg";
-    Data * d2 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
-    d2[@"fffff"] = @"hhhhhhh";
-
     id notes = [[ObjectManager shareInstance] getObject:@"notes" withScope:@"RegisterView"];
     NSLog( @"%@", notes[@"notes"]);
-    
-    Data * device = [[Data alloc] init];
-    device[@"deviceType"] = @"ios";
-    device[@"deviceId"] = @"123123123123123";
-    [[ObjectManager shareInstance] setObject:device withKey:@"device" withScope:@"global"];
-    
-    [[ObjectManager shareInstance] setObject:@"ios" withKey:@"deviceType" withScope:@"global.device"];
-    [[ObjectManager shareInstance] setObject:@"123123123123123" withKey:@"deviceId" withScope:@"global.device"];
     
 
 //    path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
@@ -171,14 +158,30 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    [[ObjectManager shareInstance] removeAllObject];
     
     NSMutableDictionary * tap = [[NSMutableDictionary alloc] init];
-    [http setValue:imageView forKey:@"view"];
-    [http setValue:@"tap" forKey:@"condition"];
-    [http setValue:http1 forKey:@"action"];
     UIAction * tapimage = [[ObjectManager shareInstance] createObject:tap withKey:@"createUIAction"];
     [[ObjectManager shareInstance] setObject:tapimage withKey:@"tapimage" withScope:GLOBAL_SCOPE];
 
     UIWrapper * button = [[ObjectManager shareInstance] getObject:@"registerButton" withScope:@"RegisterView"];
     [self.view addSubview:button.ui];
+    
+    Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
+    d1[@"ffffff"] = @"ggggggg";
+    Data * d2 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
+    d2[@"fffff"] = @"hhhhhhh";
+    
+    Data * device = [[Data alloc] init];
+    device[@"deviceType"] = @"ios";
+    device[@"deviceId"] = @"123123123123123";
+    [[ObjectManager shareInstance] setObject:device withKey:@"device" withScope:@"global"];
+    
+    [[ObjectManager shareInstance] setObject:@"ios" withKey:@"deviceType" withScope:@"global.device"];
+    [[ObjectManager shareInstance] setObject:@"123123123123123" withKey:@"deviceId" withScope:@"global.device"];
+    
+    Binder *binder0 = [Binder binderWithObject:device withScope:GLOBAL_SCOPE];
+    binder0[@"ui"] = button;
+    
+    device[@"deviceType"] = @"android";
+
     
     Binder * binder1 = [Binder binderWithObject:button withScope:GLOBAL_SCOPE];
     binder1[@"onTap"] = customfunc;

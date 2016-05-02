@@ -57,12 +57,19 @@
     return desc;
 }
 
+- (void)updateUI
+{
+    NSLog(@"data changed");
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 // UIButton
 - (void)onTap:(nonnull id)sender
 {
     Binder * binder = [Binder binderWithObject:self withScope:GLOBAL_SCOPE];
-    [binder doAction:@"onTap"];
+    Data * param = [[Data alloc] init];
+    param[@"sender"] = sender;
+    [binder doAction:@"onTap" withParam:param];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -74,44 +81,59 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     Binder * binder = [Binder binderWithObject:self withScope:GLOBAL_SCOPE];
-    if([binder doAction:@"textFieldShouldBeginEditing"])
-        return NO;
-    return YES;
+    Data * param = [[Data alloc] init];
+    param[@"textField"] = textField;
+    return [binder doAction:@"textFieldShouldBeginEditing" withParam:param];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     Binder * binder = [Binder binderWithObject:self withScope:GLOBAL_SCOPE];
-    [binder doAction:@"textFieldDidBeginEditing"];
+    Data * param = [[Data alloc] init];
+    param[@"textField"] = textField;
+    [binder doAction:@"textFieldDidBeginEditing" withParam:param];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     Binder * binder = [Binder binderWithObject:self withScope:GLOBAL_SCOPE];
-    if([binder doAction:@"textFieldShouldEndEditing"])
-        return NO;
-    return YES;
+    Data * param = [[Data alloc] init];
+    param[@"textField"] = textField;
+    return [binder doAction:@"textFieldShouldEndEditing" withParam:param];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     Binder * binder = [Binder binderWithObject:self withScope:GLOBAL_SCOPE];
-    [binder doAction:@"textFieldDidEndEditing"];
+    Data * param = [[Data alloc] init];
+    param[@"textField"] = textField;
+    [binder doAction:@"textFieldDidEndEditing" withParam:param];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    return YES;
+    Binder * binder = [Binder binderWithObject:self withScope:GLOBAL_SCOPE];
+    Data * param = [[Data alloc] init];
+    param[@"textField"] = textField;
+    param[@"shouldChangeCharactersInRange"] = NSStringFromRange(range);
+    param[@"replacementString"] = string;
+    return [binder doAction:@"textField:shouldChangeCharactersInRange:replacementString" withParam:param];
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-    return YES;
+    Binder * binder = [Binder binderWithObject:self withScope:GLOBAL_SCOPE];
+    Data * param = [[Data alloc] init];
+    param[@"textField"] = textField;
+    return [binder doAction:@"textFieldShouldClear" withParam:param];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    return YES;
+    Binder * binder = [Binder binderWithObject:self withScope:GLOBAL_SCOPE];
+    Data * param = [[Data alloc] init];
+    param[@"textField"] = textField;
+    return [binder doAction:@"textFieldShouldReturn" withParam:param];
 }
 
 

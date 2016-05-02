@@ -27,7 +27,6 @@
 {
     if(self = [super init])
     {
-        self.binders = [[NSMutableDictionary alloc] init];
         self.allDataModel = [[NSMutableDictionary alloc] init];
         self.modelDefineDict = [[NSMutableDictionary alloc] init];
         self.modelDefineKeyDict = [[NSMutableDictionary alloc] init];
@@ -160,12 +159,10 @@
     
 }
 
--(void)bindObject:(id)src withOtherObject:(id)dest withScope:(NSString*)scope
+- (void)dataChanged:(Data*)data withKey:(id)key withObject:(id)anObject
 {
-}
-
--(void)trigger:(id)src withScope:(NSString*)scope
-{
+    Binder *binder = [[ObjectManager shareInstance] getObject:data withScope:GLOBAL_SCOPE];
+    [binder updateUI:data];
 }
 
 @end

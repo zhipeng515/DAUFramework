@@ -22,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
-    [binder doAction:@"viewDidLoad"];
+    [binder doAction:@"viewDidLoad" withParam:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -30,7 +30,7 @@
     [super viewWillAppear:animated];
 
     Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
-    [binder doAction:@"viewWillAppear"];
+    [binder doAction:@"viewWillAppear" withParam:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -38,7 +38,7 @@
     [super viewDidAppear:animated];
 
     Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
-    [binder doAction:@"viewDidAppear"];
+    [binder doAction:@"viewDidAppear" withParam:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -46,7 +46,7 @@
     [super viewWillDisappear:animated];
 
     Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
-    [binder doAction:@"viewWillDisappear"];
+    [binder doAction:@"viewWillDisappear" withParam:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -54,7 +54,7 @@
     [super viewDidDisappear:animated];
 
     Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
-    [binder doAction:@"viewDidDisappear"];
+    [binder doAction:@"viewDidDisappear" withParam:nil];
 }
 
 // Called just before the view controller's view's layoutSubviews method is invoked. Subclasses can implement as necessary. The default is a nop.
@@ -63,7 +63,7 @@
     [super viewWillLayoutSubviews];
 
     Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
-    [binder doAction:@"viewWillLayoutSubviews"];
+    [binder doAction:@"viewWillLayoutSubviews" withParam:nil];
 }
 
 // Called just after the view controller's view's layoutSubviews method is invoked. Subclasses can implement as necessary. The default is a nop.
@@ -72,7 +72,7 @@
     [super viewDidLayoutSubviews];
 
     Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
-    [binder doAction:@"viewDidLayoutSubviews"];
+    [binder doAction:@"viewDidLayoutSubviews" withParam:nil];
 }
 
 

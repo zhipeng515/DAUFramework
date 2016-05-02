@@ -31,15 +31,17 @@
 
 -(void)encodeWithCoder:(nonnull NSCoder *)aCoder
 {
+    [super encodeWithCoder:aCoder];
+    
     [aCoder encodeObject:self.param forKey:@"param"];
-    [aCoder encodeObject:self.condition forKey:@"condition"];
     [aCoder encodeObject:self.param forKey:@"complete"];
     [aCoder encodeObject:self.param forKey:@"failed"];
 }
 
--(void)doAction
+-(BOOL)doAction:(nullable Data*)param
 {
     NSAssert(false, @"forbidden");
+    return YES;
 }
 
 @end
@@ -55,8 +57,9 @@
     return self;
 }
 
--(void)doAction
+-(BOOL)doAction:(nullable Data*)param
 {
+    return YES;
 }
 
 @end
@@ -71,9 +74,10 @@
     return self;
 }
 
--(void)doAction
+-(BOOL)doAction:(nullable Data*)param
 {
     NSLog(@"ui action run");
+    return YES;
 }
 
 @end
@@ -88,9 +92,10 @@
     return self;
 }
 
--(void)doAction
+-(BOOL)doAction:(nullable Data*)param
 {
     NSLog(@"custom action run");
+    return YES;
 }
 
 @end

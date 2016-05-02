@@ -9,6 +9,7 @@
 #import "Data.h"
 #import "ObjectManager.h"
 #import "JJRSObjectDescription.h"
+#import "DAUManager.h"
 
 
 @implementation Data
@@ -75,6 +76,7 @@
     id oldValue = self.propertys[key];
     if([oldValue isEqual:value])
         return;
+    [[DAUManager shareInstance] dataChanged:self withKey:key withObject:value];
     [self.propertys setValue:value forKey:key];
 }
 
@@ -83,6 +85,7 @@
     id oldObject = self.propertys[aKey];
     if([oldObject isEqual:anObject])
         return;
+    [[DAUManager shareInstance] dataChanged:self withKey:aKey withObject:anObject];
     [self.propertys setObject:anObject forKey:aKey];
 }
 
@@ -91,6 +94,7 @@
     id oldObject = self.propertys[aKey];
     if([oldObject isEqual:anObject])
         return;
+    [[DAUManager shareInstance] dataChanged:self withKey:aKey withObject:anObject];
     [self.propertys setObject:anObject forKeyedSubscript:aKey];
 }
 

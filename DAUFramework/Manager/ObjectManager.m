@@ -23,8 +23,8 @@
 {
     if(self = [super init])
     {
-        self.objectCreators = [[Data alloc] init];
-        self.objects = [[Data alloc] init];
+        self.objectCreators = [[NSMutableDictionary alloc] init];
+        self.objects = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -67,7 +67,7 @@
     return [creator create:key withData:data];
 }
 
--(id)getObjectScope:(NSString*)scope withobjects:(Data*)objDict
+-(id)getObjectScope:(NSString*)scope withobjects:(NSMutableDictionary*)objDict
 {
     NSString * key;
     NSString * remainKey;
@@ -84,10 +84,10 @@
         remainKey = [scope substringWithRange:NSMakeRange(location, scope.length - location)];
     }
     
-    Data * scopeDict = objDict[key];
+    NSMutableDictionary * scopeDict = objDict[key];
     if(scopeDict == nil)
     {
-        scopeDict = [[Data alloc] init];
+        scopeDict = [[NSMutableDictionary alloc] init];
         [objDict setObject:scopeDict forKey:key];
     }
     if(![remainKey isEqualToString:@""])
@@ -100,7 +100,7 @@
 
 -(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
 {
-    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     [scopeDict setObject:model forKey:key];
     
 //    NSMutableArray * valueArray = scopeDict[key];
@@ -114,13 +114,13 @@
 
 -(void)removeObject:(id)key withScope:(NSString*)scope
 {
-    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     [scopeDict removeObjectForKey:key];
 }
 
 -(id)getObject:(id)key withScope:(NSString*)scope
 {
-    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     return [scopeDict objectForKey:key];
 
 //    NSArray * valueArray = [scopeDict objectForKey:key];
@@ -135,7 +135,7 @@
 
 -(void)removeAllObject:(NSString*)scope
 {
-    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
     [scopeDict removeAllObjects];
 //    [self.objects removeObjectForKey:scope];
 }
