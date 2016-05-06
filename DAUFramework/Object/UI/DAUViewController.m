@@ -6,22 +6,22 @@
 //  Copyright © 2016年 zhipeng. All rights reserved.
 //
 
-#import "DAUUIViewController.h"
+#import "DAUViewController.h"
 #import "Binder.h"
 #import "ObjectManager.h"
 #import "Action.h"
 #import "UIWrapper.h"
 
-@interface DAUUIViewController ()
+@interface DAUViewController ()
 
 @end
 
-@implementation DAUUIViewController
+@implementation DAUViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
     [binder doAction:@"viewDidLoad" withParam:nil];
 }
 
@@ -29,7 +29,7 @@
 {
     [super viewWillAppear:animated];
 
-    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
     [binder doAction:@"viewWillAppear" withParam:nil];
 }
 
@@ -37,15 +37,17 @@
 {
     [super viewDidAppear:animated];
 
-    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
     [binder doAction:@"viewDidAppear" withParam:nil];
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 
-    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
     [binder doAction:@"viewWillDisappear" withParam:nil];
 }
 
@@ -53,7 +55,7 @@
 {
     [super viewDidDisappear:animated];
 
-    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
     [binder doAction:@"viewDidDisappear" withParam:nil];
 }
 
@@ -62,7 +64,7 @@
 {
     [super viewWillLayoutSubviews];
 
-    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
     [binder doAction:@"viewWillLayoutSubviews" withParam:nil];
 }
 
@@ -71,7 +73,7 @@
 {
     [super viewDidLayoutSubviews];
 
-    Binder * binder = [Binder binderWithObject:self.uiWrapper withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
     [binder doAction:@"viewDidLayoutSubviews" withParam:nil];
 }
 
@@ -81,7 +83,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)dealloc
+{
+    [[ObjectManager shareInstance] removeAllObject:self.controllerName];
+}
 
 /*
 #pragma mark - Navigation

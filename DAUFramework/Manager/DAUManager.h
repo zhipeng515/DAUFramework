@@ -21,7 +21,7 @@
 - (nonnull id)init;
 
 - (void)loadModelDefine:(nonnull NSDictionary*)modelDefines;
-- (nonnull id)getModelDefine:(nonnull id)define;
+- (nullable id)getModelDefine:(nonnull id)define;
 
 - (void)parseDataModel:(nonnull NSDictionary*)models withScope:(nonnull NSString*)scope;
 - (void)parseLayoutModel:(nonnull NSDictionary*)layouts withScope:(nonnull NSString*)scope;

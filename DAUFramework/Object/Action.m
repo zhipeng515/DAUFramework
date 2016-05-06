@@ -7,14 +7,32 @@
 //
 
 #import "Action.h"
+#import "ObjectManager.h"
+#import "DAUViewController.h"
 
 @implementation Action
+
++ (id)actionWithSelector:(SEL)selector withTarget:(id)target withParam:(NSDictionary*)param
+{
+    Action * action = [[Action alloc] initWithParam:param];
+    [action packageSelector:selector withTarget:target];
+    return action;
+}
+
++ (nonnull id)actionWithParam:(nonnull NSDictionary*)param
+{
+    id target = [[ObjectManager shareInstance] getObject:param[@"target"] withScope:GLOBAL_SCOPE];
+    SEL selector = NSSelectorFromString(param[@"selector"]);
+    return [self actionWithSelector:selector withTarget:target withParam:param];
+}
 
 -(id)initWithParam:(NSMutableDictionary*)param
 {
     if(self = [super init])
     {
-        self.param = param;
+        [param enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            self[key] = obj;
+        }];
     }
     return self;
 }
@@ -29,72 +47,43 @@
     return self;
 }
 
+- (void)packageSelector:(nonnull SEL)selector withTarget:(nonnull id)target
+{
+//    NSValue *selectorAsValue = [NSValue valueWithBytes:&selector objCType:@encode(SEL)];
+//    self[@"selector"] = selectorAsValue;
+    self[@"selector"] = NSStringFromSelector(selector);
+    self[@"target"] = target;
+}
+
 -(void)encodeWithCoder:(nonnull NSCoder *)aCoder
 {
     [super encodeWithCoder:aCoder];
     
-    [aCoder encodeObject:self.param forKey:@"param"];
-    [aCoder encodeObject:self.param forKey:@"complete"];
-    [aCoder encodeObject:self.param forKey:@"failed"];
+    [aCoder encodeObject:self forKey:@"complete"];
+    [aCoder encodeObject:self forKey:@"failed"];
 }
 
 -(BOOL)doAction:(nullable Data*)param
 {
-    NSAssert(false, @"forbidden");
-    return YES;
-}
-
-@end
-
-
-@implementation HttpAction
-
--(id)initWithParam:(NSDictionary*)param
-{
-    if(self = [super initWithParam:param])
+//    NSValue * selectorValue = self[@"selector"];
+//    if(selectorValue)
+//    {
+//        SEL selector;
+//        [selectorValue getValue:&selector];
+//        id target = self[@"target"];
+//        if(target && selector)
+//        {
+//            id result = [target performSelector:selector withObject:self];
+//            NSLog(@"%@", result);
+//        }
+//    }
+    id target = self[@"target"];
+    SEL selector = NSSelectorFromString(self[@"selector"]);
+    if(target && selector)
     {
+        id result = [target performSelector:selector withObject:self];
+        NSLog(@"%@", result);
     }
-    return self;
-}
-
--(BOOL)doAction:(nullable Data*)param
-{
-    return YES;
-}
-
-@end
-
-@implementation UIAction
-
--(id)initWithParam:(NSDictionary*)param
-{
-    if(self = [super initWithParam:param])
-    {
-    }
-    return self;
-}
-
--(BOOL)doAction:(nullable Data*)param
-{
-    NSLog(@"ui action run");
-    return YES;
-}
-
-@end
-
-@implementation CustomAction
-
--(id)initWithParam:(NSDictionary*)param
-{
-    if(self = [super initWithParam:param])
-    {
-    }
-    return self;
-}
-
--(BOOL)doAction:(nullable Data*)param
-{
-    NSLog(@"custom action run");
     return YES;
 }
 

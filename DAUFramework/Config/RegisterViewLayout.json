@@ -1,7 +1,14 @@
 {
-    
     "layoutInfo":
     {
+        "registerViewController":
+        {
+            "creator":"createDAUViewController",
+            "property":
+            {
+                "name":"registerViewController"
+            }
+        },
         "rootView":
         {
             "creator":"createView",

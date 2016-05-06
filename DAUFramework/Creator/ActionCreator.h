@@ -17,26 +17,3 @@
 
 @end
 
-@interface HttpActionCreator : ActionCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)data;
-
-@end
-
-@interface UIActionCreator : ActionCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)data;
-
-@end
-
-@interface DataActionCreator : ActionCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)data;
-
-@end
-
-@interface CustomActionCreator : ActionCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)data;
-
-@end

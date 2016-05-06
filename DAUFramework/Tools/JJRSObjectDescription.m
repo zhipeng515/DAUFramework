@@ -150,13 +150,13 @@ NSArray <NSString*> *_JJRSObjectDescriptionGetPropertyNamesForObject(id anObject
 {
     if (!objv)
     {
-        [self appendWithColor:KEYWORD_COLOR format:@"nil\n"];
+        [self appendWithColor:KEYWORD_COLOR format:@"nil\r"];
     }
     else if ([objv.classForKeyedArchiver isSubclassOfClass:NSDictionary.class])
     {
         NSDictionary *typedObjv = objv;
         
-        [self appendWithColor:PLAIN_COLOR format:@"{\n"];
+        [self appendWithColor:PLAIN_COLOR format:@"{\r"];
         _depth++;
         [typedObjv enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop)
          {
@@ -164,55 +164,55 @@ NSArray <NSString*> *_JJRSObjectDescriptionGetPropertyNamesForObject(id anObject
          }];
         _depth--;
         [self padBuffer];
-        [self appendWithColor:PLAIN_COLOR format:@"}\n"];
+        [self appendWithColor:PLAIN_COLOR format:@"}\r"];
         
     }
     else if ([objv.classForKeyedArchiver isSubclassOfClass:NSArray.class])
     {
         NSArray *typedObjv = objv;
-        [self appendWithColor:PLAIN_COLOR format:@"[\n"];
+        [self appendWithColor:PLAIN_COLOR format:@"[\r"];
         _depth++;
         [typedObjv enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
          {
              if (idx > 0)
              {
                  [self padBuffer];
-                 [self appendWithColor:COMMENT_COLOR format:@"// %lu\n", (unsigned long)idx];
+                 [self appendWithColor:COMMENT_COLOR format:@"// %lu\r", (unsigned long)idx];
              }
              [self padBuffer];
              [self encodeObject:obj];
          }];
         _depth--;
         [self padBuffer];
-        [self appendWithColor:PLAIN_COLOR format:@"]\n"];
+        [self appendWithColor:PLAIN_COLOR format:@"]\r"];
     }
     else if (NSString.class == objv.classForKeyedArchiver)
     {
         NSString *typedObjv = objv;
-        [self appendWithColor:STRING_COLOR format:@"\"%@\"\n", typedObjv];
+        [self appendWithColor:STRING_COLOR format:@"\"%@\"\r", typedObjv];
     }
     else if (NSNumber.class == objv.classForKeyedArchiver)
     {
         NSNumber *typedObjv = objv;
-        [self appendWithColor:NUMBER_COLOR format:@"%@\n", typedObjv];
+        [self appendWithColor:NUMBER_COLOR format:@"%@\r", typedObjv];
     }
     else if (NSUUID.class == objv.classForKeyedArchiver)
     {
         NSUUID *typedObjv = objv;
         [self padBuffer];
-        [self appendWithColor:PLAIN_COLOR format:@"%@\n", typedObjv];
+        [self appendWithColor:PLAIN_COLOR format:@"%@\r", typedObjv];
     }
     else if (NSDate.class == objv.classForKeyedArchiver)
     {
         NSDate *typedObjv = objv;
         [self padBuffer];
-        [self appendWithColor:PLAIN_COLOR format:@"%@\n", typedObjv];
+        [self appendWithColor:PLAIN_COLOR format:@"%@\r", typedObjv];
     }
     else if (NSURL.class == objv.classForKeyedArchiver)
     {
         NSURL *typedObjv = objv;
         [self padBuffer];
-        [self appendWithColor:PLAIN_COLOR format:@"%@\n", typedObjv];
+        [self appendWithColor:PLAIN_COLOR format:@"%@\r", typedObjv];
     }
     else if (![_references containsObject:objv])
     {
@@ -227,7 +227,7 @@ NSArray <NSString*> *_JJRSObjectDescriptionGetPropertyNamesForObject(id anObject
         
         @try
         {
-            [self appendWithColor:PLAIN_COLOR format:@"<%@: %p> {\n", NSStringFromClass(objv.class), objv];
+            [self appendWithColor:PLAIN_COLOR format:@"<%@: %p> {\r", NSStringFromClass(objv.class), objv];
             
             _depth++;
 
@@ -235,18 +235,18 @@ NSArray <NSString*> *_JJRSObjectDescriptionGetPropertyNamesForObject(id anObject
             
             _depth--;
             [self padBuffer];
-            [self appendWithColor:PLAIN_COLOR format:@"}\n"];
+            [self appendWithColor:PLAIN_COLOR format:@"}\r"];
         }
         @catch (NSException *exception)
         {
             [_buffer deleteCharactersInRange:NSMakeRange(bufferLength, _buffer.length - bufferLength)];
             
-            [self appendWithColor:PLAIN_COLOR format:@"<%@: %p>\n", NSStringFromClass(objv.class), objv];
+            [self appendWithColor:PLAIN_COLOR format:@"<%@: %p>\r", NSStringFromClass(objv.class), objv];
         }
     }
     else
     {
-        [self appendWithColor:PLAIN_COLOR format:@"<%@: %p>\n", NSStringFromClass(objv.class), objv];
+        [self appendWithColor:PLAIN_COLOR format:@"<%@: %p>\r", NSStringFromClass(objv.class), objv];
     }
 }
 
@@ -264,7 +264,7 @@ NSArray <NSString*> *_JJRSObjectDescriptionGetPropertyNamesForObject(id anObject
         [self appendWithColor:PLAIN_COLOR format:@" = "];
     }
 
-    [self appendWithColor:KEYWORD_COLOR format:@"%@\n", boolv ? @"true" : @"false"];
+    [self appendWithColor:KEYWORD_COLOR format:@"%@\r", boolv ? @"true" : @"false"];
 }
 
 - (void)encodeInt:(int)intv forKey:(NSString *)key
@@ -305,7 +305,7 @@ NSArray <NSString*> *_JJRSObjectDescriptionGetPropertyNamesForObject(id anObject
         [self appendWithColor:KEY_COLOR format:@"%@", key];
         [self appendWithColor:PLAIN_COLOR format:@" = "];
     }
-    [self appendWithColor:PLAIN_COLOR format:@"%@\n", [NSData dataWithBytes:bytesp length:lenv]];
+    [self appendWithColor:PLAIN_COLOR format:@"%@\r", [NSData dataWithBytes:bytesp length:lenv]];
 }
 
 @end

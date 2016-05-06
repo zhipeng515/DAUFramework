@@ -10,7 +10,7 @@
 #import <UIKit/Uikit.h>
 #import "UIWrapper.h"
 #import "UIColor+HexString.h"
-#import "DAUUIViewController.h"
+#import "DAUViewController.h"
 
 @implementation UICreator
 
@@ -216,7 +216,8 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    DAUUIViewController * viewController = [[DAUUIViewController alloc] init];
+    DAUViewController * viewController = [[DAUViewController alloc] init];
+    viewController.controllerName = dict[@"name"];
     UIWrapper * ui = [[UIWrapper alloc] initWithUI:viewController];
     viewController.uiWrapper = ui;
     return ui;

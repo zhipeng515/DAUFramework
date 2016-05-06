@@ -35,13 +35,20 @@
     }
     return binder;
 }
+
++ (nullable id)getBinder:(nonnull id)sourceObject withScope:(nonnull NSString *)scope
+{
+    Binder * binder = [[ObjectManager shareInstance] getObject:sourceObject withScope:scope];
+    return binder;
+}
+
 - (BOOL)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param
 {
     NSAssert(false, @"forbidden");
     return NO;
 }
 
-- (void)updateUI:(nonnull Data*)value
+- (void)updateUI:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value
 {
     NSAssert(false, @"forbidden");
 }
@@ -94,7 +101,7 @@
 {
     BOOL result = YES;
     NSArray * actions = self[condition];
-    for(UIAction * action in actions)
+    for(Action * action in actions)
     {
         if(![action doAction:param])
         {
@@ -108,12 +115,12 @@
 
 @implementation DataUIWrapperBinder
 
-- (void)updateUI:(nonnull Data*)value
+- (void)updateUI:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value
 {
-    NSArray * uis = self[@"ui"];
+    NSArray * uis = self[key];
     for(UIWrapper * ui in uis)
     {
-        [ui updateUI];
+        [ui updateUI:value];
     }
 }
 

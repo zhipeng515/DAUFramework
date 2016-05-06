@@ -8,60 +8,15 @@
 
 #import "ActionCreator.h"
 #import "Action.h"
+#import "ObjectManager.h"
 
 @implementation ActionCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    NSAssert(false, @"forbidden");
-    return nil;
-}
-
-
-@end
-
-
-@implementation HttpActionCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)dict
-{
-    HttpAction * http = [[HttpAction alloc]initWithParam:dict];
-    return http;
-}
-
-
-@end
-
-
-@implementation UIActionCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)dict
-{
-    UIAction * ui = [[UIAction alloc]initWithParam:dict];
-    return ui;
-}
-
-
-@end
-
-
-@implementation DataActionCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)dict
-{
-    return nil;
-}
-
-
-@end
-
-
-@implementation CustomActionCreator
-
--(id)create:(NSString*)key withData:(NSDictionary*)dict
-{
-    CustomAction * custom = [[CustomAction alloc] initWithParam:dict];
-    return custom;
+    Action * action = [Action actionWithParam:dict];
+    [[ObjectManager shareInstance] setObject:action withKey:key withScope:GLOBAL_SCOPE];
+    return action;
 }
 
 

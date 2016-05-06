@@ -42,20 +42,8 @@
 			"creatorName" : "createData"
 		},
 		{
-			"className" : "HttpActionCreator",
-			"creatorName" : "createHttpAction"
-		},
-		{
-			"className" : "UIActionCreator",
-			"creatorName" : "createUIAction"
-		},
-		{
-			"className" : "DataActionCreator",
-			"creatorName" : "createDataAction"
-		},
-		{
-			"className" : "CustomActionCreator",
-			"creatorName" : "createCustomAction"
+			"className" : "ActionCreator",
+			"creatorName" : "createAction"
 		}
      ]
 }

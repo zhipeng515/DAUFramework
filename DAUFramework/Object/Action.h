@@ -11,45 +11,22 @@
 
 @interface Action : Data
 
-@property(nonatomic, retain, nonnull)NSMutableDictionary * param;
 @property(nonatomic, retain, nullable)Action * complete;
 @property(nonatomic, retain, nullable)Action * failed;
 
--(void)encodeWithCoder:(nonnull NSCoder *)aCoder;
++ (nonnull id)actionWithSelector:(nonnull SEL)selector withTarget:(nonnull id)target withParam:(nullable NSDictionary*)param;
++ (nonnull id)actionWithParam:(nonnull NSDictionary*)param;
+
+- (void)packageSelector:(nonnull SEL)selector withTarget:(nonnull id)target;
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder;
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
--(nonnull id)initWithParam:(nonnull NSDictionary*)param;
--(BOOL)doAction:(nullable Data*)param;
+- (nonnull id)initWithParam:(nonnull NSDictionary*)param;
+- (BOOL)doAction:(nullable Data*)param;
 
 @end
 
 
-@interface HttpAction : Action
-
--(nonnull id)initWithParam:(nonnull NSDictionary*)param;
--(BOOL)doAction:(nullable Data*)param;
-
-@end
-
-@interface UIAction : Action
-
--(nonnull id)initWithParam:(nonnull NSDictionary*)param;
--(BOOL)doAction:(nullable Data*)param;
-
-@end
-
-@interface DataAction : Action
-
--(nonnull id)initWithParam:(nonnull NSDictionary*)param;
--(BOOL)doAction:(nullable Data*)param;
-
-@end
-
-@interface CustomAction : Action
-
--(nonnull id)initWithParam:(nonnull NSDictionary*)param;
--(BOOL)doAction:(nullable Data*)param;
-
-@end

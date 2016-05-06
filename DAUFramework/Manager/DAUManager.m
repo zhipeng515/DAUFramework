@@ -148,9 +148,11 @@
 		NSDictionary * property = layoutDict[@"property"];
         NSAssert(creatorName != nil, @"creator name is nil");
         NSAssert(property != nil, @"property is nil");
-
+        
         id layoutValue = [[ObjectManager shareInstance] createObject:property withKey:creatorName];
 		[[ObjectManager shareInstance] setObject:layoutValue withKey:layoutName withScope:scope];
+        
+        [self parseLayoutModel:property[@"layoutInfo"] withScope:scope];
     }];
 }
 
@@ -162,7 +164,7 @@
 - (void)dataChanged:(Data*)data withKey:(id)key withObject:(id)anObject
 {
     Binder *binder = [[ObjectManager shareInstance] getObject:data withScope:GLOBAL_SCOPE];
-    [binder updateUI:data];
+    [binder updateUI:data withKey:key withValue:anObject];
 }
 
 @end

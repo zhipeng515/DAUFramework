@@ -19,7 +19,7 @@
 #import "UIWrapper.h"
 #import "Binder.h"
 #import "DAUManager.h"
-#import "DAUUIViewController.h"
+#import "DAUViewController.h"
 
 #import "JJRSObjectDescription.h"
 
@@ -45,6 +45,16 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 @end
 
 @implementation ViewController
+
+- (void)presentDAU:(Action*)action
+{
+    DAUViewController * viewController = [[DAUViewController alloc] init];
+    viewController.controllerName = @"DAUViewController";
+    [self presentViewController:viewController animated:YES completion:^()
+     {
+         
+     }];
+}
 
 - (void)benchmark
 {
@@ -90,7 +100,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     configString = [NSData dataWithContentsOfFile:path];
     creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
     
-    [[DAUManager shareInstance] parseLayoutModel:creatorDict[@"layoutInfo"] withScope:@"RegisterView"];
+    [[DAUManager shareInstance] parseLayoutModel:creatorDict[@"layoutInfo"] withScope:@"registerViewController"];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self benchmark];
@@ -133,23 +143,6 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     
 
     
-    
-    
-    
-    
-    NSMutableDictionary * http = [[NSMutableDictionary alloc] init];
-    [http setValue:@"http://api.com" forKey:@"url"];
-    [http setValue:@"getTop" forKey:@"param"];
-    HttpAction * http1 = [[ObjectManager shareInstance] createObject:http withKey:@"createHttpAction"];
-    [[ObjectManager shareInstance] setObject:http1 withKey:@"getTopHttp" withScope:GLOBAL_SCOPE];
-
-
-    
-
-    NSMutableDictionary * custom = [[NSMutableDictionary alloc] init];
-    CustomAction * customfunc = [[ObjectManager shareInstance] createObject:custom withKey:@"createCustomAction"];
-    [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
-    
 //    UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
 //    ((UITextView*)label.ui).frame = CGRectMake(0, 0, 320, 568);
 //    [self.view addSubview:label.ui];
@@ -157,11 +150,12 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 
 //    [[ObjectManager shareInstance] removeAllObject];
     
-    NSMutableDictionary * tap = [[NSMutableDictionary alloc] init];
-    UIAction * tapimage = [[ObjectManager shareInstance] createObject:tap withKey:@"createUIAction"];
+    Action * tapimage = [[ObjectManager shareInstance] createObject:@{} withKey:@"createAction"];
     [[ObjectManager shareInstance] setObject:tapimage withKey:@"tapimage" withScope:GLOBAL_SCOPE];
+    Action * customfunc = [[ObjectManager shareInstance] createObject:@{} withKey:@"createAction"];
+    [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
 
-    UIWrapper * button = [[ObjectManager shareInstance] getObject:@"registerButton" withScope:@"RegisterView"];
+    UIWrapper * button = [[ObjectManager shareInstance] getObject:@"registerButton" withScope:@"registerViewController"];
     [self.view addSubview:button.ui];
     
     Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
@@ -174,27 +168,25 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     device[@"deviceId"] = @"123123123123123";
     [[ObjectManager shareInstance] setObject:device withKey:@"device" withScope:@"global"];
     
-    [[ObjectManager shareInstance] setObject:@"ios" withKey:@"deviceType" withScope:@"global.device"];
-    [[ObjectManager shareInstance] setObject:@"123123123123123" withKey:@"deviceId" withScope:@"global.device"];
     
-    Binder *binder0 = [Binder binderWithObject:device withScope:GLOBAL_SCOPE];
-    binder0[@"ui"] = button;
+    [button addAction:[Action actionWithSelector:@selector(presentDAU:) withTarget:self withParam:nil] withTrigger:@"onTap"];
+    [button addAction:tapimage withTrigger:@"onTap"];
+    [button addAction:customfunc withTrigger:@"onTap"];
+    [button watchData:device withKey:@"deviceType"];
     
+    [[ObjectManager shareInstance] setObject:@"444444444444" withKey:@"deviceId" withScope:@"global.device"];
     device[@"deviceType"] = @"android";
+    
+    
+//    NSLog(@"%@", [ObjectManager shareInstance].objects);
+    
+    
+    UIWrapper * controller = [[ObjectManager shareInstance] getObject:@"registerViewController" withScope:@"registerViewController"];
+    [controller addAction:customfunc withTrigger:@"viewDidLoad"];
+    [controller addAction:tapimage withTrigger:@"viewDidLoad"];
+    [controller addAction:customfunc withTrigger:@"viewWillAppear"];
+    [controller addAction:tapimage withTrigger:@"viewWillAppear"];
 
-    
-    Binder * binder1 = [Binder binderWithObject:button withScope:GLOBAL_SCOPE];
-    binder1[@"onTap"] = customfunc;
-    binder1[@"onTap"] = tapimage;
-    
-    UIWrapper * controller = [[ObjectManager shareInstance] createObject:@{} withKey:@"createDAUViewController"];
-    Binder * binder2 = [Binder binderWithObject:controller withScope:GLOBAL_SCOPE];
-    binder2[@"viewDidLoad"] = customfunc;
-    binder2[@"viewDidLoad"] = tapimage;
-    binder2[@"viewWillAppear"] = customfunc;
-    binder2[@"viewWillAppear"] = tapimage;
-    
-    [controller.ui presentViewController:self animated:NO completion:nil];
 
 //    UI * view = [[ObjectManager shareInstance] createObject:@{} withKey:@"createView"];
 //    [[ObjectManager shareInstance] setObject:view withKey:@"view" withScope:GLOBAL_SCOPE];
@@ -264,12 +256,22 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    
 //    [[ObjectManager shareInstance] removeAllObject:@"RegisterView"];
     
+//    UIWrapper * controller = [[ObjectManager shareInstance] getObject:@"registerViewController" withScope:@"registerViewController"];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self presentViewController:controller.ui animated:NO completion:nil];
+//    });
+
     [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    
 }
 
 @end

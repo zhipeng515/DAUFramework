@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DAUUIViewController : UIViewController
+@interface DAUViewController : UIViewController
+
+@property (nonatomic, retain, nonnull)NSString * controllerName;
 
 @end

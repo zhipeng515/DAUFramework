@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class Data;
+@class Action;
+
 @interface UIResponder (UIWrapper)
 
 @property(nonatomic, retain, nonnull)id uiWrapper;
@@ -23,11 +26,13 @@
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
 - (nonnull id)initWithUI:(nullable id)ui;
+- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key;
+- (void)addAction:(nonnull Action*)action withTrigger:(nonnull NSString*)trigger;
 
 - (nonnull NSString*)description;
 
 - (void)onTap:(nonnull id)sender;
 
-- (void)updateUI;
+- (void)updateUI:(nonnull id)value;
 
 @end

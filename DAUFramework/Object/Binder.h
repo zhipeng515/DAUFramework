@@ -12,8 +12,10 @@
 @interface Binder : Data
 
 + (nonnull id)binderWithObject:(nonnull id)sourceObject withScope:(nonnull NSString*)scope;
++ (nullable id)getBinder:(nonnull id)sourceObject withScope:(nonnull NSString *)scope;
+
 - (BOOL)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param;
-- (void)updateUI:(nonnull Data*)value;
+- (void)updateUI:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value;
 - (BOOL)dataChanged:(nonnull NSString*)key;
 
 @end
@@ -26,6 +28,6 @@
 
 @interface DataUIWrapperBinder : Binder
 
-- (void)updateUI:(nonnull Data*)value;
+- (void)updateUI:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value;
 
 @end

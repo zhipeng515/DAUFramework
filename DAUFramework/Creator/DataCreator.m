@@ -14,9 +14,11 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    return nil;
-//    Data * data = [[Data alloc] init:dict[@"data"] withKey:dict[@"key"] withScope:dict[@"scope"]];
-//    return data;
+    Data * data = [[Data alloc] init];
+    [dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        data[key] = obj;
+    }];
+    return data;
 }
 
 @end
