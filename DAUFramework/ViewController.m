@@ -102,9 +102,9 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     
     [[DAUManager shareInstance] parseLayoutModel:creatorDict[@"layoutInfo"] withScope:@"registerViewController"];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self benchmark];
-    });
+//    });
 
     id notes = [[ObjectManager shareInstance] getObject:@"notes" withScope:@"RegisterView"];
     NSLog( @"%@", notes[@"notes"]);
@@ -162,6 +162,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     d1[@"ffffff"] = @"ggggggg";
     Data * d2 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
     d2[@"fffff"] = @"hhhhhhh";
+    d2[0] = @"aaaa";
     
     Data * device = [[Data alloc] init];
     device[@"deviceType"] = @"ios";

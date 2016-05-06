@@ -26,10 +26,19 @@
 
 // 支持下标方法访问
 - (nullable id)objectForKeyedSubscript:(nonnull id)key;
+- (void)setObject:(nullable id)anObject forKeyedSubscript:(nonnull id <NSCopying>)aKey;
+
+// 数组方式访问
+- (nullable id)objectAtIndexedSubscript:(NSUInteger)idx;
+- (void)setObject:(nullable id)obj atIndexedSubscript:(NSUInteger)idx;
+- (void)addObject:(nonnull id)anObject;
+- (void)insertObject:(nonnull id)anObject atIndex:(NSUInteger)index;
+- (void)removeObjectAtIndex:(NSUInteger)index;
+
 
 - (void)setValue:(nullable id)value forKey:(nonnull NSString *)key;
 - (void)setObject:(nonnull id)anObject forKey:(nonnull id <NSCopying>)aKey;
-- (void)setObject:(nullable id)anObject forKeyedSubscript:(nonnull id <NSCopying>)aKey;
+
 
 - (nullable id)objectForKey:(nonnull id)aKey;
 - (nullable NSEnumerator<id> *)objectEnumerator;

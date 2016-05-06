@@ -10,12 +10,13 @@
 
 @interface ModelDefine : NSObject
 
-@property(nonatomic,retain)NSString * modelName;
+@property(nonatomic,retain)NSString * name;
+@property(nonatomic,retain)NSString * type;
 @property(nonatomic,retain)NSString * scope;
 @property(nonatomic,retain)NSString * indexKey;
 @property(nonatomic,retain)NSDictionary * propertys;
 
--(id)init:(NSString*)name withIndexKey:(NSString*)key withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys;
+-(id)init:(NSString*)name withIndexKey:(NSString*)key withType:(NSString*)type withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys;
 -(bool)isModelDefine:(id)model;
 -(bool)hasIndexKey;
 -(bool)hasScope;

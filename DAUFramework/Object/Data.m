@@ -37,6 +37,7 @@
     if(self = [super init])
     {
         self.propertys = [[NSMutableDictionary alloc] init];
+        [self.propertys setObject:[[NSMutableArray alloc] init] forKey:@"self.array"];
     }
     return self;
 }
@@ -71,6 +72,15 @@
     return [self.propertys objectForKeyedSubscript:key];
 }
 
+- (void)setObject:(nullable id)anObject forKeyedSubscript:(nonnull id <NSCopying>)aKey
+{
+    id oldObject = self.propertys[aKey];
+    if([oldObject isEqual:anObject])
+        return;
+    [[DAUManager shareInstance] dataChanged:self withKey:aKey withObject:anObject];
+    [self.propertys setObject:anObject forKeyedSubscript:aKey];
+}
+
 - (void)setValue:(nullable id)value forKey:(nonnull NSString *)key;
 {
     id oldValue = self.propertys[key];
@@ -89,15 +99,6 @@
     [self.propertys setObject:anObject forKey:aKey];
 }
 
-- (void)setObject:(nullable id)anObject forKeyedSubscript:(nonnull id <NSCopying>)aKey
-{
-    id oldObject = self.propertys[aKey];
-    if([oldObject isEqual:anObject])
-        return;
-    [[DAUManager shareInstance] dataChanged:self withKey:aKey withObject:anObject];
-    [self.propertys setObject:anObject forKeyedSubscript:aKey];
-}
-
 - (id)objectForKey:(id)aKey
 {
     return [self.propertys objectForKey:aKey];
@@ -111,6 +112,36 @@
 - (NSUInteger)countByEnumeratingWithState:(nullable NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
 {
     return [self.propertys countByEnumeratingWithState:state objects:buffer count:len];
+}
+
+- (nullable id)objectAtIndexedSubscript:(NSUInteger)idx
+{
+    NSMutableArray * array = [self.propertys objectForKey:@"self.array"];
+    return array[idx];
+}
+
+- (void)setObject:(nullable id)obj atIndexedSubscript:(NSUInteger)idx
+{
+    NSMutableArray * array = [self.propertys objectForKey:@"self.array"];
+    array[idx] = obj;
+}
+
+- (void)addObject:(nonnull id)anObject
+{
+    NSMutableArray * array = [self.propertys objectForKey:@"self.array"];
+    [array addObject:anObject];
+}
+
+- (void)insertObject:(nonnull id)anObject atIndex:(NSUInteger)index
+{
+    NSMutableArray * array = [self.propertys objectForKey:@"self.array"];
+    [array insertObject:anObject atIndex:index];
+}
+
+- (void)removeObjectAtIndex:(NSUInteger)index
+{
+    NSMutableArray * array = [self.propertys objectForKey:@"self.array"];
+    [array removeObjectAtIndex:index];
 }
 
 - (nonnull NSString*)description

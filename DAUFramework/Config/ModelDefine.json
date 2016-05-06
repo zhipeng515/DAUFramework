@@ -119,7 +119,13 @@
     {
         "propertys":
         {
-            "notes":"array"
+            "notes":
+            {
+                "propertys":
+                {
+                    "noteId":"string"
+                }
+            }
         }
     },
     "userExts":

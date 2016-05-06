@@ -35,29 +35,41 @@
 }
 
 
--(void)loadModelDefine:(NSDictionary*)modelDefines
+- (void)bindModel:(ModelDefine*)model withPropertys:(NSDictionary*)propertys
+{
+    // 保存propertys的key对应的ModelDefine，优化匹配效率
+    for(NSString * key in propertys)
+    {
+        NSMutableArray * keyArray = self.modelDefineKeyDict[key];
+        if(keyArray == nil)
+        {
+            keyArray = [[NSMutableArray alloc] init];
+            [self.modelDefineKeyDict setValue:keyArray forKey:key];
+        }
+        [keyArray addObject:model];
+        
+        id propertyValue = propertys[@"propertys"];
+        if([propertyValue isKindOfClass:[NSDictionary class]])
+        {
+            [self bindModel:model withPropertys:propertyValue];
+        }
+    }
+}
+
+- (void)loadModelDefine:(NSDictionary*)modelDefines
 {
     [modelDefines enumerateKeysAndObjectsUsingBlock:^(id modelName, id modelDefine, BOOL *stop) {
         if([modelDefine isKindOfClass:[NSDictionary class]])
         {
             NSString * indexKey = modelDefine[@"indexKey"];
             NSString * scope = modelDefine[@"scope"];
+            NSString * type = modelDefine[@"type"];
             NSDictionary * propertys = modelDefine[@"propertys"];
             
-            ModelDefine * model = [[ModelDefine alloc] init:modelName withIndexKey:indexKey withScope:scope withPropertys:propertys];
+            ModelDefine * model = [[ModelDefine alloc] init:modelName withIndexKey:indexKey withType:type withScope:scope withPropertys:propertys];
             [self.modelDefineDict setValue:model forKey:modelName];
-            
-            // 保存propertys的key对应的ModelDefine，优化匹配效率
-            for(NSString * key in propertys)
-            {
-                NSMutableArray * keyArray = self.modelDefineKeyDict[key];
-                if(keyArray == nil)
-                {
-                    keyArray = [[NSMutableArray alloc] init];
-                    [self.modelDefineKeyDict setValue:keyArray forKey:key];
-                }
-                [keyArray addObject:model];
-            }
+
+            [self bindModel:model withPropertys:propertys];
         }
 //        else if([modelDefine isKindOfClass:[NSString class]])
 //        {
@@ -115,7 +127,7 @@
     {
         Data * data = [define buildModel:models];
         NSString * dataScope = scope;
-        NSString * key = define.modelName;
+        NSString * key = define.name;
         if([define hasScope])
             dataScope = define.scope;
         if([define hasIndexKey])
