@@ -16,8 +16,8 @@
 
 @interface ObjectManager : NSObject
 
-@property(nonatomic, retain)NSMutableDictionary * objectCreators;
-@property(nonatomic, retain)NSMutableDictionary * objects;
+@property(nonatomic, retain)Data * objectCreators;
+@property(nonatomic, retain)Data * objects;
 
 
 + (ObjectManager*)shareInstance;

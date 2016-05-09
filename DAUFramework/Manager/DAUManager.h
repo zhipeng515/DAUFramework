@@ -23,7 +23,7 @@
 - (void)loadModelDefine:(nonnull NSDictionary*)modelDefines;
 - (nullable id)getModelDefine:(nonnull id)define;
 
-- (void)parseDataModel:(nonnull NSDictionary*)models withScope:(nonnull NSString*)scope;
+- (void)parseDataModel:(nonnull id)models withScope:(nonnull NSString*)scope;
 - (void)parseLayoutModel:(nonnull NSDictionary*)layouts withScope:(nonnull NSString*)scope;
 - (void)parseBinderModel:(nonnull NSDictionary*)binders withScope:(nonnull NSString*)scope;
 

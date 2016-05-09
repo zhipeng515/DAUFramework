@@ -39,8 +39,6 @@
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
     [binder doAction:@"viewDidAppear" withParam:nil];
-    
-    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -8,10 +8,11 @@
 
 #import "ModelDefine.h"
 #import "Data.h"
+#import "DAUManager.h"
 
 @implementation ModelDefine
 
--(id)init:(NSString*)name withIndexKey:(NSString*)key withType:(NSString*)type withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys
+-(id)init:(NSString*)name withVarname:(NSString*)varname withType:(NSString*)type withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys
 {
     if(self = [super init])
     {
@@ -20,16 +21,16 @@
             self.type = @"kv";
         else
             self.type = type;
-        self.indexKey = key;
+        self.varname = varname;
         self.scope = scope;
         self.propertys = propertys;
     }
     return self;
 }
 
--(bool)hasIndexKey
+-(bool)hasvarname
 {
-    return self.indexKey && ![self.indexKey isEqualToString:@""];
+    return self.varname && ![self.varname isEqualToString:@""];
 }
 
 -(bool)hasScope
@@ -40,10 +41,10 @@
 -(bool)isModelDefine:(id)model
 {
     __block int matchCount = 0;
-    if( [self.type isEqualToString:@"kv"] && [model isKindOfClass:[NSDictionary class]])
+    if([self.type isEqualToString:@"kv"] && [model isKindOfClass:[NSDictionary class]])
     {
-        id indexValue = model[self.indexKey];
-        if([self hasIndexKey] && indexValue == nil)
+        id varnameValue = model[self.varname];
+        if([self hasvarname] && varnameValue == nil)
             return false;
         [model enumerateKeysAndObjectsUsingBlock:^(id key, id modelValue, BOOL *stop) {
             id propertyType = self.propertys[key];
@@ -53,12 +54,34 @@
                 {
                     if([modelValue isKindOfClass:[NSString class]] && [propertyType isEqualToString:@"string"])
                         matchCount++;
-                    else if([modelValue isKindOfClass:[NSDictionary class]] && [propertyType isEqualToString:@"kv"])
-                        matchCount++;
+                    else if([modelValue isKindOfClass:[NSDictionary class]])
+                    {
+                        if([propertyType isEqualToString:@"kv"])
+                        {
+                            matchCount++;
+                        }
+                        else
+                        {
+                            NSArray * defines = [[DAUManager shareInstance] getModelDefine:modelValue];
+                            matchCount += defines.count;
+                        }
+                    }
                     else if([modelValue isKindOfClass:[NSNumber class]] && ([propertyType isEqualToString:@"int"] || [propertyType isEqualToString:@"float"] || [propertyType isEqualToString:@"bool"]))
+                    {
                         matchCount++;
-                    else if([modelValue isKindOfClass:[NSArray class]] && [propertyType isEqualToString:@"array"])
-                        matchCount++;
+                    }
+                    else if([modelValue isKindOfClass:[NSArray class]])
+                    {
+                        if([propertyType isEqualToString:@"array"])
+                        {
+                            matchCount++;
+                        }
+                        else
+                        {
+                            NSArray * defines = [[DAUManager shareInstance] getModelDefine:modelValue[0]];
+                            matchCount += defines.count;
+                        }
+                    }
                 }
                 else if([propertyType isKindOfClass:[NSDictionary class]])
                 {
@@ -66,6 +89,10 @@
                 }
 			}
         }];
+    }
+    else if([self.type isEqualToString:@"array"] && [model isKindOfClass:[NSArray class]])
+    {
+        
     }
     return matchCount == [self.propertys count];
 }

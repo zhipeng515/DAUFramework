@@ -26,7 +26,7 @@
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
 - (nonnull id)initWithUI:(nullable id)ui;
-- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key;
+- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(nullable Action*)action;
 - (void)addAction:(nonnull Action*)action withTrigger:(nonnull NSString*)trigger;
 
 - (nonnull NSString*)description;

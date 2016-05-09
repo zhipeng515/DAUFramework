@@ -23,8 +23,8 @@
 {
     if(self = [super init])
     {
-        self.objectCreators = [[NSMutableDictionary alloc] init];
-        self.objects = [[NSMutableDictionary alloc] init];
+        self.objectCreators = [[Data alloc] init];
+        self.objects = [[Data alloc] init];
     }
     return self;
 }
@@ -67,7 +67,7 @@
     return [creator create:key withData:data];
 }
 
--(id)getObjectScope:(NSString*)scope withobjects:(NSMutableDictionary*)objDict
+-(id)getObjectScope:(NSString*)scope withobjects:(Data*)objDict createPath:(BOOL)create
 {
     NSString * key;
     NSString * remainKey;
@@ -84,15 +84,15 @@
         remainKey = [scope substringWithRange:NSMakeRange(location, scope.length - location)];
     }
     
-    NSMutableDictionary * scopeDict = objDict[key];
-    if(scopeDict == nil)
+    Data * scopeDict = objDict[key];
+    if(create && scopeDict == nil)
     {
-        scopeDict = [[NSMutableDictionary alloc] init];
+        scopeDict = [[Data alloc] init];
         [objDict setObject:scopeDict forKey:key];
     }
     if(![remainKey isEqualToString:@""])
     {
-        return [self getObjectScope:remainKey withobjects:scopeDict];
+        return [self getObjectScope:remainKey withobjects:scopeDict createPath:create];
     }
     
     return scopeDict;
@@ -100,19 +100,19 @@
 
 -(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects createPath:YES];
     [scopeDict setObject:model forKey:key];
 }
 
 -(void)removeObject:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects createPath:NO];
     [scopeDict removeObjectForKey:key];
 }
 
 -(id)getObject:(id)key withScope:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects createPath:NO];
     return [scopeDict objectForKey:key];
 }
 
@@ -123,7 +123,7 @@
 
 -(void)removeAllObject:(NSString*)scope
 {
-    NSMutableDictionary * scopeDict = [self getObjectScope:scope withobjects:self.objects];
+    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects createPath:NO];
     [scopeDict removeAllObjects];
 //    [self.objects removeObjectForKey:scope];
 }

@@ -10,15 +10,15 @@
 
 @interface ModelDefine : NSObject
 
-@property(nonatomic,retain)NSString * name;
-@property(nonatomic,retain)NSString * type;
-@property(nonatomic,retain)NSString * scope;
-@property(nonatomic,retain)NSString * indexKey;
-@property(nonatomic,retain)NSDictionary * propertys;
+@property(nonatomic,retain)NSString * name;             // 对象类名称
+@property(nonatomic,retain)NSString * type;             // 对象类型
+@property(nonatomic,retain)NSString * scope;            // 对象作用域
+@property(nonatomic,retain)NSString * varname;            // 变量名
+@property(nonatomic,retain)NSDictionary * propertys;    // 对象属性表
 
--(id)init:(NSString*)name withIndexKey:(NSString*)key withType:(NSString*)type withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys;
+-(id)init:(NSString*)name withVarname:(NSString*)varname withType:(NSString*)type withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys;
 -(bool)isModelDefine:(id)model;
--(bool)hasIndexKey;
+-(bool)hasvarname;
 -(bool)hasScope;
 
 -(id)buildModel:(id)propertys;

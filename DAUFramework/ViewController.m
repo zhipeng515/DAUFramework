@@ -173,7 +173,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [button addAction:[Action actionWithSelector:@selector(presentDAU:) withTarget:self withParam:nil] withTrigger:@"onTap"];
     [button addAction:tapimage withTrigger:@"onTap"];
     [button addAction:customfunc withTrigger:@"onTap"];
-    [button watchData:device withKey:@"deviceType"];
+    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@selector(presentDAU:) withTarget:self withParam:nil]];
     
     [[ObjectManager shareInstance] setObject:@"444444444444" withKey:@"deviceId" withScope:@"global.device"];
     device[@"deviceType"] = @"android";

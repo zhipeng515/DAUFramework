@@ -36,10 +36,12 @@
     return self;
 }
 
-- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key
+- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(Action*)action
 {
     Binder * binder = [Binder binderWithObject:data withScope:GLOBAL_SCOPE];
     binder[key] = self;
+    if(action)
+        [self addAction:action withTrigger:@"dataSourceChanged"];
 }
 
 - (void)addAction:(nonnull Action*)action withTrigger:(NSString*)trigger
@@ -71,7 +73,10 @@
 
 - (void)updateUI:(nonnull id)value
 {
-    NSLog(@"data changed %@", value);
+    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Data * param = [[Data alloc] init];
+    param[@"value"] = value;
+    [binder doAction:@"dataSourceChanged" withParam:param];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

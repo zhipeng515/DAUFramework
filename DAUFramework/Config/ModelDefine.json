@@ -20,7 +20,7 @@
     "user":
     {
         "scope":"user",
-        "indexKey":"userId",
+        "varname":"$userId",
         "propertys":
         {
             "userId": "string",
@@ -42,7 +42,7 @@
     "note":
     {
         "scope":"note",
-        "indexKey":"noteId",
+        "varname":"$noteId",
         "propertys":
         {
             "noteId": "string",
@@ -67,7 +67,7 @@
     "noteGeo":
     {
         "scope":"noteGeo",
-        "indexKey":"noteId",
+        "varname":"$noteId",
         "propertys":
         {
             "noteId": "string",
@@ -80,7 +80,7 @@
     "search_note":
     {
         "scope":"note",
-        "indexKey":"id",
+        "varname":"$id",
         "propertys":
         {
             "id": "string",
@@ -100,7 +100,7 @@
     "game":
     {
         "scope":"game",
-        "indexKey":"gameId",
+        "varname":"$gameId",
         "propertys":
         {
             "gameId": "string",
@@ -119,13 +119,7 @@
     {
         "propertys":
         {
-            "notes":
-            {
-                "propertys":
-                {
-                    "noteId":"string"
-                }
-            }
+            "notes":"array"
         }
     },
     "userExts":
@@ -137,7 +131,7 @@
     },
     "userExt": {
         "scope":"userExt",
-        "indexKey":"userId",
+        "varname":"$userId",
         "propertys":
         {
             "userId": "string",
