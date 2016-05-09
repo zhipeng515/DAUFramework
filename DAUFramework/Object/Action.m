@@ -55,7 +55,7 @@
     self[@"target"] = target;
 }
 
--(void)encodeWithCoder:(nonnull NSCoder *)aCoder
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder
 {
     [super encodeWithCoder:aCoder];
     
@@ -63,7 +63,7 @@
     [aCoder encodeObject:self forKey:@"failed"];
 }
 
--(BOOL)doAction:(nullable Data*)param
+- (BOOL)doAction:(nullable Data*)param
 {
 //    NSValue * selectorValue = self[@"selector"];
 //    if(selectorValue)
@@ -81,10 +81,15 @@
     SEL selector = NSSelectorFromString(self[@"selector"]);
     if(target && selector)
     {
-        id result = [target performSelector:selector withObject:self];
+        id result = [target performSelector:selector withObject:param];
         NSLog(@"%@", result);
     }
     return YES;
+}
+
+- (void)dealloc
+{
+    NSLog(@"Action dealloc <%@>", NSStringFromClass([self class]));
 }
 
 @end

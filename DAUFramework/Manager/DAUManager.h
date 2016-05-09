@@ -20,11 +20,13 @@
 
 - (nonnull id)init;
 
+- (nonnull NSDictionary*)getDictionaryFromJsonFile:(nonnull NSString*)filename;
+
 - (void)loadModelDefine:(nonnull NSDictionary*)modelDefines;
 - (nullable id)getModelDefine:(nonnull id)define;
 
 - (void)parseDataModel:(nonnull id)models withScope:(nonnull NSString*)scope;
-- (void)parseLayoutModel:(nonnull NSDictionary*)layouts withScope:(nonnull NSString*)scope;
+- (void)parseLayoutModel:(nonnull NSArray*)layouts withParent:(nullable id)parent withScope:(nonnull NSString*)scope;
 - (void)parseBinderModel:(nonnull NSDictionary*)binders withScope:(nonnull NSString*)scope;
 
 - (void)dataChanged:(nonnull Data*)data withKey:(nullable id)key withObject:(nonnull id)anObject;

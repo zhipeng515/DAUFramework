@@ -14,20 +14,19 @@
 + (nonnull id)binderWithObject:(nonnull id)sourceObject withScope:(nonnull NSString*)scope;
 + (nullable id)getBinder:(nonnull id)sourceObject withScope:(nonnull NSString *)scope;
 
-- (BOOL)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param;
-- (void)updateUI:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value;
-- (BOOL)dataChanged:(nonnull NSString*)key;
+- (nullable id)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param;
+- (void)dataChanged:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value;
 
 @end
 
 @interface UIWrapperActionBinder : Binder
 
-- (BOOL)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param;
+- (nullable id)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param;
 
 @end
 
 @interface DataUIWrapperBinder : Binder
 
-- (void)updateUI:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value;
+- (void)dataChanged:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value;
 
 @end

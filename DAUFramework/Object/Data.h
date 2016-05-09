@@ -29,6 +29,7 @@
 - (void)setObject:(nullable id)anObject forKeyedSubscript:(nonnull id <NSCopying>)aKey;
 
 // 数组方式访问
+- (nullable id)objectAtIndex:(NSUInteger)index;
 - (nullable id)objectAtIndexedSubscript:(NSUInteger)idx;
 - (void)setObject:(nullable id)obj atIndexedSubscript:(NSUInteger)idx;
 - (void)addObject:(nonnull id)anObject;

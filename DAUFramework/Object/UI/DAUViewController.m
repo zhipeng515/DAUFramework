@@ -18,11 +18,24 @@
 
 @implementation DAUViewController
 
+- (void)loadView
+{
+    [super loadView];
+
+    // Do any additional setup after loading the view.
+    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
+    Data * param = [[Data alloc] init];
+    param[@"self"] = self;
+    [binder doAction:@"loadView" withParam:param];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
-    [binder doAction:@"viewDidLoad" withParam:nil];
+    Data * param = [[Data alloc] init];
+    param[@"self"] = self;
+    [binder doAction:@"viewDidLoad" withParam:param];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -30,6 +43,9 @@
     [super viewWillAppear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
+    Data * param = [[Data alloc] init];
+    param[@"self"] = self;
+    param[@"animated"] = [NSNumber numberWithBool:animated];
     [binder doAction:@"viewWillAppear" withParam:nil];
 }
 
@@ -38,6 +54,9 @@
     [super viewDidAppear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
+    Data * param = [[Data alloc] init];
+    param[@"self"] = self;
+    param[@"animated"] = [NSNumber numberWithBool:animated];
     [binder doAction:@"viewDidAppear" withParam:nil];
 }
 
@@ -46,6 +65,9 @@
     [super viewWillDisappear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
+    Data * param = [[Data alloc] init];
+    param[@"self"] = self;
+    param[@"animated"] = [NSNumber numberWithBool:animated];
     [binder doAction:@"viewWillDisappear" withParam:nil];
 }
 
@@ -54,6 +76,9 @@
     [super viewDidDisappear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
+    Data * param = [[Data alloc] init];
+    param[@"self"] = self;
+    param[@"animated"] = [NSNumber numberWithBool:animated];
     [binder doAction:@"viewDidDisappear" withParam:nil];
 }
 
@@ -63,6 +88,8 @@
     [super viewWillLayoutSubviews];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
+    Data * param = [[Data alloc] init];
+    param[@"self"] = self;
     [binder doAction:@"viewWillLayoutSubviews" withParam:nil];
 }
 
@@ -72,6 +99,8 @@
     [super viewDidLayoutSubviews];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
+    Data * param = [[Data alloc] init];
+    param[@"self"] = self;
     [binder doAction:@"viewDidLayoutSubviews" withParam:nil];
 }
 
@@ -83,7 +112,8 @@
 
 - (void)dealloc
 {
-    [[ObjectManager shareInstance] removeAllObject:self.controllerName];
+    [[ObjectManager shareInstance] removeAllObject:CONTROLLER_SCOPE];
+    NSLog(@"%@", [ObjectManager shareInstance].objects);
 }
 
 /*

@@ -31,7 +31,7 @@
 		85C750D51CCF354400481D36 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 85C750D41CCF354400481D36 /* testdata.json */; };
 		85DD9E321CC9244100DF09FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DD9E311CC9244100DF09FB /* main.m */; };
 		85DD9E351CC9244100DF09FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DD9E341CC9244100DF09FB /* AppDelegate.m */; };
-		85DD9E381CC9244200DF09FB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DD9E371CC9244200DF09FB /* ViewController.m */; };
+		85DD9E381CC9244200DF09FB /* GlobalViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 85DD9E371CC9244200DF09FB /* GlobalViewModel.m */; };
 		85DD9E3B1CC9244200DF09FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85DD9E391CC9244200DF09FB /* Main.storyboard */; };
 		85DD9E3D1CC9244200DF09FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85DD9E3C1CC9244200DF09FB /* Assets.xcassets */; };
 		85DD9E401CC9244200DF09FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85DD9E3E1CC9244200DF09FB /* LaunchScreen.storyboard */; };
@@ -99,8 +99,8 @@
 		85DD9E311CC9244100DF09FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		85DD9E331CC9244100DF09FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85DD9E341CC9244100DF09FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		85DD9E361CC9244100DF09FB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		85DD9E371CC9244200DF09FB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		85DD9E361CC9244100DF09FB /* GlobalViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalViewModel.h; sourceTree = "<group>"; };
+		85DD9E371CC9244200DF09FB /* GlobalViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalViewModel.m; sourceTree = "<group>"; };
 		85DD9E3A1CC9244200DF09FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		85DD9E3C1CC9244200DF09FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85DD9E3F1CC9244200DF09FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -262,8 +262,8 @@
 				85A10FD41CCA13C8008626FA /* Tools */,
 				85DD9E331CC9244100DF09FB /* AppDelegate.h */,
 				85DD9E341CC9244100DF09FB /* AppDelegate.m */,
-				85DD9E361CC9244100DF09FB /* ViewController.h */,
-				85DD9E371CC9244200DF09FB /* ViewController.m */,
+				85DD9E361CC9244100DF09FB /* GlobalViewModel.h */,
+				85DD9E371CC9244200DF09FB /* GlobalViewModel.m */,
 				85DD9E391CC9244200DF09FB /* Main.storyboard */,
 				85DD9E3C1CC9244200DF09FB /* Assets.xcassets */,
 				85DD9E3E1CC9244200DF09FB /* LaunchScreen.storyboard */,
@@ -505,7 +505,7 @@
 				85C750D31CCF1CA600481D36 /* ModelDefine.m in Sources */,
 				852A0BFC1CD202FE0081B206 /* JJRSObjectDescription.m in Sources */,
 				85A10FDE1CCA13C8008626FA /* ObjectManager.m in Sources */,
-				85DD9E381CC9244200DF09FB /* ViewController.m in Sources */,
+				85DD9E381CC9244200DF09FB /* GlobalViewModel.m in Sources */,
 				85C750D01CCF1C4500481D36 /* UIWrapper.m in Sources */,
 				85A10FDC1CCA13C8008626FA /* UICreator.m in Sources */,
 				85DD9E351CC9244100DF09FB /* AppDelegate.m in Sources */,

@@ -42,21 +42,15 @@
     return binder;
 }
 
-- (BOOL)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param
+- (id)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param
 {
     NSAssert(false, @"forbidden");
-    return NO;
+    return nil;
 }
 
-- (void)updateUI:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value
+- (void)dataChanged:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value
 {
     NSAssert(false, @"forbidden");
-}
-
-- (BOOL)dataChanged:(nonnull NSString*)key
-{
-    NSAssert(false, @"forbidden");
-    return NO;
 }
 
 
@@ -93,11 +87,17 @@
     [valueArray addObject:anObject];
 }
 
+- (void)dealloc
+{
+    NSLog(@"Binder dealloc <%@>", NSStringFromClass([self class]));
+}
+
+
 @end
 
 @implementation UIWrapperActionBinder
 
-- (BOOL)doAction:(NSString*)condition withParam:(nullable Data *)param
+- (id)doAction:(NSString*)condition withParam:(nullable Data *)param
 {
     BOOL result = YES;
     NSArray * actions = self[condition];
@@ -108,21 +108,20 @@
             result = NO;
         }
     }
-    return result;
+    return [NSNumber numberWithBool:result];
 }
 
 @end
 
 @implementation DataUIWrapperBinder
 
-- (void)updateUI:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value
+- (void)dataChanged:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value;
 {
     NSArray * uis = self[key];
     for(UIWrapper * ui in uis)
     {
-        [ui updateUI:value];
+        [ui dataChanged:value];
     }
 }
 
 @end
-

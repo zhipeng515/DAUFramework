@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Data.h"
 
-@class Data;
 @class Action;
 
 @interface UIResponder (UIWrapper)
@@ -18,21 +18,24 @@
 
 @end
 
-@interface UIWrapper : NSObject<NSCopying, NSMutableCopying, UITextFieldDelegate>
+@interface UIWrapper : Data<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
-@property(nonatomic, retain, nonnull)id ui;
+@property(nonatomic, nullable, weak)id ui;
+
++ (nonnull id)getUIObject:(nonnull id)key withScope:(nonnull NSString*)scope;
++ (nonnull id)getUIWrapper:(nonnull id)key withScope:(nonnull NSString*)scope;
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
 - (nonnull id)initWithUI:(nullable id)ui;
-- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(nullable Action*)action;
-- (void)addAction:(nonnull Action*)action withTrigger:(nonnull NSString*)trigger;
+- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(nullable Action*)action withScope:(nonnull NSString*)scope;
+- (void)addAction:(nonnull Action*)action withTrigger:(nonnull NSString*)trigger withScope:(nonnull NSString*)scope;
 
 - (nonnull NSString*)description;
 
 - (void)onTap:(nonnull id)sender;
 
-- (void)updateUI:(nonnull id)value;
+- (void)dataChanged:(nonnull id)value;
 
 @end

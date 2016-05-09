@@ -34,6 +34,13 @@
     return self;
 }
 
+- (NSDictionary*)getDictionaryFromJsonFile:(NSString*)filename
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"json"];
+    NSData * jsonData = [NSData dataWithContentsOfFile:path];
+    NSDictionary * jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:nil];
+    return jsonDict;
+}
 
 - (void)bindModel:(ModelDefine*)model withPropertys:(NSDictionary*)propertys
 {
@@ -158,19 +165,32 @@
     }
 }
 
--(void)parseLayoutModel:(NSDictionary*)layout withScope:(NSString*)scope
+-(void)parseLayoutModel:(NSArray*)layouts withParent:(id)parent withScope:(NSString*)scope
 {
-    [layout enumerateKeysAndObjectsUsingBlock:^(id layoutName, id layoutDict, BOOL *stop) {
-		NSString * creatorName = layoutDict[@"creator"];
-		NSDictionary * property = layoutDict[@"property"];
+    for(id layout in layouts)
+    {
+        NSString * layoutName = layout[@"name"];
+		NSString * creatorName = layout[@"creator"];
+		NSDictionary * property = layout[@"property"];
         NSAssert(creatorName != nil, @"creator name is nil");
         NSAssert(property != nil, @"property is nil");
         
+        NSString * uiScope = [NSString stringWithFormat:@"%@.%@", scope, layoutName];
         id layoutValue = [[ObjectManager shareInstance] createObject:property withKey:creatorName];
-		[[ObjectManager shareInstance] setObject:layoutValue withKey:layoutName withScope:scope];
+		[[ObjectManager shareInstance] setObject:layoutValue withKey:layoutName withScope:uiScope];
         
-        [self parseLayoutModel:property[@"layoutInfo"] withScope:scope];
-    }];
+        if([layoutValue isKindOfClass:[UIWrapper class]] && [parent isKindOfClass:[UIWrapper class]])
+        {
+            UIWrapper * uiItem = (UIWrapper*)layoutValue;
+            UIWrapper* uiParent = (UIWrapper*)parent;
+            if([uiParent.ui isKindOfClass:[UIViewController class]])
+               [((UIViewController*)uiParent.ui).view addSubview:uiItem.ui];
+            else
+                [uiParent.ui addSubview:uiItem.ui];
+        }
+        
+        [self parseLayoutModel:layout[@"layoutInfo"] withParent:layoutValue withScope:uiScope];
+    };
 }
 
 -(void)parseBinderModel:(NSDictionary*)binders withScope:(NSString*)scope
@@ -181,7 +201,7 @@
 - (void)dataChanged:(Data*)data withKey:(id)key withObject:(id)anObject
 {
     Binder *binder = [[ObjectManager shareInstance] getObject:data withScope:GLOBAL_SCOPE];
-    [binder updateUI:data withKey:key withValue:anObject];
+    [binder dataChanged:data withKey:key withValue:anObject];
 }
 
 @end

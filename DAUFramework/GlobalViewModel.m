@@ -6,7 +6,7 @@
 //  Copyright © 2016年 zhipeng. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "GlobalViewModel.h"
 #import "ObjectManager.h"
 
 #import "UICreator.h"
@@ -40,20 +40,12 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     
 } // BNRTimeBlock
 
-@interface ViewController ()
-
-@end
-
-@implementation ViewController
+@implementation GlobalViewModel
 
 - (void)presentDAU:(Action*)action
 {
     DAUViewController * viewController = [[DAUViewController alloc] init];
     viewController.controllerName = @"DAUViewController";
-    [self presentViewController:viewController animated:YES completion:^()
-     {
-         
-     }];
 }
 
 - (void)benchmark
@@ -82,25 +74,8 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     NSLog(@"time: %f", time);
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewDidLoad:(nonnull Data*)param {
     // Do any additional setup after loading the view, typically from a nib.
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ObjectCreator" ofType:@"json"];
-    NSData * configString = [NSData dataWithContentsOfFile:path];
-    NSDictionary * creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
-
-    [[ObjectManager shareInstance] loadObjectCreator:creatorDict];
-    
-    path = [[NSBundle mainBundle] pathForResource:@"ModelDefine" ofType:@"json"];
-    configString = [NSData dataWithContentsOfFile:path];
-    creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
-    [[DAUManager shareInstance] loadModelDefine:creatorDict];
-
-    path = [[NSBundle mainBundle] pathForResource:@"RegisterViewLayout" ofType:@"json"];
-    configString = [NSData dataWithContentsOfFile:path];
-    creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
-    
-    [[DAUManager shareInstance] parseLayoutModel:creatorDict[@"layoutInfo"] withScope:@"registerViewController"];
     
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self benchmark];
@@ -156,7 +131,6 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
 
     UIWrapper * button = [[ObjectManager shareInstance] getObject:@"registerButton" withScope:@"registerViewController"];
-    [self.view addSubview:button.ui];
     
     Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
     d1[@"ffffff"] = @"ggggggg";
@@ -170,10 +144,10 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [[ObjectManager shareInstance] setObject:device withKey:@"device" withScope:@"global"];
     
     
-    [button addAction:[Action actionWithSelector:@selector(presentDAU:) withTarget:self withParam:nil] withTrigger:@"onTap"];
-    [button addAction:tapimage withTrigger:@"onTap"];
-    [button addAction:customfunc withTrigger:@"onTap"];
-    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@selector(presentDAU:) withTarget:self withParam:nil]];
+    [button addAction:[Action actionWithSelector:@selector(presentDAU:) withTarget:self withParam:nil] withTrigger:@"onTap" withScope:GLOBAL_SCOPE];
+    [button addAction:tapimage withTrigger:@"onTap" withScope:GLOBAL_SCOPE];
+    [button addAction:customfunc withTrigger:@"onTap" withScope:GLOBAL_SCOPE];
+//    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@selector(presentDAU:) withTarget:self withParam:nil] withScope:GLOBAL_SCOPE];
     
     [[ObjectManager shareInstance] setObject:@"444444444444" withKey:@"deviceId" withScope:@"global.device"];
     device[@"deviceType"] = @"android";
@@ -182,11 +156,11 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    NSLog(@"%@", [ObjectManager shareInstance].objects);
     
     
-    UIWrapper * controller = [[ObjectManager shareInstance] getObject:@"registerViewController" withScope:@"registerViewController"];
-    [controller addAction:customfunc withTrigger:@"viewDidLoad"];
-    [controller addAction:tapimage withTrigger:@"viewDidLoad"];
-    [controller addAction:customfunc withTrigger:@"viewWillAppear"];
-    [controller addAction:tapimage withTrigger:@"viewWillAppear"];
+//    UIWrapper * controller = [[ObjectManager shareInstance] getObject:@"registerViewController" withScope:@"registerViewController"];
+//    [controller addAction:customfunc withTrigger:@"viewDidLoad"];
+//    [controller addAction:tapimage withTrigger:@"viewDidLoad"];
+//    [controller addAction:customfunc withTrigger:@"viewWillAppear"];
+//    [controller addAction:tapimage withTrigger:@"viewWillAppear"];
 
 
 //    UI * view = [[ObjectManager shareInstance] createObject:@{} withKey:@"createView"];
@@ -229,8 +203,9 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    [[DAUManager shareInstance] bind:imageView withData:tap];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(nonnull Data*)param
 {
+    DAUViewController * controller = param[@"self"];
     
 //    UIModel* imageView = [[ModelManager shareInstance] getModel:@"userAvatar"];
 //    HttpAction * http1 = [[ModelManager shareInstance] getModel:@"getTopHttp"];
@@ -249,7 +224,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    
 //    id data = [[ObjectManager shareInstance] getObject:@"debugString" withScope:@"RegisterView"];
 //    
-//    NSLog(@"%@", [ObjectManager shareInstance].objects);
+    NSLog(@"%@", [ObjectManager shareInstance].objects);
 //
 //    UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
 //    ((UITextView*)label.ui).attributedText = data;
@@ -261,18 +236,6 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self presentViewController:controller.ui animated:NO completion:nil];
 //    });
-
-    [super viewWillAppear:animated];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc
-{
-    
 }
 
 @end

@@ -7,6 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "DAUViewController.h"
+#import "DAUManager.h"
+#import "ObjectManager.h"
+#import "Action.h"
+#import "UIWrapper.h"
+#import "GlobalViewModel.h"
 
 @interface AppDelegate ()
 
@@ -14,9 +20,43 @@
 
 @implementation AppDelegate
 
+- (void)removeViewController:(id)param
+{
+    [self.window setRootViewController:nil];
+//    [[ObjectManager shareInstance] removeAllObject];
+}
+
+- (void)initGlobalInfo
+{
+    NSDictionary * jsonDict = [[DAUManager shareInstance] getDictionaryFromJsonFile:@"ObjectCreator"];
+    [[ObjectManager shareInstance] loadObjectCreator:jsonDict];
+    
+    jsonDict = [[DAUManager shareInstance] getDictionaryFromJsonFile:@"ModelDefine"];
+    [[DAUManager shareInstance] loadModelDefine:jsonDict];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self initGlobalInfo];
+    
+    NSDictionary * jsonDict = [[DAUManager shareInstance] getDictionaryFromJsonFile:@"RegisterViewLayout"];
+    [[DAUManager shareInstance] parseLayoutModel:jsonDict[@"layoutInfo"] withParent:nil withScope:CONTROLLER_SCOPE];
+    
+    GlobalViewModel * viewModel = [[GlobalViewModel alloc] init];
+
+    UIWrapper * controller = [UIWrapper getUIWrapper:@"registerViewController" withScope:CONTROLLER_SCOPE];
+    [controller addAction:[Action actionWithSelector:@selector(viewDidLoad:) withTarget:viewModel withParam:nil] withTrigger:@"viewDidLoad" withScope:CONTROLLER_SCOPE];
+    [controller addAction:[Action actionWithSelector:@selector(viewWillAppear:) withTarget:viewModel withParam:nil] withTrigger:@"viewWillAppear" withScope:CONTROLLER_SCOPE];
+
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window setRootViewController:controller.ui];
+    [self.window makeKeyAndVisible];
+    
+    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:CONTROLLER_SCOPE];
+    [button addAction:[Action actionWithSelector:@selector(removeViewController:) withTarget:self withParam:nil] withTrigger:@"onTap" withScope:GLOBAL_SCOPE];
+    
     return YES;
 }
 

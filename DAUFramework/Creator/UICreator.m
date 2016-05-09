@@ -46,7 +46,7 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    UIView * view = [[UIView alloc]init];
+    __autoreleasing UIView * view = [[UIView alloc]init];
     [self parseProperty:dict withObject:view];
     UIWrapper * ui = [[UIWrapper alloc] initWithUI:view];
     return ui;
@@ -75,8 +75,8 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    
-    UIImageView * imageView = [[UIImageView alloc]init];
+    __autoreleasing UIImageView * imageView = [[UIImageView alloc]init];
+    [self parseProperty:dict withObject:imageView];
     UIWrapper * ui = [[UIWrapper alloc] initWithUI:imageView];
     return ui;
 }
@@ -96,7 +96,8 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    UILabel * label = [[UILabel alloc] init];
+    __autoreleasing UILabel * label = [[UILabel alloc] init];
+    [self parseProperty:dict withObject:label];
     UIWrapper * ui = [[UIWrapper alloc] initWithUI:label];
     return ui;
 }
@@ -118,7 +119,8 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    UITextView * textView = [[UITextView alloc] init];
+    __autoreleasing UITextView * textView = [[UITextView alloc] init];
+    [self parseProperty:dict withObject:textView];
     UIWrapper * ui = [[UIWrapper alloc] initWithUI:textView];
     return ui;
 }
@@ -140,8 +142,10 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    UITextField * textField = [[UITextField alloc] init];
+    __autoreleasing UITextField * textField = [[UITextField alloc] init];
+    [self parseProperty:dict withObject:textField];
     UIWrapper * ui = [[UIWrapper alloc] initWithUI:textField];
+    textField.delegate = ui;
     return ui;
 }
 
@@ -194,8 +198,9 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-	UIViewController * viewController = [[UIViewController alloc] init];
+	__autoreleasing UIViewController * viewController = [[UIViewController alloc] init];
 	UIWrapper * ui = [[UIWrapper alloc] initWithUI:viewController];
+    viewController.uiWrapper = ui;
     return ui;
 }
 
@@ -216,7 +221,7 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    DAUViewController * viewController = [[DAUViewController alloc] init];
+    __autoreleasing DAUViewController * viewController = [[DAUViewController alloc] init];
     viewController.controllerName = dict[@"name"];
     UIWrapper * ui = [[UIWrapper alloc] initWithUI:viewController];
     viewController.uiWrapper = ui;
@@ -241,7 +246,7 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-	UINavigationController * naviController = [[UINavigationController alloc] init];
+	__autoreleasing UINavigationController * naviController = [[UINavigationController alloc] init];
 	UIWrapper * ui = [[UIWrapper alloc] initWithUI:naviController];
     return ui;
 }

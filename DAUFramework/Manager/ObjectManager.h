@@ -10,6 +10,7 @@
 #import "ObjectCreator.h"
 
 #define GLOBAL_SCOPE @"global"
+#define CONTROLLER_SCOPE @"controllers"
 
 
 @class Data;

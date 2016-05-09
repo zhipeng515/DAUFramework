@@ -106,4 +106,10 @@
     return data;
 }
 
+- (void)dealloc
+{
+    NSLog(@"ModelDefine dealloc");
+}
+
+
 @end
