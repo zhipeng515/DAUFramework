@@ -39,26 +39,26 @@
 }
 
 
--(id)initWithUI:(id)ui
+-(id)init:(id)ui withScope:(NSString *)scope
 {
-    if(self = [super init])
+    if(self = [super initWithScope:scope])
     {
         self.ui = ui;
     }
     return self;
 }
 
-- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(Action*)action withScope:(NSString*)scope
+- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(Action*)action
 {
-    Binder * binder = [Binder binderWithObject:data withScope:scope];
+    Binder * binder = [Binder binderWithObject:data withScope:GLOBAL_SCOPE];
     binder[key] = self;
     if(action)
-        [self addAction:action withTrigger:@"dataSourceChanged" withScope:scope];
+        [self addAction:action withTrigger:@"dataSourceChanged"];
 }
 
-- (void)addAction:(nonnull Action*)action withTrigger:(NSString*)trigger withScope:(NSString*)scope
+- (void)addAction:(nonnull Action*)action withTrigger:(NSString*)trigger
 {
-    Binder * binder = [Binder binderWithObject:self withScope:scope];
+    Binder * binder = [Binder binderWithObject:self withScope:self.scope];
     binder[trigger] = action;
 }
 
@@ -91,8 +91,8 @@
 
 - (void)dataChanged:(nonnull id)value
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
-    Data * param = [[Data alloc] init];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"value"] = value;
     [binder doAction:@"dataSourceChanged" withParam:param];
 }
@@ -101,10 +101,10 @@
 // UIButton
 - (void)onTap:(nonnull id)sender
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"sender"] = sender;
     [binder doAction:@"onTap" withParam:param];
 }
@@ -117,50 +117,50 @@
 // UITextField
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return YES;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"textField"] = textField;
     return [[binder doAction:@"textFieldShouldBeginEditing" withParam:param] boolValue];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"textField"] = textField;
     [binder doAction:@"textFieldDidBeginEditing" withParam:param];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return YES;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"textField"] = textField;
     return [[binder doAction:@"textFieldShouldEndEditing" withParam:param] boolValue];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"textField"] = textField;
     [binder doAction:@"textFieldDidEndEditing" withParam:param];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return YES;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"textField"] = textField;
     param[@"shouldChangeCharactersInRange"] = NSStringFromRange(range);
     param[@"replacementString"] = string;
@@ -169,20 +169,20 @@
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return YES;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"textField"] = textField;
     return [[binder doAction:@"textFieldShouldClear" withParam:param] boolValue];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return YES;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"textField"] = textField;
     return [[binder doAction:@"textFieldShouldReturn" withParam:param] boolValue];
 }
@@ -197,10 +197,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return YES;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"tableView"] = tableView;
     param[@"section"] = [NSNumber numberWithInteger:section];
     return [[binder doAction:@"tableView:numberOfRowsInSection" withParam:param] integerValue];
@@ -208,10 +208,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Binder * binder = [Binder getBinder:self withScope:GLOBAL_SCOPE];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(binder == nil)
         return nil;
-    Data * param = [[Data alloc] init];
+    Data * param = [[Data alloc] initWithScope:self.scope];
     param[@"tableView"] = tableView;
     param[@"indexPath"] = indexPath;
     return [binder doAction:@"tableView:cellForRowAtIndexPath" withParam:param];

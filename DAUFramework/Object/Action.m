@@ -12,23 +12,22 @@
 
 @implementation Action
 
-+ (id)actionWithSelector:(SEL)selector withTarget:(id)target withParam:(NSDictionary*)param
++ (id)actionWithSelector:(NSString*)selector withTarget:(id)target withParam:(NSDictionary*)param withScope:(NSString*)scope
 {
-    Action * action = [[Action alloc] initWithParam:param];
+    Action * action = [[Action alloc] init:param withScope:scope];
     [action packageSelector:selector withTarget:target];
     return action;
 }
 
-+ (nonnull id)actionWithParam:(nonnull NSDictionary*)param
++ (nonnull id)actionWithParam:(nonnull NSDictionary*)param withScope:(NSString*)scope
 {
-    id target = [[ObjectManager shareInstance] getObject:param[@"target"] withScope:GLOBAL_SCOPE];
-    SEL selector = NSSelectorFromString(param[@"selector"]);
-    return [self actionWithSelector:selector withTarget:target withParam:param];
+    id target = [[ObjectManager shareInstance] getObject:param[@"target"] withScope:scope];
+    return [self actionWithSelector:param[@"selector"] withTarget:target withParam:param withScope:scope];
 }
 
--(id)initWithParam:(NSMutableDictionary*)param
+-(id)init:(NSMutableDictionary*)param withScope:(NSString*)scope
 {
-    if(self = [super init])
+    if(self = [super initWithScope:scope])
     {
         [param enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             self[key] = obj;
@@ -37,21 +36,21 @@
     return self;
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (id)copyWithZone:(NSZone *)zone
 {
     return self;
 }
 
-- (id)mutableCopyWithZone:(nullable NSZone *)zone;
+- (id)mutableCopyWithZone:(NSZone *)zone;
 {
     return self;
 }
 
-- (void)packageSelector:(nonnull SEL)selector withTarget:(nonnull id)target
+- (void)packageSelector:(NSString*)selector withTarget:(nonnull id)target
 {
 //    NSValue *selectorAsValue = [NSValue valueWithBytes:&selector objCType:@encode(SEL)];
 //    self[@"selector"] = selectorAsValue;
-    self[@"selector"] = NSStringFromSelector(selector);
+    self[@"selector"] = selector;
     self[@"target"] = target;
 }
 

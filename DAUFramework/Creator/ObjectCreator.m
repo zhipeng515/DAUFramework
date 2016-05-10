@@ -10,7 +10,7 @@
 
 @implementation ObjectCreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)data
+-(id)create:(NSString*)key withData:(NSDictionary*)data withScope:(nonnull NSString*)scope
 {
     NSAssert(false, @"forbidden");
     return nil;

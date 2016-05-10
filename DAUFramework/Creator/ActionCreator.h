@@ -13,7 +13,7 @@
 
 @interface ActionCreator : ObjectCreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)data;
+-(nullable id)create:(nonnull NSString*)key withData:(nonnull NSDictionary*)data withScope:(nonnull NSString *)scope;
 
 @end
 

@@ -44,11 +44,11 @@
     return self;
 }
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
     __autoreleasing UIView * view = [[UIView alloc]init];
     [self parseProperty:dict withObject:view];
-    UIWrapper * ui = [[UIWrapper alloc] initWithUI:view];
+    UIWrapper * ui = [[UIWrapper alloc] init:view withScope:scope];
     return ui;
 }
 
@@ -73,11 +73,11 @@
     return self;
 }
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
     __autoreleasing UIImageView * imageView = [[UIImageView alloc]init];
     [self parseProperty:dict withObject:imageView];
-    UIWrapper * ui = [[UIWrapper alloc] initWithUI:imageView];
+    UIWrapper * ui = [[UIWrapper alloc] init:imageView withScope:scope];
     return ui;
 }
 
@@ -94,11 +94,11 @@
     return self;
 }
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
     __autoreleasing UILabel * label = [[UILabel alloc] init];
     [self parseProperty:dict withObject:label];
-    UIWrapper * ui = [[UIWrapper alloc] initWithUI:label];
+    UIWrapper * ui = [[UIWrapper alloc] init:label withScope:scope];
     return ui;
 }
 
@@ -117,11 +117,11 @@
     return self;
 }
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
     __autoreleasing UITextView * textView = [[UITextView alloc] init];
     [self parseProperty:dict withObject:textView];
-    UIWrapper * ui = [[UIWrapper alloc] initWithUI:textView];
+    UIWrapper * ui = [[UIWrapper alloc] init:textView withScope:scope];
     return ui;
 }
 
@@ -140,11 +140,11 @@
     return self;
 }
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
     __autoreleasing UITextField * textField = [[UITextField alloc] init];
     [self parseProperty:dict withObject:textField];
-    UIWrapper * ui = [[UIWrapper alloc] initWithUI:textField];
+    UIWrapper * ui = [[UIWrapper alloc] init:textField withScope:scope];
     textField.delegate = ui;
     return ui;
 }
@@ -164,11 +164,11 @@
     return self;
 }
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
     __autoreleasing UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     [self parseProperty:dict withObject:button];
-    UIWrapper * ui = [[UIWrapper alloc] initWithUI:button];
+    UIWrapper * ui = [[UIWrapper alloc] init:button withScope:scope];
     [button addTarget:ui action:@selector(onTap:) forControlEvents:UIControlEventTouchUpInside];
     
     return ui;
@@ -196,10 +196,10 @@
     return self;
 }
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
 	__autoreleasing UIViewController * viewController = [[UIViewController alloc] init];
-	UIWrapper * ui = [[UIWrapper alloc] initWithUI:viewController];
+	UIWrapper * ui = [[UIWrapper alloc] init:viewController withScope:scope];
     viewController.uiWrapper = ui;
     return ui;
 }
@@ -219,11 +219,10 @@
     return self;
 }
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
     __autoreleasing DAUViewController * viewController = [[DAUViewController alloc] init];
-    viewController.controllerName = dict[@"name"];
-    UIWrapper * ui = [[UIWrapper alloc] initWithUI:viewController];
+    UIWrapper * ui = [[UIWrapper alloc] init:viewController withScope:scope];
     viewController.uiWrapper = ui;
     return ui;
 }
@@ -244,10 +243,10 @@
     return self;
 }
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
 	__autoreleasing UINavigationController * naviController = [[UINavigationController alloc] init];
-	UIWrapper * ui = [[UIWrapper alloc] initWithUI:naviController];
+	UIWrapper * ui = [[UIWrapper alloc] init:naviController withScope:scope];
     return ui;
 }
 

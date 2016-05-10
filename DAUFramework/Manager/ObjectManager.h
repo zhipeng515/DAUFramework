@@ -17,20 +17,20 @@
 
 @interface ObjectManager : NSObject
 
-@property(nonatomic, retain)Data * objectCreators;
-@property(nonatomic, retain)Data * objects;
+@property(nonatomic, retain, nonnull)NSMutableDictionary * objectCreators;
+@property(nonatomic, retain, nonnull)Data * objects;
 
 
-+ (ObjectManager*)shareInstance;
++ (nonnull ObjectManager*)shareInstance;
 
-- (void)loadObjectCreator:(NSDictionary*)objCreators;
-- (void)registerObjectCreator:(ObjectCreator*)creator withKey:(id)key;
+- (void)loadObjectCreator:(nonnull NSDictionary*)objCreators;
+- (void)registerObjectCreator:(nonnull ObjectCreator*)creator withKey:(nonnull id)key;
 
-- (id)createObject:(NSDictionary*)data withKey:(id)key;
-- (void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope;
-- (id)getObject:(id)key withScope:(NSString*)scope;
-- (void)removeObject:(id)key withScope:(NSString*)scope;
+- (nullable id)createObject:(nonnull NSDictionary*)data withKey:(nonnull id)key withScope:(nonnull NSString*)scope;
+- (void)setObject:(nonnull id)model withKey:(nonnull id)key withScope:(nonnull NSString*)scope;
+- (nullable id)getObject:(nonnull id)key withScope:(nonnull NSString*)scope;
+- (void)removeObject:(nonnull id)key withScope:(nonnull NSString*)scope;
 - (void)removeAllObject;
-- (void)removeAllObject:(NSString*)scope;
+- (void)removeAllObject:(nonnull NSString*)scope;
 
 @end

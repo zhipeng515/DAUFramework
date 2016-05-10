@@ -19,7 +19,7 @@
     Data * data = [[ObjectManager shareInstance] getObject:key withScope:scope];
     if(data == nil)
     {
-        data = [[Data alloc] init];
+        data = [[Data alloc] initWithScope:scope];
         [[ObjectManager shareInstance] setObject:data withKey:key withScope:scope];
     }
     return data;
@@ -32,11 +32,12 @@
     }];
 }
 
-- (id)init
+- (id)initWithScope:(NSString*)scope
 {
     if(self = [super init])
     {
         self.propertys = [[NSMutableDictionary alloc] init];
+        _scope = scope;
     }
     return self;
 }
@@ -53,6 +54,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [aCoder encodeObject:self.scope forKey:@"scope"];
     [aCoder encodeObject:self.propertys forKey:@"dict"];
 }
 

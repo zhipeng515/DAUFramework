@@ -11,10 +11,12 @@
 @interface Data : NSObject<NSCopying, NSMutableCopying>
 
 @property(nonatomic, retain, nonnull) NSMutableDictionary * propertys;
+@property(nonatomic, nonnull, readonly)NSString * scope;
 
 + (nonnull id)dataWithKey:(nonnull id)key withScope:(nonnull NSString*)scope;
 + (void)dataCopy:(nonnull Data*)dest withSource:(nonnull Data*)source;
 
+- (nonnull id)initWithScope:(nullable NSString*)scope;
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;

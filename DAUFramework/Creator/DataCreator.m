@@ -14,7 +14,7 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    Data * data = [[Data alloc] init];
+    Data * data = [[Data alloc] initWithScope:@"global"];
     [dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         data[key] = obj;
     }];

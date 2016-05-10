@@ -14,17 +14,17 @@
 @property(nonatomic, retain, nullable)Action * complete;
 @property(nonatomic, retain, nullable)Action * failed;
 
-+ (nonnull id)actionWithSelector:(nonnull SEL)selector withTarget:(nonnull id)target withParam:(nullable NSDictionary*)param;
-+ (nonnull id)actionWithParam:(nonnull NSDictionary*)param;
++ (nonnull id)actionWithSelector:(nonnull NSString*)selector withTarget:(nonnull id)target withParam:(nullable NSDictionary*)param withScope:(nonnull NSString*)scope;
++ (nonnull id)actionWithParam:(nonnull NSDictionary*)param withScope:(nonnull NSString*)scope;
 
-- (void)packageSelector:(nonnull SEL)selector withTarget:(nonnull id)target;
+- (void)packageSelector:(nonnull NSString*)selector withTarget:(nonnull id)target;
 
 - (void)encodeWithCoder:(nonnull NSCoder *)aCoder;
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
-- (nonnull id)initWithParam:(nonnull NSDictionary*)param;
+- (nonnull id)init:(nonnull NSDictionary*)param withScope:(nonnull NSString*)scope;
 - (BOOL)doAction:(nullable Data*)param;
 
 @end

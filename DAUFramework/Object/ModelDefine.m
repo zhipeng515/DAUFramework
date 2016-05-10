@@ -99,9 +99,9 @@
     return matchCount == [self.propertys count];
 }
 
--(id)buildModel:(id)propertys
+-(id)buildModel:(id)propertys withScope:(NSString*)scope
 {
-    Data * data = [[Data alloc] init];
+    Data * data = [[Data alloc] initWithScope:scope];
     [self.propertys enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         [data setValue:propertys[key] forKey:key];
     }];

@@ -12,9 +12,9 @@
 
 @implementation ActionCreator
 
--(id)create:(NSString*)key withData:(NSDictionary*)dict
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(NSString*)scope
 {
-    Action * action = [Action actionWithParam:dict];
+    Action * action = [Action actionWithParam:dict withScope:GLOBAL_SCOPE];
     [[ObjectManager shareInstance] setObject:action withKey:key withScope:GLOBAL_SCOPE];
     return action;
 }

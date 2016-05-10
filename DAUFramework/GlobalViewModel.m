@@ -44,8 +44,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 
 - (void)presentDAU:(Action*)action
 {
-    DAUViewController * viewController = [[DAUViewController alloc] init];
-    viewController.controllerName = @"DAUViewController";
+//    DAUViewController * viewController = [[DAUViewController alloc] init];
 }
 
 - (void)benchmark
@@ -62,15 +61,15 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
         for(int i = 0; i < 100; i++)
         {
             
-            [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+            [[DAUManager shareInstance] parseDataModel:creatorDict withScope:GLOBAL_SCOPE];
             
             Data * note = [Data dataWithKey:@"175469173324290048" withScope:@"note"];
             note[@"userId"] = @"ccc";
             
-            [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+            [[DAUManager shareInstance] parseDataModel:creatorDict withScope:GLOBAL_SCOPE];
             
             
-            [[DAUManager shareInstance] parseDataModel:creatorDict1 withScope:@"RegisterView"];
+            [[DAUManager shareInstance] parseDataModel:creatorDict1 withScope:GLOBAL_SCOPE];
         }
     });
     NSLog(@"time: %f", time);
@@ -115,7 +114,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [image setValue:@"20" forKey:@"y"];
     [image setValue:@"100" forKey:@"width"];
     [image setValue:@"100" forKey:@"height"];
-    UIWrapper * imageView = [[ObjectManager shareInstance] createObject:image withKey:@"createImageView"];
+    UIWrapper * imageView = [[ObjectManager shareInstance] createObject:image withKey:@"createImageView" withScope:GLOBAL_SCOPE];
     [[ObjectManager shareInstance] setObject:imageView withKey:@"userAvatar" withScope:GLOBAL_SCOPE];
     
 
@@ -127,12 +126,12 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 
 //    [[ObjectManager shareInstance] removeAllObject];
     
-    Action * tapimage = [[ObjectManager shareInstance] createObject:@{} withKey:@"createAction"];
+    Action * tapimage = [[ObjectManager shareInstance] createObject:@{} withKey:@"createAction" withScope:GLOBAL_SCOPE];
     [[ObjectManager shareInstance] setObject:tapimage withKey:@"tapimage" withScope:GLOBAL_SCOPE];
-    Action * customfunc = [[ObjectManager shareInstance] createObject:@{} withKey:@"createAction"];
+    Action * customfunc = [[ObjectManager shareInstance] createObject:@{} withKey:@"createAction" withScope:GLOBAL_SCOPE];
     [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
 
-    UIWrapper * button = [[ObjectManager shareInstance] getObject:@"registerButton" withScope:@"registerViewController"];
+    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.registerViewController.rootView"];
     
     Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
     d1[@"ffffff"] = @"ggggggg";
@@ -140,16 +139,15 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     d2[@"fffff"] = @"hhhhhhh";
     d2[0] = @"aaaa";
     
-    Data * device = [[Data alloc] init];
+    Data * device = [Data dataWithKey:@"device" withScope:GLOBAL_SCOPE];
     device[@"deviceType"] = @"ios";
     device[@"deviceId"] = @"123123123123123";
-    [[ObjectManager shareInstance] setObject:device withKey:@"device" withScope:@"global"];
     
     
-    [button addAction:[Action actionWithSelector:@selector(presentDAU:) withTarget:self withParam:nil] withTrigger:@"onTap" withScope:GLOBAL_SCOPE];
-    [button addAction:tapimage withTrigger:@"onTap" withScope:GLOBAL_SCOPE];
-    [button addAction:customfunc withTrigger:@"onTap" withScope:GLOBAL_SCOPE];
-//    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@selector(presentDAU:) withTarget:self withParam:nil] withScope:GLOBAL_SCOPE];
+    [button addAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil withScope:button.scope] withTrigger:@"onTap"];
+    [button addAction:tapimage withTrigger:@"onTap"];
+    [button addAction:customfunc withTrigger:@"onTap"];
+//    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil]];
     
     [[ObjectManager shareInstance] setObject:@"444444444444" withKey:@"deviceId" withScope:@"global.device"];
     device[@"deviceType"] = @"android";

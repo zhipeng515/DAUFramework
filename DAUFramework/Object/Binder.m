@@ -21,15 +21,15 @@
     {
         if([sourceObject isKindOfClass:[UIWrapper class]])
         {
-            binder = [[UIWrapperActionBinder alloc] init];
+            binder = [[UIWrapperActionBinder alloc] initWithScope:scope];
         }
         else if([sourceObject isKindOfClass:[Data class]])
         {
-            binder = [[DataUIWrapperBinder alloc] init];
+            binder = [[DataUIWrapperBinder alloc] initWithScope:scope];
         }
         else
         {
-            binder = [[Binder alloc] init];
+            binder = [[Binder alloc] initWithScope:scope];
         }
         [[ObjectManager shareInstance] setObject:binder withKey:sourceObject withScope:scope];
     }

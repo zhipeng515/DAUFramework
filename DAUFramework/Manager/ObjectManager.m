@@ -23,8 +23,8 @@
 {
     if(self = [super init])
     {
-        self.objectCreators = [[Data alloc] init];
-        self.objects = [[Data alloc] init];
+        self.objectCreators = [[NSMutableDictionary alloc] init];
+        self.objects = [[Data alloc] initWithScope:nil];
     }
     return self;
 }
@@ -55,7 +55,7 @@
     [ self.objectCreators setObject:creator forKey:key];
 }
 
--(id)createObject:(NSDictionary*)data withKey:(id)key
+-(id)createObject:(NSDictionary*)data withKey:(id)key withScope:(NSString*)scope
 {
     ObjectCreator * creator = [self.objectCreators objectForKey:key];
     if(creator == nil)
@@ -64,11 +64,14 @@
         return nil;
     }
     
-    return [creator create:key withData:data];
+    return [creator create:key withData:data withScope:scope];
 }
 
 -(id)getObjectScope:(NSString*)scope withobjects:(Data*)objDict createPath:(BOOL)create
 {
+    if(scope == nil)
+        return nil;
+    
     NSString * key;
     NSString * remainKey;
     NSRange range = [scope rangeOfString:@"."];
@@ -87,7 +90,7 @@
     Data * scopeDict = objDict[key];
     if(create && scopeDict == nil)
     {
-        scopeDict = [[Data alloc] init];
+        scopeDict = [[Data alloc] initWithScope:key];
         [objDict setObject:scopeDict forKey:key];
     }
     if(![remainKey isEqualToString:@""])

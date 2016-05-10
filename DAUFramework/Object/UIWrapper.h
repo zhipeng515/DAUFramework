@@ -11,10 +11,11 @@
 #import "Data.h"
 
 @class Action;
+@class UIWrapper;
 
 @interface UIResponder (UIWrapper)
 
-@property(nonatomic, retain, nonnull)id uiWrapper;
+@property(nonatomic, retain, nonnull)UIWrapper * uiWrapper;
 
 @end
 
@@ -28,12 +29,12 @@
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
-- (nonnull id)initWithUI:(nullable id)ui;
+- (nonnull id)init:(nullable id)ui withScope:(nonnull NSString*)scope;
 
 
 
-- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(nullable Action*)action withScope:(nonnull NSString*)scope;
-- (void)addAction:(nonnull Action*)action withTrigger:(nonnull NSString*)trigger withScope:(nonnull NSString*)scope;
+- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(nullable Action*)action;
+- (void)addAction:(nonnull Action*)action withTrigger:(nonnull NSString*)trigger;
 
 - (nonnull NSString*)description;
 

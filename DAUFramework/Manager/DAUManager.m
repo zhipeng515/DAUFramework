@@ -132,13 +132,13 @@
     NSArray * defines = [self getModelDefine:models];
     for(ModelDefine * define in defines)
     {
-        Data * data = [define buildModel:models];
         NSString * dataScope = scope;
         NSString * varname = define.name;
         if([define hasScope])
         {
             dataScope = define.scope;
         }
+        Data * data = [define buildModel:models withScope:dataScope];
         if([define hasVarname])
         {
             if([define.varname hasPrefix:@"$"])
@@ -184,7 +184,7 @@
         NSAssert(creatorName != nil, @"creator name is nil");
         NSAssert(property != nil, @"property is nil");
         
-        id layoutValue = [[ObjectManager shareInstance] createObject:property withKey:creatorName];
+        id layoutValue = [[ObjectManager shareInstance] createObject:property withKey:creatorName withScope:scope];
 		[[ObjectManager shareInstance] setObject:layoutValue withKey:layoutName withScope:scope];
         
         [layoutArray addObject:layoutValue];
@@ -225,8 +225,9 @@
 
 - (void)dataChanged:(Data*)data withKey:(id)key withObject:(id)anObject
 {
-    Binder *binder = [[ObjectManager shareInstance] getObject:data withScope:GLOBAL_SCOPE];
-    [binder dataChanged:data withKey:key withValue:anObject];
+    Binder *binder = [Binder getBinder:data withScope:GLOBAL_SCOPE];
+    if(binder != nil)
+        [binder dataChanged:data withKey:key withValue:anObject];
 }
 
 @end
