@@ -89,7 +89,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"Binder dealloc <%@>", NSStringFromClass([self class]));
+//    NSLog(@"Binder dealloc <%@>", NSStringFromClass([self class]));
 }
 
 

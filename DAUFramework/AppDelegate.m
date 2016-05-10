@@ -40,21 +40,27 @@
     // Override point for customization after application launch.
     [self initGlobalInfo];
     
-    NSDictionary * jsonDict = [[DAUManager shareInstance] getDictionaryFromJsonFile:@"RegisterViewLayout"];
-    [[DAUManager shareInstance] parseLayoutModel:jsonDict[@"layoutInfo"] withParent:nil withScope:CONTROLLER_SCOPE];
-    
+    NSDictionary * jsonDic = nil;
+    NSArray * layoutInfo = nil;
+    jsonDic = [[DAUManager shareInstance] getDictionaryFromJsonFile:@"RegisterViewLayout"];
+    layoutInfo = [[DAUManager shareInstance] parseLayoutModel:[jsonDic objectForKey:@"layoutInfo"] withParent:nil withScope:CONTROLLER_SCOPE];
+   
     GlobalViewModel * viewModel = [[GlobalViewModel alloc] init];
-
     UIWrapper * controller = [UIWrapper getUIWrapper:@"registerViewController" withScope:CONTROLLER_SCOPE];
-    [controller addAction:[Action actionWithSelector:@selector(viewDidLoad:) withTarget:viewModel withParam:nil] withTrigger:@"viewDidLoad" withScope:CONTROLLER_SCOPE];
-    [controller addAction:[Action actionWithSelector:@selector(viewWillAppear:) withTarget:viewModel withParam:nil] withTrigger:@"viewWillAppear" withScope:CONTROLLER_SCOPE];
+    DAUViewController * viewController = [UIWrapper getUIObject:@"registerViewController" withScope:CONTROLLER_SCOPE];
+    
+    
+    [controller addAction:[Action actionWithSelector:@selector(viewDidLoad:) withTarget:viewModel withParam:nil] withTrigger:@"viewDidLoad" withScope:viewController.controllerName];
+    [controller addAction:[Action actionWithSelector:@selector(viewWillAppear:) withTarget:viewModel withParam:nil] withTrigger:@"viewWillAppear" withScope:viewController.controllerName];
+    
+    [[DAUManager shareInstance] createLayoutModel:layoutInfo withParent:nil];
 
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:controller.ui];
     [self.window makeKeyAndVisible];
     
-    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:CONTROLLER_SCOPE];
+    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.registerViewController.rootView"];
     [button addAction:[Action actionWithSelector:@selector(removeViewController:) withTarget:self withParam:nil] withTrigger:@"onTap" withScope:GLOBAL_SCOPE];
     
     return YES;

@@ -166,7 +166,7 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    __autoreleasing UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     [self parseProperty:dict withObject:button];
     UIWrapper * ui = [[UIWrapper alloc] initWithUI:button];
     [button addTarget:ui action:@selector(onTap:) forControlEvents:UIControlEventTouchUpInside];

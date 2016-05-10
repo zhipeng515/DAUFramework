@@ -76,7 +76,7 @@
             ModelDefine * model = [[ModelDefine alloc] init:modelName withVarname:varname withType:type withScope:scope withPropertys:propertys];
             [self.modelDefineDict setValue:model forKey:modelName];
 
-//            [self bindModel:model withPropertys:propertys];
+            [self bindModel:model withPropertys:propertys];
         }
 //        else if([modelDefine isKindOfClass:[NSString class]])
 //        {
@@ -99,6 +99,9 @@
 
 -(id)getModelDefine:(id)data
 {
+    if(![data isKindOfClass:[NSDictionary class]])
+        return nil;
+
     NSMutableArray * defines = [[NSMutableArray alloc] init];
     
 //    NSMutableSet * keyMatched = [NSMutableSet setWithCapacity:self.modelDefineDict.count];
@@ -126,9 +129,6 @@
 
 -(void)parseDataModel:(id)models withScope:(NSString*)scope
 {
-    if(![models isKindOfClass:[NSDictionary class]])
-        return;
-    
     NSArray * defines = [self getModelDefine:models];
     for(ModelDefine * define in defines)
     {
@@ -139,13 +139,17 @@
         {
             dataScope = define.scope;
         }
-        if([define hasvarname])
+        if([define hasVarname])
         {
-            varname = [data objectForKey:define.varname];
-            if([varname hasPrefix:@"$"])
-                varname = [varname substringFromIndex:1];
+            if([define.varname hasPrefix:@"$"])
+            {
+                varname = [define.varname substringFromIndex:1];
+                varname = [data objectForKey:varname];
+            }
             else
+            {
                 varname = define.varname;
+            }
         }
         Data * oldData = [[ObjectManager shareInstance] getObject:varname withScope:dataScope];
         if(oldData == nil)
@@ -158,15 +162,20 @@
         }
     }
     
-    id object;
-    NSEnumerator *enumerator = [models objectEnumerator];
-    while ((object = [enumerator nextObject]) != nil) {
-        [self parseDataModel:object withScope:scope];
+    
+    if([models isKindOfClass:[NSDictionary class]] || [models isKindOfClass:[NSArray class]])
+    {
+        id object;
+        NSEnumerator *enumerator = [models objectEnumerator];
+        while ((object = [enumerator nextObject]) != nil) {
+            [self parseDataModel:object withScope:scope];
+        }
     }
 }
 
--(void)parseLayoutModel:(NSArray*)layouts withParent:(id)parent withScope:(NSString*)scope
+-(NSArray*)parseLayoutModel:(NSArray*)layouts withParent:(id)parent withScope:(NSString*)scope
 {
+    NSMutableArray * layoutArray = [[NSMutableArray alloc] init];
     for(id layout in layouts)
     {
         NSString * layoutName = layout[@"name"];
@@ -175,22 +184,38 @@
         NSAssert(creatorName != nil, @"creator name is nil");
         NSAssert(property != nil, @"property is nil");
         
-        NSString * uiScope = [NSString stringWithFormat:@"%@.%@", scope, layoutName];
         id layoutValue = [[ObjectManager shareInstance] createObject:property withKey:creatorName];
-		[[ObjectManager shareInstance] setObject:layoutValue withKey:layoutName withScope:uiScope];
+		[[ObjectManager shareInstance] setObject:layoutValue withKey:layoutName withScope:scope];
         
-        if([layoutValue isKindOfClass:[UIWrapper class]] && [parent isKindOfClass:[UIWrapper class]])
+        [layoutArray addObject:layoutValue];
+        
+        NSString * uiScope = [NSString stringWithFormat:@"%@.%@", scope, layoutName];
+        NSArray * subLayoutArray = [self parseLayoutModel:layout[@"layoutInfo"] withParent:layoutValue withScope:uiScope];
+        if([subLayoutArray count] > 0)
+            [layoutArray addObject:subLayoutArray];
+    };
+    return layoutArray;
+}
+
+- (void)createLayoutModel:(nullable NSArray*)layouts withParent:(nullable id)parent
+{
+    id lastLayout = nil;
+    for(id layout in layouts)
+    {
+        if([layout isKindOfClass:[UIWrapper class]] && [parent isKindOfClass:[UIWrapper class]])
         {
-            UIWrapper * uiItem = (UIWrapper*)layoutValue;
+            UIWrapper * uiItem = (UIWrapper*)layout;
             UIWrapper* uiParent = (UIWrapper*)parent;
             if([uiParent.ui isKindOfClass:[UIViewController class]])
-               [((UIViewController*)uiParent.ui).view addSubview:uiItem.ui];
+                [((UIViewController*)uiParent.ui).view addSubview:uiItem.ui];
             else
                 [uiParent.ui addSubview:uiItem.ui];
         }
+        if([layout isKindOfClass:[NSArray class]])
+           [self createLayoutModel:layout withParent:lastLayout];
         
-        [self parseLayoutModel:layout[@"layoutInfo"] withParent:layoutValue withScope:uiScope];
-    };
+        lastLayout = layout;
+    }
 }
 
 -(void)parseBinderModel:(NSDictionary*)binders withScope:(NSString*)scope

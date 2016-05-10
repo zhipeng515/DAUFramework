@@ -26,7 +26,10 @@
 - (nullable id)getModelDefine:(nonnull id)define;
 
 - (void)parseDataModel:(nonnull id)models withScope:(nonnull NSString*)scope;
-- (void)parseLayoutModel:(nonnull NSArray*)layouts withParent:(nullable id)parent withScope:(nonnull NSString*)scope;
+
+- (nullable NSArray*)parseLayoutModel:(nonnull NSArray*)layouts withParent:(nullable id)parent withScope:(nonnull NSString*)scope;
+- (void)createLayoutModel:(nullable NSArray*)layouts withParent:(nullable id)parent;
+
 - (void)parseBinderModel:(nonnull NSDictionary*)binders withScope:(nonnull NSString*)scope;
 
 - (void)dataChanged:(nonnull Data*)data withKey:(nullable id)key withObject:(nonnull id)anObject;

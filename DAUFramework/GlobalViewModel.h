@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class Data;
+
 @interface GlobalViewModel : NSObject
 
+- (void)viewDidLoad:(nullable Data*)param;
 
 @end
 

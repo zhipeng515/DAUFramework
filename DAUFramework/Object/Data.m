@@ -168,7 +168,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"Data dealloc");
+//    NSLog(@"Data dealloc");
 }
 
 

@@ -51,11 +51,16 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 - (void)benchmark
 {
     CGFloat time = BNRTimeBlock(^{
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"testdata" ofType:@"json"];
+        NSData * configString = [NSData dataWithContentsOfFile:path];
+        NSDictionary * creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
+
+        NSString * path1 = [[NSBundle mainBundle] pathForResource:@"testdata_1" ofType:@"json"];
+        NSData * configString1 = [NSData dataWithContentsOfFile:path1];
+        NSDictionary * creatorDict1 = [NSJSONSerialization JSONObjectWithData:configString1 options:NSJSONReadingMutableLeaves error:nil];
+
         for(int i = 0; i < 100; i++)
         {
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"testdata" ofType:@"json"];
-            NSData * configString = [NSData dataWithContentsOfFile:path];
-            NSDictionary * creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
             
             [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
             
@@ -64,25 +69,22 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
             
             [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
             
-            path = [[NSBundle mainBundle] pathForResource:@"testdata_1" ofType:@"json"];
-            configString = [NSData dataWithContentsOfFile:path];
-            creatorDict = [NSJSONSerialization JSONObjectWithData:configString options:NSJSONReadingMutableLeaves error:nil];
             
-            [[DAUManager shareInstance] parseDataModel:creatorDict withScope:@"RegisterView"];
+            [[DAUManager shareInstance] parseDataModel:creatorDict1 withScope:@"RegisterView"];
         }
     });
     NSLog(@"time: %f", time);
 }
 
-- (void)viewDidLoad:(nonnull Data*)param {
+- (void)viewDidLoad:(nullable Data*)param {
     // Do any additional setup after loading the view, typically from a nib.
     
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self benchmark];
 //    });
 
-    id notes = [[ObjectManager shareInstance] getObject:@"notes" withScope:@"RegisterView"];
-    NSLog( @"%@", notes[@"notes"]);
+//    id notes = [[ObjectManager shareInstance] getObject:@"notes" withScope:@"RegisterView"];
+//    NSLog( @"%@", notes[@"notes"]);
     
 
 //    path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
@@ -203,9 +205,9 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    [[DAUManager shareInstance] bind:imageView withData:tap];
 }
 
-- (void)viewWillAppear:(nonnull Data*)param
+- (void)viewWillAppear:(nullable Data*)param
 {
-    DAUViewController * controller = param[@"self"];
+//    DAUViewController * controller = param[@"self"];
     
 //    UIModel* imageView = [[ModelManager shareInstance] getModel:@"userAvatar"];
 //    HttpAction * http1 = [[ModelManager shareInstance] getModel:@"getTopHttp"];

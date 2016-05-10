@@ -79,17 +79,18 @@
 //    }
     id target = self[@"target"];
     SEL selector = NSSelectorFromString(self[@"selector"]);
-    if(target && selector)
+    if(target && selector && [target respondsToSelector:selector])
     {
-        id result = [target performSelector:selector withObject:param];
-        NSLog(@"%@", result);
+        [target performSelector:selector withObject:param];
+//        id result = [target performSelector:selector withObject:param];
+//        NSLog(@"%@", result);
     }
     return YES;
 }
 
 - (void)dealloc
 {
-    NSLog(@"Action dealloc <%@>", NSStringFromClass([self class]));
+//    NSLog(@"Action dealloc <%@>", NSStringFromClass([self class]));
 }
 
 @end

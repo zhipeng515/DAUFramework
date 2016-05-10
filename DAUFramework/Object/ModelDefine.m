@@ -28,7 +28,7 @@
     return self;
 }
 
--(bool)hasvarname
+-(bool)hasVarname
 {
     return self.varname && ![self.varname isEqualToString:@""];
 }
@@ -43,13 +43,15 @@
     __block int matchCount = 0;
     if([self.type isEqualToString:@"kv"] && [model isKindOfClass:[NSDictionary class]])
     {
-        id varnameValue = model[self.varname];
-        if([self hasvarname] && varnameValue == nil)
+//        id varnameValue = model[self.varname];
+//        if([self hasVarname] && varnameValue == nil)
+//            return false;
+        if([self.propertys count] > [model count])
             return false;
-        [model enumerateKeysAndObjectsUsingBlock:^(id key, id modelValue, BOOL *stop) {
-            id propertyType = self.propertys[key];
+        [self.propertys enumerateKeysAndObjectsUsingBlock:^(id key, id propertyType, BOOL *stop) {
             if(propertyType)
 			{
+                id modelValue = model[key];
                 if([propertyType isKindOfClass:[NSString class]])
                 {
                     if([modelValue isKindOfClass:[NSString class]] && [propertyType isEqualToString:@"string"])
@@ -108,7 +110,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"ModelDefine dealloc");
+//    NSLog(@"ModelDefine dealloc");
 }
 
 

@@ -24,18 +24,25 @@
 
     // Do any additional setup after loading the view.
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
-    Data * param = [[Data alloc] init];
-    param[@"self"] = self;
-    [binder doAction:@"loadView" withParam:param];
+    if(binder)
+    {
+        Data * param = [[Data alloc] init];
+        param[@"self"] = self;
+        [binder doAction:@"loadView" withParam:param];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
-    Data * param = [[Data alloc] init];
-    param[@"self"] = self;
-    [binder doAction:@"viewDidLoad" withParam:param];
+    if(binder)
+    {
+        Data * param = [[Data alloc] init];
+        param[@"self"] = self;
+        [binder doAction:@"viewDidLoad" withParam:param];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,10 +50,13 @@
     [super viewWillAppear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
-    Data * param = [[Data alloc] init];
-    param[@"self"] = self;
-    param[@"animated"] = [NSNumber numberWithBool:animated];
-    [binder doAction:@"viewWillAppear" withParam:nil];
+    if(binder)
+    {
+        Data * param = [[Data alloc] init];
+        param[@"self"] = self;
+        param[@"animated"] = [NSNumber numberWithBool:animated];
+        [binder doAction:@"viewWillAppear" withParam:nil];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -54,10 +64,13 @@
     [super viewDidAppear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
-    Data * param = [[Data alloc] init];
-    param[@"self"] = self;
-    param[@"animated"] = [NSNumber numberWithBool:animated];
-    [binder doAction:@"viewDidAppear" withParam:nil];
+    if(binder)
+    {
+        Data * param = [[Data alloc] init];
+        param[@"self"] = self;
+        param[@"animated"] = [NSNumber numberWithBool:animated];
+        [binder doAction:@"viewDidAppear" withParam:nil];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -65,10 +78,13 @@
     [super viewWillDisappear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
-    Data * param = [[Data alloc] init];
-    param[@"self"] = self;
-    param[@"animated"] = [NSNumber numberWithBool:animated];
-    [binder doAction:@"viewWillDisappear" withParam:nil];
+    if(binder)
+    {
+        Data * param = [[Data alloc] init];
+        param[@"self"] = self;
+        param[@"animated"] = [NSNumber numberWithBool:animated];
+        [binder doAction:@"viewWillDisappear" withParam:nil];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -76,10 +92,13 @@
     [super viewDidDisappear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
-    Data * param = [[Data alloc] init];
-    param[@"self"] = self;
-    param[@"animated"] = [NSNumber numberWithBool:animated];
-    [binder doAction:@"viewDidDisappear" withParam:nil];
+    if(binder)
+    {
+        Data * param = [[Data alloc] init];
+        param[@"self"] = self;
+        param[@"animated"] = [NSNumber numberWithBool:animated];
+        [binder doAction:@"viewDidDisappear" withParam:nil];
+    }
 }
 
 // Called just before the view controller's view's layoutSubviews method is invoked. Subclasses can implement as necessary. The default is a nop.
@@ -88,9 +107,12 @@
     [super viewWillLayoutSubviews];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
-    Data * param = [[Data alloc] init];
-    param[@"self"] = self;
-    [binder doAction:@"viewWillLayoutSubviews" withParam:nil];
+    if(binder)
+    {
+        Data * param = [[Data alloc] init];
+        param[@"self"] = self;
+        [binder doAction:@"viewWillLayoutSubviews" withParam:nil];
+    }
 }
 
 // Called just after the view controller's view's layoutSubviews method is invoked. Subclasses can implement as necessary. The default is a nop.
@@ -99,9 +121,12 @@
     [super viewDidLayoutSubviews];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.controllerName];
-    Data * param = [[Data alloc] init];
-    param[@"self"] = self;
-    [binder doAction:@"viewDidLayoutSubviews" withParam:nil];
+    if(binder)
+    {
+        Data * param = [[Data alloc] init];
+        param[@"self"] = self;
+        [binder doAction:@"viewDidLayoutSubviews" withParam:nil];
+    }
 }
 
 
@@ -112,7 +137,7 @@
 
 - (void)dealloc
 {
-    [[ObjectManager shareInstance] removeAllObject:CONTROLLER_SCOPE];
+    [[ObjectManager shareInstance] removeAllObject:self.controllerName];
     NSLog(@"%@", [ObjectManager shareInstance].objects);
 }
 

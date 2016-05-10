@@ -18,7 +18,7 @@
 
 -(id)init:(NSString*)name withVarname:(NSString*)varname withType:(NSString*)type withScope:(NSString*)scope withPropertys:(NSDictionary*)propertys;
 -(bool)isModelDefine:(id)model;
--(bool)hasvarname;
+-(bool)hasVarname;
 -(bool)hasScope;
 
 -(id)buildModel:(id)propertys;
