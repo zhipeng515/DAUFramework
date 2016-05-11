@@ -36,6 +36,22 @@
     return self;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if(![object isKindOfClass:[Action class]])
+        return NO;
+    
+    Action * action = (Action*)object;
+    if(![self.propertys isEqual:action.propertys])
+        return NO;
+    if(self.complete != action.complete && ![self.complete isEqual:action.complete])
+        return NO;
+    if(self.failed != action.failed && ![self.failed isEqual:action.failed])
+        return NO;
+    
+    return YES;
+}
+
 - (id)copyWithZone:(NSZone *)zone
 {
     return self;

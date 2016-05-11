@@ -25,7 +25,6 @@
 
 #import <mach/mach_time.h>  // for mach_absolute_time() and friends
 
-
 CGFloat BNRTimeBlock (void (^block)(void)) {
     mach_timebase_info_data_t info;
     if (mach_timebase_info(&info) != KERN_SUCCESS) return -1.0;
@@ -41,6 +40,16 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 } // BNRTimeBlock
 
 @implementation GlobalViewModel
+
+- (void)updateUIValue:(Data*)data
+{
+    UIWrapper * uiWrapper = data[@"self"];
+    id key = data[@"key"];
+    id value = data[@"value"];
+    
+    NSLog(@"updateUIValue %p %@ %@", uiWrapper, key, value);
+}
+
 
 - (void)presentDAU:(Action*)action
 {
@@ -147,10 +156,11 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [button addAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil withScope:button.scope] withTrigger:@"onTap"];
     [button addAction:tapimage withTrigger:@"onTap"];
     [button addAction:customfunc withTrigger:@"onTap"];
-    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil withScope:button.scope]];
-//    
+    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
+    [button watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
+//
     UIWrapper * rootView = [UIWrapper getUIWrapper:@"rootView" withScope:@"controllers.registerViewController"];
-    [rootView watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil withScope:rootView.scope]];
+    [rootView watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:rootView.scope]];
 
     
     [[ObjectManager shareInstance] setObject:@"444444444444" withKey:@"deviceId" withScope:@"global.device"];

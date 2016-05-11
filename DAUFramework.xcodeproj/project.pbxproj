@@ -154,7 +154,6 @@
 			children = (
 				852A0BFE1CD353FD0081B206 /* DAUViewController.h */,
 				852A0BFF1CD353FD0081B206 /* DAUViewController.m */,
-				85C750C51CCF1C4500481D36 /* Action.h */,
 			);
 			name = UI;
 			path = DAUFramework/Object/UI;
@@ -207,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				852A0BFD1CD353E30081B206 /* UI */,
+				85C750C51CCF1C4500481D36 /* Action.h */,
 				85C750C61CCF1C4500481D36 /* Action.m */,
 				85C750C71CCF1C4500481D36 /* Binder.h */,
 				85C750C81CCF1C4500481D36 /* Binder.m */,

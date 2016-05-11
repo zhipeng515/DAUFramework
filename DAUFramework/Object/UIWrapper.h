@@ -40,6 +40,6 @@
 
 - (void)onTap:(nonnull id)sender;
 
-- (void)dataChanged:(nonnull id)value;
+- (void)dataChanged:(nonnull id)value withKey:(nonnull NSString*)key;
 
 @end

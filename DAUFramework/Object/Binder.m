@@ -62,7 +62,8 @@
         valueArray = [[NSMutableArray alloc] init];
         [self.propertys setObject:valueArray forKey:aKey];
     }
-    [valueArray addObject:value];
+    if(![valueArray containsObject:value])
+        [valueArray addObject:value];
 }
 
 - (void)setObject:(nonnull id)anObject forKey:(nonnull id <NSCopying>)aKey
@@ -73,7 +74,8 @@
         valueArray = [[NSMutableArray alloc] init];
         [self.propertys setObject:valueArray forKey:aKey];
     }
-    [valueArray addObject:anObject];
+    if(![valueArray containsObject:anObject])
+        [valueArray addObject:anObject];
 }
 
 - (void)setObject:(nullable id)anObject forKeyedSubscript:(nonnull id <NSCopying>)aKey
@@ -84,7 +86,8 @@
         valueArray = [[NSMutableArray alloc] init];
         [self.propertys setObject:valueArray forKeyedSubscript:aKey];
     }
-    [valueArray addObject:anObject];
+    if(![valueArray containsObject:anObject])
+        [valueArray addObject:anObject];
 }
 
 - (void)removeObject:(nonnull id)anObject forKey:(nonnull id)aKey
@@ -149,7 +152,7 @@
     NSArray * uis = self[key];
     for(UIWrapper * ui in uis)
     {
-        [ui dataChanged:value];
+        [ui dataChanged:value withKey:key];
     }
 }
 

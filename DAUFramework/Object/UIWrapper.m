@@ -48,23 +48,25 @@
     return self;
 }
 
-- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(Action*)action
-{
-    Binder * dataBinder = [Binder binderWithObject:data withScope:data.scope];
-    dataBinder[key] = self;
-    if(action)
-        [self addAction:action withTrigger:@"dataSourceChanged"];
-    
-    // 因为数据和UI是一对多的关系，所以需要记录UI绑到那个数据上面了，利用作用域销毁Binder的时候
-    // 在Binder的dealloc里面释放Data记录的UI
-    Binder * uiBinder = [Binder binderWithObject:self withScope:self.scope];
-    uiBinder[key] = data;
-}
-
 - (void)addAction:(nonnull Action*)action withTrigger:(NSString*)trigger
 {
     Binder * binder = [Binder binderWithObject:self withScope:self.scope];
     binder[trigger] = action;
+}
+
+- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(Action*)action
+{
+    Binder * dataBinder = [Binder binderWithObject:data withScope:data.scope];
+    dataBinder[key] = self;
+    Binder * uiBinder = [Binder binderWithObject:self withScope:self.scope];
+    uiBinder[key] = data;
+    if(action)
+    {
+        [self addAction:action withTrigger:@"dataSourceChanged"];
+    }
+    
+    // 因为数据和UI是一对多的关系，所以需要记录UI绑到那个数据上面了，利用作用域销毁Binder的时候
+    // 在Binder的dealloc里面释放Data记录的UI
 }
 
 - (id)copyWithZone:(nullable NSZone *)zone
@@ -94,13 +96,15 @@
 }
 
 
-- (void)dataChanged:(nonnull id)value
+- (void)dataChanged:(nonnull id)value withKey:(NSString*)key
 {
     Binder * binder = [Binder getBinder:self withScope:self.scope];
     if(![binder isKindOfClass:[UIWrapperActionBinder class]])
         return;
     Data * param = [[Data alloc] initWithScope:self.scope];
+    param[@"key"] = key;
     param[@"value"] = value;
+    param[@"self"] = self;
     [binder doAction:@"dataSourceChanged" withParam:param];
 }
 
@@ -112,7 +116,7 @@
     if(![binder isKindOfClass:[UIWrapperActionBinder class]])
         return;
     Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"sender"] = sender;
+    param[@"self"] = sender;
     [binder doAction:@"onTap" withParam:param];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
