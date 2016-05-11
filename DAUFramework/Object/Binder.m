@@ -87,9 +87,17 @@
     [valueArray addObject:anObject];
 }
 
+- (void)removeObject:(nonnull id)anObject forKey:(nonnull id)aKey
+{
+    NSMutableArray * valueArray = self.propertys[aKey];
+    if(valueArray == nil)
+        return;
+    [valueArray removeObject:anObject];
+}
+
 - (void)dealloc
 {
-//    NSLog(@"Binder dealloc <%@>", NSStringFromClass([self class]));
+    NSLog(@"Binder dealloc <%@>", NSStringFromClass([self class]));
 }
 
 
@@ -99,16 +107,37 @@
 
 - (id)doAction:(NSString*)condition withParam:(nullable Data *)param
 {
-    BOOL result = YES;
+    NSMutableArray * resultArray = [[NSMutableArray alloc] init];
     NSArray * actions = self[condition];
-    for(Action * action in actions)
+    for(id action in actions)
     {
-        if(![action doAction:param])
+        if(![action isKindOfClass:[Action class]])
+            continue;
+        id result = [action doAction:param];
+        if(result != nil)
         {
-            result = NO;
+            [resultArray addObject:result];
         }
     }
-    return [NSNumber numberWithBool:result];
+    return resultArray;
+}
+
+
+- (void)dealloc
+{
+    // 释放绑定到数据上面的UI组件
+    [self.propertys enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSArray * valueArray = (NSArray*)obj;
+        for(id value in valueArray)
+        {
+            Data * data = (Data*)value;
+            Binder * binder = [Binder binderWithObject:data withScope:data.scope];
+            NSArray * uis = binder[key];
+            for(UIWrapper * ui in uis)
+                [binder removeObject:ui forKey:key];
+        }
+//        NSLog(@"UIWrapperActionBinder dealloc<%@>=<%@>", key, obj);
+    }];
 }
 
 @end
@@ -123,5 +152,6 @@
         [ui dataChanged:value];
     }
 }
+
 
 @end

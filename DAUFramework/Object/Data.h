@@ -44,8 +44,8 @@
 
 
 - (nullable id)objectForKey:(nonnull id)aKey;
-- (nullable NSEnumerator<id> *)objectEnumerator;
-- (NSUInteger)countByEnumeratingWithState:(nullable NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len;
+//- (nullable NSEnumerator<id> *)objectEnumerator;
+//- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len;
 
 - (nonnull NSString*)description;
 

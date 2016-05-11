@@ -62,7 +62,7 @@
     [aCoder encodeObject:self forKey:@"failed"];
 }
 
-- (BOOL)doAction:(nullable Data*)param
+- (id)doAction:(nullable Data*)param
 {
 //    NSValue * selectorValue = self[@"selector"];
 //    if(selectorValue)
@@ -78,13 +78,24 @@
 //    }
     id target = self[@"target"];
     SEL selector = NSSelectorFromString(self[@"selector"]);
-    if(target && selector && [target respondsToSelector:selector])
+    
+    if(target && selector)
     {
-        [target performSelector:selector withObject:param];
-//        id result = [target performSelector:selector withObject:param];
-//        NSLog(@"%@", result);
+        NSMethodSignature *signature = [target methodSignatureForSelector:selector];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        [invocation setTarget:target];
+        [invocation setSelector:selector];
+        [invocation setArgument:&param atIndex:2];
+        [invocation invoke];
+        
+        if ([signature methodReturnLength]) {
+            id data;
+            [invocation getReturnValue:&data];
+            return data;
+        }
     }
-    return YES;
+    
+    return nil;
 }
 
 - (void)dealloc

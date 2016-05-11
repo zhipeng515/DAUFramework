@@ -147,7 +147,11 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [button addAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil withScope:button.scope] withTrigger:@"onTap"];
     [button addAction:tapimage withTrigger:@"onTap"];
     [button addAction:customfunc withTrigger:@"onTap"];
-//    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil]];
+    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil withScope:button.scope]];
+//    
+    UIWrapper * rootView = [UIWrapper getUIWrapper:@"rootView" withScope:@"controllers.registerViewController"];
+    [rootView watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil withScope:rootView.scope]];
+
     
     [[ObjectManager shareInstance] setObject:@"444444444444" withKey:@"deviceId" withScope:@"global.device"];
     device[@"deviceType"] = @"android";

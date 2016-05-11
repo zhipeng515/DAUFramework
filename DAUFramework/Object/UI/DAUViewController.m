@@ -24,12 +24,11 @@
 
     // Do any additional setup after loading the view.
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(binder)
-    {
-        Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-        param[@"self"] = self;
-        [binder doAction:@"loadView" withParam:param];
-    }
+    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+        return;
+    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
+    param[@"self"] = self;
+    [binder doAction:@"loadView" withParam:param];
 }
 
 - (void)viewDidLoad {
@@ -37,12 +36,11 @@
     
     // Do any additional setup after loading the view.
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(binder)
-    {
-        Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-        param[@"self"] = self;
-        [binder doAction:@"viewDidLoad" withParam:param];
-    }
+    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+        return;
+    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
+    param[@"self"] = self;
+    [binder doAction:@"viewDidLoad" withParam:param];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -50,13 +48,12 @@
     [super viewWillAppear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(binder)
-    {
-        Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-        param[@"self"] = self;
-        param[@"animated"] = [NSNumber numberWithBool:animated];
-        [binder doAction:@"viewWillAppear" withParam:param];
-    }
+    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+        return;
+    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
+    param[@"self"] = self;
+    param[@"animated"] = [NSNumber numberWithBool:animated];
+    [binder doAction:@"viewWillAppear" withParam:param];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -64,13 +61,12 @@
     [super viewDidAppear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(binder)
-    {
-        Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-        param[@"self"] = self;
-        param[@"animated"] = [NSNumber numberWithBool:animated];
-        [binder doAction:@"viewDidAppear" withParam:param];
-    }
+    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+        return;
+    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
+    param[@"self"] = self;
+    param[@"animated"] = [NSNumber numberWithBool:animated];
+    [binder doAction:@"viewDidAppear" withParam:param];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -78,13 +74,12 @@
     [super viewWillDisappear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(binder)
-    {
-        Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-        param[@"self"] = self;
-        param[@"animated"] = [NSNumber numberWithBool:animated];
-        [binder doAction:@"viewWillDisappear" withParam:param];
-    }
+    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+        return;
+    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
+    param[@"self"] = self;
+    param[@"animated"] = [NSNumber numberWithBool:animated];
+    [binder doAction:@"viewWillDisappear" withParam:param];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -92,13 +87,12 @@
     [super viewDidDisappear:animated];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(binder)
-    {
-        Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-        param[@"self"] = self;
-        param[@"animated"] = [NSNumber numberWithBool:animated];
-        [binder doAction:@"viewDidDisappear" withParam:param];
-    }
+    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+        return;
+    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
+    param[@"self"] = self;
+    param[@"animated"] = [NSNumber numberWithBool:animated];
+    [binder doAction:@"viewDidDisappear" withParam:param];
 }
 
 // Called just before the view controller's view's layoutSubviews method is invoked. Subclasses can implement as necessary. The default is a nop.
@@ -107,12 +101,11 @@
     [super viewWillLayoutSubviews];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(binder)
-    {
-        Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-        param[@"self"] = self;
-        [binder doAction:@"viewWillLayoutSubviews" withParam:param];
-    }
+    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+        return;
+    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
+    param[@"self"] = self;
+    [binder doAction:@"viewWillLayoutSubviews" withParam:param];
 }
 
 // Called just after the view controller's view's layoutSubviews method is invoked. Subclasses can implement as necessary. The default is a nop.
@@ -121,12 +114,11 @@
     [super viewDidLayoutSubviews];
 
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(binder)
-    {
-        Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-        param[@"self"] = self;
-        [binder doAction:@"viewDidLayoutSubviews" withParam:param];
-    }
+    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+        return;
+    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
+    param[@"self"] = self;
+    [binder doAction:@"viewDidLayoutSubviews" withParam:param];
 }
 
 

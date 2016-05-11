@@ -10,6 +10,6 @@
 
 @interface ObjectCreator : NSObject
 
--(id)create:(NSString*)key withData:(NSDictionary*)data withScope:(nonnull NSString*)scope;
+-(nullable id)create:(nonnull NSString*)key withData:(nonnull NSDictionary*)data withScope:(nonnull NSString*)scope;
 
 @end

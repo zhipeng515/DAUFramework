@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Data.h"
 
-@class Data;
-
-@interface GlobalViewModel : NSObject
+@interface GlobalViewModel : Data
 
 - (void)viewDidLoad:(nullable Data*)param;
 

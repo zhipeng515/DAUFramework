@@ -25,7 +25,7 @@
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 
 - (nonnull id)init:(nonnull NSDictionary*)param withScope:(nonnull NSString*)scope;
-- (BOOL)doAction:(nullable Data*)param;
+- (nullable id)doAction:(nullable Data*)param;
 
 @end
 

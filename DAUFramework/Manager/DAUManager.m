@@ -225,9 +225,10 @@
 
 - (void)dataChanged:(Data*)data withKey:(id)key withObject:(id)anObject
 {
-    Binder *binder = [Binder getBinder:data withScope:GLOBAL_SCOPE];
-    if(binder != nil)
-        [binder dataChanged:data withKey:key withValue:anObject];
+    Binder *binder = [Binder getBinder:data withScope:data.scope];
+    if(![binder isKindOfClass:[DataUIWrapperBinder class]])
+        return;
+    [binder dataChanged:data withKey:key withValue:anObject];
 }
 
 @end

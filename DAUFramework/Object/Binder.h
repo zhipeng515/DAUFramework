@@ -17,6 +17,8 @@
 - (nullable id)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param;
 - (void)dataChanged:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value;
 
+- (void)removeObject:(nonnull id)anObject forKey:(nonnull id)aKey;
+
 @end
 
 @interface UIWrapperActionBinder : Binder
