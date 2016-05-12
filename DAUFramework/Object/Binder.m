@@ -98,6 +98,31 @@
     [valueArray removeObject:anObject];
 }
 
+- (void)removeObject:(nonnull id)anObject
+{
+    [self.propertys enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSMutableArray * valueArray = (NSMutableArray*)obj;
+        for(id value in valueArray)
+        {
+            if(value == anObject)
+            {
+                [valueArray removeObject:anObject];
+                break;
+            }
+        }
+//        if([valueArray count] <= 0)
+//            [self.propertys removeObjectForKey:key];
+    }];
+}
+
+- (void)removeObjectsForKey:(nonnull id)aKey
+{
+    NSMutableArray * valueArray = self.propertys[aKey];
+    if(valueArray == nil)
+        return;
+    [valueArray removeAllObjects];
+}
+
 - (void)dealloc
 {
     NSLog(@"Binder dealloc <%@>", NSStringFromClass([self class]));
@@ -130,16 +155,19 @@
 {
     // 释放绑定到数据上面的UI组件
     [self.propertys enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSArray * valueArray = (NSArray*)obj;
-        for(id value in valueArray)
+        if([key isKindOfClass:[UIWrapper class]])
         {
-            Data * data = (Data*)value;
-            Binder * binder = [Binder binderWithObject:data withScope:data.scope];
-            NSArray * uis = binder[key];
-            for(UIWrapper * ui in uis)
-                [binder removeObject:ui forKey:key];
+            NSArray * valueArray = (NSArray*)obj;
+            for(id value in valueArray)
+            {
+                if([value isKindOfClass:[Data class]])
+                {
+                    Data * data = (Data*)value;
+                    Binder * binder = [Binder getBinder:data withScope:data.scope];
+                    [binder removeObject:key];
+                }
+            }
         }
-//        NSLog(@"UIWrapperActionBinder dealloc<%@>=<%@>", key, obj);
     }];
 }
 
@@ -150,9 +178,10 @@
 - (void)dataChanged:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value;
 {
     NSArray * uis = self[key];
-    for(UIWrapper * ui in uis)
+    for(id ui in uis)
     {
-        [ui dataChanged:value withKey:key];
+        if([ui isKindOfClass:[UIWrapper class]])
+            [ui dataChanged:value withKey:key];
     }
 }
 

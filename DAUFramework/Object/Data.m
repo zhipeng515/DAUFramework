@@ -55,7 +55,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.scope forKey:@"scope"];
-    [aCoder encodeObject:self.propertys forKey:@"dict"];
+    [aCoder encodeObject:self.propertys forKey:@"propertys"];
 }
 
 - (void)removeAllObjects

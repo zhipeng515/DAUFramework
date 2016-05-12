@@ -90,7 +90,10 @@
     Data * scopeDict = objDict[key];
     if(create && scopeDict == nil)
     {
-        scopeDict = [[Data alloc] initWithScope:key];
+        NSString * scopeKey = key;
+        if(objDict.scope)
+            scopeKey = [NSString stringWithFormat:@"%@.%@", objDict.scope, key];
+        scopeDict = [[Data alloc] initWithScope:scopeKey];
         [objDict setObject:scopeDict forKey:key];
     }
     if(![remainKey isEqualToString:@""])
@@ -116,6 +119,8 @@
 -(id)getObject:(id)key withScope:(NSString*)scope
 {
     Data * scopeDict = [self getObjectScope:scope withobjects:self.objects createPath:NO];
+    if(key == nil)
+        return scopeDict;
     return [scopeDict objectForKey:key];
 }
 

@@ -47,7 +47,16 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     id key = data[@"key"];
     id value = data[@"value"];
     
-    NSLog(@"updateUIValue %p %@ %@", uiWrapper, key, value);
+    NSLog(@"updateUIValue %p %@ %@", uiWrapper, key, value);    
+}
+
+- (void)updateButtonValue:(Data*)data
+{
+    UIWrapper * uiWrapper = data[@"self"];
+    id key = data[@"key"];
+    id value = data[@"value"];
+    
+    NSLog(@"updateButtonValue %p %@ %@", uiWrapper, key, value);
 }
 
 
@@ -158,6 +167,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [button addAction:customfunc withTrigger:@"onTap"];
     [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
     [button watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
+    [button watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateButtonValue:" withTarget:self withParam:nil withScope:button.scope]];
 //
     UIWrapper * rootView = [UIWrapper getUIWrapper:@"rootView" withScope:@"controllers.registerViewController"];
     [rootView watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:rootView.scope]];

@@ -186,7 +186,7 @@ NSArray <NSString*> *_JJRSObjectDescriptionGetPropertyNamesForObject(id anObject
         [self padBuffer];
         [self appendWithColor:PLAIN_COLOR format:@"]\r"];
     }
-    else if (NSString.class == objv.classForKeyedArchiver)
+    else if([objv isKindOfClass:[NSString class]])// if (NSString.class == objv.classForKeyedArchiver)
     {
         NSString *typedObjv = objv;
         [self appendWithColor:STRING_COLOR format:@"\"%@\"\r", typedObjv];

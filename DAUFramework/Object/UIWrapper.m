@@ -58,15 +58,17 @@
 {
     Binder * dataBinder = [Binder binderWithObject:data withScope:data.scope];
     dataBinder[key] = self;
-    Binder * uiBinder = [Binder binderWithObject:self withScope:self.scope];
-    uiBinder[key] = data;
+
     if(action)
     {
-        [self addAction:action withTrigger:@"dataSourceChanged"];
+        NSString * actionKey = [NSString stringWithFormat:@"dataSourceChanged.%@", key];
+        [self addAction:action withTrigger:actionKey];
     }
-    
+
     // 因为数据和UI是一对多的关系，所以需要记录UI绑到那个数据上面了，利用作用域销毁Binder的时候
     // 在Binder的dealloc里面释放Data记录的UI
+    Binder * uiBinder = [Binder binderWithObject:self withScope:self.scope];
+    uiBinder[self] = data;
 }
 
 - (id)copyWithZone:(nullable NSZone *)zone
@@ -82,6 +84,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.ui forKey:@"ui"];
+    [super encodeWithCoder:aCoder];
 }
 
 - (nonnull NSString*)description
@@ -105,7 +108,8 @@
     param[@"key"] = key;
     param[@"value"] = value;
     param[@"self"] = self;
-    [binder doAction:@"dataSourceChanged" withParam:param];
+    NSString * actionKey = [NSString stringWithFormat:@"dataSourceChanged.%@", key];
+    [binder doAction:actionKey withParam:param];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
