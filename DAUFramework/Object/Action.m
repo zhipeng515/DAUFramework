@@ -15,7 +15,8 @@
 + (id)actionWithSelector:(NSString*)selector withTarget:(id)target withParam:(NSDictionary*)param withScope:(NSString*)scope
 {
     Action * action = [[Action alloc] init:param withScope:scope];
-    [action packageSelector:selector withTarget:target];
+    if(selector != nil && target != nil )
+        [action packageSelector:selector withTarget:target];
     return action;
 }
 
@@ -66,6 +67,8 @@
 {
 //    NSValue *selectorAsValue = [NSValue valueWithBytes:&selector objCType:@encode(SEL)];
 //    self[@"selector"] = selectorAsValue;
+    assert([target methodSignatureForSelector:NSSelectorFromString(selector)] != nil);
+
     self[@"selector"] = selector;
     self[@"target"] = target;
 }
@@ -97,17 +100,23 @@
     
     if(target && selector)
     {
+//        IMP func = [target methodForSelector:selector];
+//        func(target, selector, param);
         NSMethodSignature *signature = [target methodSignatureForSelector:selector];
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-        [invocation setTarget:target];
-        [invocation setSelector:selector];
-        [invocation setArgument:&param atIndex:2];
-        [invocation invoke];
-        
-        if ([signature methodReturnLength]) {
-            id data;
-            [invocation getReturnValue:&data];
-            return data;
+        assert(signature != nil);
+        if(signature)
+        {
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+            [invocation setTarget:target];
+            [invocation setSelector:selector];
+            [invocation setArgument:&param atIndex:2];
+            [invocation invoke];
+            
+            if ([signature methodReturnLength]) {
+                id data;
+                [invocation getReturnValue:&data];
+                return data;
+            }
         }
     }
     

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Data.h"
 
+//typedef id (*doAction_Func)(id, SEL, id);
+
 @interface Action : Data
 
 @property(nonatomic, retain, nullable)Action * complete;

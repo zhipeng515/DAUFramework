@@ -32,9 +32,13 @@
 - (nonnull id)init:(nullable id)ui withScope:(nonnull NSString*)scope;
 
 
+- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key;
+- (void)watchData:(nonnull Data*)data withAction:(nullable Action*)action withKey:(nonnull NSString*)key,...NS_REQUIRES_NIL_TERMINATION;
+- (void)unwatchData:(nonnull Data*)data withKey:(nonnull NSString*)key;
 
-- (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key withAction:(nullable Action*)action;
 - (void)addAction:(nonnull Action*)action withTrigger:(nonnull NSString*)trigger;
+- (void)removeAction:(nonnull NSString*)trigger;
+- (void)removeAllActions;
 
 - (nonnull NSString*)description;
 

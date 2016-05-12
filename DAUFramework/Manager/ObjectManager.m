@@ -35,11 +35,11 @@
     for (NSDictionary * creator in creators) {
         NSString * className = creator[@"className"];
         NSString * creatorName = creator[@"creatorName"];
-        NSAssert(className != nil, @"class name is nil");
-        NSAssert(creatorName != nil, @"creator name is nil");
+        assert(className != nil);
+        assert(creatorName != nil);
 
         Class creatorClass = NSClassFromString(className);
-        NSAssert(creatorClass != nil, @"creator %@ is not implement", className);
+        assert(creatorClass != nil);
         [self registerObjectCreator:[[creatorClass alloc] init] withKey:creatorName];
     }
 }
@@ -49,7 +49,7 @@
 {
     if([self.objectCreators objectForKey:key] != nil)
     {
-        NSAssert(false, @"key %@ already exists", key);
+        assert(false);
         return;
     }
     [ self.objectCreators setObject:creator forKey:key];
@@ -60,7 +60,7 @@
     ObjectCreator * creator = [self.objectCreators objectForKey:key];
     if(creator == nil)
     {
-        NSAssert(true, @"key %@ not found", key);
+        assert(false);
         return nil;
     }
     

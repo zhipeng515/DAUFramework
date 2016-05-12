@@ -21,6 +21,8 @@
 - (void)removeObjectsForKey:(nonnull id)aKey;
 - (void)removeObject:(nonnull id)anObject forKey:(nonnull id)aKey;
 
+- (BOOL)hasBinded:(nonnull id)anObject forKey:(nonnull id)aKey;
+
 @end
 
 @interface UIWrapperActionBinder : Binder

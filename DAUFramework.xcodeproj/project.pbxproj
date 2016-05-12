@@ -12,6 +12,8 @@
 		852A0C001CD353FD0081B206 /* DAUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852A0BFF1CD353FD0081B206 /* DAUViewController.m */; };
 		852A0C021CD356170081B206 /* RegisterViewAction.json in Resources */ = {isa = PBXBuildFile; fileRef = 852A0C011CD356170081B206 /* RegisterViewAction.json */; };
 		852A0C041CD356990081B206 /* RegisterViewModel.json in Resources */ = {isa = PBXBuildFile; fileRef = 852A0C031CD356990081B206 /* RegisterViewModel.json */; };
+		8581B5071CE449A100467D70 /* UICommonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8581B5061CE449A100467D70 /* UICommonAction.m */; };
+		8581B50A1CE473D300467D70 /* CommonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8581B5091CE473D300467D70 /* CommonAction.m */; };
 		85A10FD71CCA13C8008626FA /* ObjectCreator.json in Resources */ = {isa = PBXBuildFile; fileRef = 85A10FBA1CCA13C8008626FA /* ObjectCreator.json */; };
 		85A10FD81CCA13C8008626FA /* ActionCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FBD1CCA13C8008626FA /* ActionCreator.m */; };
 		85A10FD91CCA13C8008626FA /* BinderCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FBF1CCA13C8008626FA /* BinderCreator.m */; };
@@ -66,6 +68,10 @@
 		852A0BFF1CD353FD0081B206 /* DAUViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAUViewController.m; sourceTree = "<group>"; };
 		852A0C011CD356170081B206 /* RegisterViewAction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RegisterViewAction.json; sourceTree = "<group>"; };
 		852A0C031CD356990081B206 /* RegisterViewModel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RegisterViewModel.json; sourceTree = "<group>"; };
+		8581B5051CE449A100467D70 /* UICommonAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICommonAction.h; sourceTree = "<group>"; };
+		8581B5061CE449A100467D70 /* UICommonAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICommonAction.m; sourceTree = "<group>"; };
+		8581B5081CE473D300467D70 /* CommonAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonAction.h; sourceTree = "<group>"; };
+		8581B5091CE473D300467D70 /* CommonAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonAction.m; sourceTree = "<group>"; };
 		85A10FBA1CCA13C8008626FA /* ObjectCreator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ObjectCreator.json; sourceTree = "<group>"; };
 		85A10FBC1CCA13C8008626FA /* ActionCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCreator.h; sourceTree = "<group>"; };
 		85A10FBD1CCA13C8008626FA /* ActionCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCreator.m; sourceTree = "<group>"; };
@@ -158,6 +164,17 @@
 			name = UI;
 			path = DAUFramework/Object/UI;
 			sourceTree = SOURCE_ROOT;
+		};
+		8581B5021CE4496B00467D70 /* CommonAction */ = {
+			isa = PBXGroup;
+			children = (
+				8581B5051CE449A100467D70 /* UICommonAction.h */,
+				8581B5061CE449A100467D70 /* UICommonAction.m */,
+				8581B5081CE473D300467D70 /* CommonAction.h */,
+				8581B5091CE473D300467D70 /* CommonAction.m */,
+			);
+			path = CommonAction;
+			sourceTree = "<group>";
 		};
 		85A10FB91CCA13C8008626FA /* Config */ = {
 			isa = PBXGroup;
@@ -255,6 +272,7 @@
 		85DD9E2F1CC9244100DF09FB /* DAUFramework */ = {
 			isa = PBXGroup;
 			children = (
+				8581B5021CE4496B00467D70 /* CommonAction */,
 				85A10FB91CCA13C8008626FA /* Config */,
 				85A10FBB1CCA13C8008626FA /* Creator */,
 				85A10FC61CCA13C8008626FA /* Manager */,
@@ -507,8 +525,10 @@
 				85A10FDE1CCA13C8008626FA /* ObjectManager.m in Sources */,
 				85DD9E381CC9244200DF09FB /* GlobalViewModel.m in Sources */,
 				85C750D01CCF1C4500481D36 /* UIWrapper.m in Sources */,
+				8581B50A1CE473D300467D70 /* CommonAction.m in Sources */,
 				85A10FDC1CCA13C8008626FA /* UICreator.m in Sources */,
 				85DD9E351CC9244100DF09FB /* AppDelegate.m in Sources */,
+				8581B5071CE449A100467D70 /* UICommonAction.m in Sources */,
 				85A10FDD1CCA13C8008626FA /* DAUManager.m in Sources */,
 				85A10FDA1CCA13C8008626FA /* DataCreator.m in Sources */,
 				85C750CD1CCF1C4500481D36 /* Action.m in Sources */,

@@ -25,7 +25,7 @@
 
 -(id)create:(NSString*)key withData:(NSDictionary*)dict
 {
-    NSAssert(false, @"forbidden");
+    assert(false);
     return nil;
 }
 

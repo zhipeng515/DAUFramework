@@ -20,6 +20,7 @@
 #import "Binder.h"
 #import "DAUManager.h"
 #import "DAUViewController.h"
+#import "UICommonAction.h"
 
 #import "JJRSObjectDescription.h"
 
@@ -41,16 +42,18 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 
 @implementation GlobalViewModel
 
-- (void)updateUIValue:(Data*)data
+- (void)updateButtonTitleValue:(Data*)data
 {
     UIWrapper * uiWrapper = data[@"self"];
     id key = data[@"key"];
     id value = data[@"value"];
     
-    NSLog(@"updateUIValue %p %@ %@", uiWrapper, key, value);    
+    [uiWrapper.ui setTitle:value forState:UIControlStateNormal];
+    
+    NSLog(@"updateUIValue %p %@ %@", uiWrapper, key, value);
 }
 
-- (void)updateButtonValue:(Data*)data
+- (void)updateUIValue:(Data*)data
 {
     UIWrapper * uiWrapper = data[@"self"];
     id key = data[@"key"];
@@ -165,12 +168,27 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     [button addAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil withScope:button.scope] withTrigger:@"onTap"];
     [button addAction:tapimage withTrigger:@"onTap"];
     [button addAction:customfunc withTrigger:@"onTap"];
-    [button watchData:device withKey:@"deviceType" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
-    [button watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
-    [button watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateButtonValue:" withTarget:self withParam:nil withScope:button.scope]];
+    [button watchData:device withKey:@"deviceType"];
+    
+    UIWrapper * userNameText = [UIWrapper getUIWrapper:@"userNameText" withScope:@"controllers.registerViewController.rootView"];
+    [userNameText watchData:device withKey:@"deviceId"];
+    [userNameText addAction:[Action actionWithSelector:@"textField_shouldChangeCharactersInRange_replacementString:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textField:shouldChangeCharactersInRange:replacementString"];
+    [userNameText addAction:[Action actionWithSelector:@"textFieldDidEndEditing:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textFieldDidEndEditing"];
+    
+    
+    
+    
+    
+//    [button watchData:device withAction:[Action actionWithSelector:@"updateButtonTitleValue:" withTarget:self withParam:nil withScope:button.scope] withKey:@"deviceId", @"deviceType", nil];
+//    [button watchData:device withAction:[Action actionWithSelector:@"updateButtonTitleValue:" withTarget:self withParam:nil withScope:button.scope] withKey:@"deviceType", nil ];
+//    [button watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
+//    [button watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
 //
-    UIWrapper * rootView = [UIWrapper getUIWrapper:@"rootView" withScope:@"controllers.registerViewController"];
-    [rootView watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:rootView.scope]];
+//    UIWrapper * rootView = [UIWrapper getUIWrapper:@"rootView" withScope:@"controllers.registerViewController"];
+//    [rootView watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:rootView.scope]];
+    
+//    [button unwatchData:device withKey:@"deviceType"];
+//    [button unwatchData:device withKey:@"deviceId"];
 
     
     [[ObjectManager shareInstance] setObject:@"444444444444" withKey:@"deviceId" withScope:@"global.device"];

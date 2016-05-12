@@ -181,8 +181,8 @@
         NSString * layoutName = layout[@"name"];
 		NSString * creatorName = layout[@"creator"];
 		NSDictionary * property = layout[@"property"];
-        NSAssert(creatorName != nil, @"creator name is nil");
-        NSAssert(property != nil, @"property is nil");
+        assert(creatorName != nil);
+        assert(property != nil);
         
         id layoutValue = [[ObjectManager shareInstance] createObject:property withKey:creatorName withScope:scope];
 		[[ObjectManager shareInstance] setObject:layoutValue withKey:layoutName withScope:scope];

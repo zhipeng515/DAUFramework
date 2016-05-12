@@ -44,13 +44,13 @@
 
 - (id)doAction:(nonnull NSString*)condition withParam:(nullable Data*)param
 {
-    NSAssert(false, @"forbidden");
+    assert(false);
     return nil;
 }
 
 - (void)dataChanged:(nonnull Data*)data withKey:(nonnull id)key withValue:(nonnull id)value
 {
-    NSAssert(false, @"forbidden");
+    assert(false);
 }
 
 
@@ -121,6 +121,12 @@
     if(valueArray == nil)
         return;
     [valueArray removeAllObjects];
+}
+
+- (BOOL)hasBinded:(nonnull id)anObject forKey:(nonnull id)aKey
+{
+    NSMutableArray * valueArray = self.propertys[aKey];
+    return [valueArray containsObject:anObject];
 }
 
 - (void)dealloc

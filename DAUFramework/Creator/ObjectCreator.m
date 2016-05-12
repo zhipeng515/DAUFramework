@@ -7,12 +7,13 @@
 //
 
 #import "ObjectCreator.h"
+#import <assert.h>
 
 @implementation ObjectCreator
 
 -(id)create:(NSString*)key withData:(NSDictionary*)data withScope:(nonnull NSString*)scope
 {
-    NSAssert(false, @"forbidden");
+    assert(false);
     return nil;
 }
 
