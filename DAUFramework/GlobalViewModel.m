@@ -40,10 +40,19 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     
 } // BNRTimeBlock
 
+
+extern UINavigationController * naviController;
+
 @implementation GlobalViewModel
 
 + (void)presentDAU:(Action*)action
 {
+    UIWrapper * controller = [DAUViewController createDAUViewController:@"RegisterViewController"];
+    [controller addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
+    [controller addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
+    
+    [naviController pushViewController:controller.ui animated:YES];
+    
 //    DAUViewController * viewController = [[DAUViewController alloc] init];
 }
 

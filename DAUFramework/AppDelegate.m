@@ -16,6 +16,8 @@
 
 #import "AFNetworking.h"
 
+UINavigationController * naviController;
+
 @interface AppDelegate ()
 
 @end
@@ -24,11 +26,17 @@
 
 - (void)removeViewController:(id)param
 {
-    UIWrapper * userName = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView.userNameText"];
-    UIWrapper * userPassword = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView.userPasswordText"];
+    UIWrapper * controller = [DAUViewController createDAUViewController:@"RegisterViewController"];
+    [controller addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
+    [controller addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
     
-    [[AFHTTPSessionManager manager] POST:@"https://api" parameters:@{@"id":@"100"} progress:nil success:nil failure:nil];
+    [naviController pushViewController:controller.ui animated:YES];
 
+//    UIWrapper * userName = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView.userNameText"];
+//    UIWrapper * userPassword = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView.userPasswordText"];
+//    
+//    [[AFHTTPSessionManager manager] POST:@"https://api" parameters:@{@"id":@"100"} progress:nil success:nil failure:nil];
+//
 //    [self.window setRootViewController:nil];
 //    [[ObjectManager shareInstance] removeAllObject];
 }
@@ -49,16 +57,17 @@
     
     
     UIWrapper * controller = [DAUViewController createDAUViewController:@"RegisterViewController"];
-
     [controller addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
     [controller addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
     
+    naviController = [[UINavigationController alloc] initWithRootViewController:controller.ui];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window setRootViewController:controller.ui];
+    [self.window setRootViewController:naviController];
     [self.window makeKeyAndVisible];
     
-    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView"];
-    [button addAction:self withSelector:@"removeViewController:" withTrigger:@"onTap"];
+//    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView"];
+//    [button addAction:self withSelector:@"removeViewController:" withTrigger:@"onTap"];
     
     return YES;
 }
