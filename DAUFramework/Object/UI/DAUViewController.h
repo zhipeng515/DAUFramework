@@ -12,5 +12,6 @@
 
 @property (nonatomic, retain, nonnull)NSString * controllerName;
 
++ (nullable id)createDAUViewController:(nullable NSString*)controllerName;
 
 @end

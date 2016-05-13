@@ -26,7 +26,7 @@
     return instance;
 }
 
--(id)init
+- (id)init
 {
     if(self = [super init])
     {
@@ -37,7 +37,7 @@
     return self;
 }
 
-- (NSDictionary*)getDictionaryFromJsonFile:(NSString*)filename
++ (NSDictionary*)getDictionaryFromJsonFile:(NSString*)filename
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"json"];
     NSData * jsonData = [NSData dataWithContentsOfFile:path];
@@ -130,7 +130,7 @@
     return defines;
 }
 
--(void)parseDataModel:(id)models withScope:(NSString*)scope
+- (void)parseDataModel:(id)models withScope:(NSString*)scope
 {
     NSArray * defines = [self getModelDefine:models];
     for(ModelDefine * define in defines)
@@ -176,20 +176,8 @@
     }
 }
 
-- (nullable id)createDAUViewController:(nullable NSString*)controllerName
-{
-    NSString * controllerScope = [NSString stringWithFormat:@"%@.%@", CONTROLLER_SCOPE, controllerName];
-    UIWrapper * controller = [[ObjectManager shareInstance] createObject:@{@"name":controllerName} withKey:@"createDAUViewController" withScope:controllerScope];
-    [[ObjectManager shareInstance] setObject:controller withKey:controllerName withScope:controllerScope];
-    
-    // 添加默认加载视图方法
-    UICommonAction * target = [UICommonAction shareInstance];
-    [controller addAction:[Action actionWithSelector:@"viewControllerLoadView:" withTarget:target withParam:nil withScope:controllerScope] withTrigger:@"loadView"];
-    
-    return controller;
-}
 
--(NSArray*)parseLayoutModel:(NSArray*)layouts withParent:(id)parent withScope:(NSString*)scope
++ (NSArray*)parseLayoutModel:(NSArray*)layouts withParent:(id)parent withScope:(NSString*)scope
 {
     NSMutableArray * layoutArray = [[NSMutableArray alloc] init];
     for(id layout in layouts)
@@ -213,19 +201,19 @@
     return layoutArray;
 }
 
-- (void)createLayoutModel:(nullable NSArray*)layouts withParent:(nullable id)parent
++ (void)createLayoutModel:(nullable NSArray*)layouts withParent:(nullable id)parent
 {
     id lastLayout = nil;
     for(id layout in layouts)
     {
         if([layout isKindOfClass:[UIWrapper class]] && [parent isKindOfClass:[UIWrapper class]])
         {
-            UIWrapper * uiItem = (UIWrapper*)layout;
-            UIWrapper* uiParent = (UIWrapper*)parent;
-            if([uiParent.ui isKindOfClass:[UIViewController class]])
-                [((UIViewController*)uiParent.ui).view addSubview:uiItem.ui];
-            else
-                [uiParent.ui addSubview:uiItem.ui];
+            if([[parent ui] isKindOfClass:[UIViewController class]]) {
+                [[parent view] addSubview:[layout ui]];
+            }
+            else {
+                [parent addSubview:[layout ui]];
+            }
         }
         if([layout isKindOfClass:[NSArray class]])
            [self createLayoutModel:layout withParent:lastLayout];
@@ -239,7 +227,7 @@
     
 }
 
-- (void)dataChanged:(Data*)data withKey:(id)key withObject:(id)anObject
++ (void)dataChanged:(Data*)data withKey:(id)key withObject:(id)anObject
 {
     Binder *binder = [Binder getBinder:data withScope:data.scope];
     if(![binder isKindOfClass:[DataUIWrapperBinder class]])

@@ -14,17 +14,8 @@
 
 @implementation UICommonAction
 
-+ (id)shareInstance
-{
-    static UICommonAction * commonAction = nil;
-    if(commonAction == nil)
-        commonAction = [[UICommonAction alloc] init];
-    
-    return commonAction;
-}
 
-
-- (nullable NSString*)objectToUpdateSelector:(nonnull id)object
++ (nullable NSString*)objectToUpdateSelector:(nonnull id)object
 {
     NSString * selector = nil;
     if([object isKindOfClass:[UIButton class]])
@@ -39,16 +30,16 @@
     return selector;
 }
 
-- (void)viewControllerLoadView:(Data*)value
++ (void)loadLayoutFromJson:(Data*)value
 {
     //根据json文件加载页面布局
     DAUViewController * viewController = value[@"self"];
-    NSDictionary * jsonDic = [[DAUManager shareInstance] getDictionaryFromJsonFile:viewController.controllerName];
-    NSArray * layoutInfo = [[DAUManager shareInstance] parseLayoutModel:[jsonDic objectForKey:@"layoutInfo"] withParent:nil withScope:viewController.uiWrapper.scope];
-    [[DAUManager shareInstance] createLayoutModel:layoutInfo withParent:viewController.uiWrapper];
+    NSDictionary * jsonDic = [DAUManager getDictionaryFromJsonFile:viewController.controllerName];
+    NSArray * layoutInfo = [DAUManager parseLayoutModel:[jsonDic objectForKey:@"layoutInfo"] withParent:nil withScope:viewController.uiWrapper.scope];
+    [DAUManager createLayoutModel:layoutInfo withParent:viewController.uiWrapper];
 }
 
-- (void)updateButtonTitle:(Data*)value
++ (void)updateButtonTitle:(Data*)value
 {
     UIWrapper * uiWrapper = value[@"self"];
     id title = value[@"value"];
@@ -56,7 +47,7 @@
     [uiWrapper.ui setTitle:title forState:UIControlStateNormal];
 }
 
-- (void)updateLabelText:(nonnull Data*)value
++ (void)updateLabelText:(nonnull Data*)value
 {
     UIWrapper * uiWrapper = value[@"self"];
     id title = value[@"value"];
@@ -64,7 +55,7 @@
     [uiWrapper.ui setText:title];
 }
 
-- (void)updateTextFieldText:(nonnull Data*)value
++ (void)updateTextFieldText:(nonnull Data*)value
 {
     UIWrapper * uiWrapper = value[@"self"];
     id text = value[@"value"];
@@ -72,7 +63,7 @@
     [uiWrapper.ui setText:text];
 }
 
-- (void)updateImageViewImage:(nonnull Data*)value
++ (void)updateImageViewImage:(nonnull Data*)value
 {
     UIWrapper * uiWrapper = value[@"self"];
     id image = value[@"value"];

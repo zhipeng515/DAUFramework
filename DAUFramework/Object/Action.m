@@ -68,7 +68,7 @@
 //    NSValue *selectorAsValue = [NSValue valueWithBytes:&selector objCType:@encode(SEL)];
 //    self[@"selector"] = selectorAsValue;
     assert([target methodSignatureForSelector:NSSelectorFromString(selector)] != nil);
-
+    
     self[@"selector"] = selector;
     self[@"target"] = target;
 }
@@ -100,8 +100,6 @@
     
     if(target && selector)
     {
-//        IMP func = [target methodForSelector:selector];
-//        func(target, selector, param);
         NSMethodSignature *signature = [target methodSignatureForSelector:selector];
         assert(signature != nil);
         if(signature)

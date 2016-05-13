@@ -13,15 +13,13 @@
 
 @interface UICommonAction : CommonAction
 
-+ (nonnull id)shareInstance;
++ (nullable NSString*)objectToUpdateSelector:(nonnull id)object;
 
-- (nullable NSString*)objectToUpdateSelector:(nonnull id)object;
++ (void)loadLayoutFromJson:(nonnull Data*)value;
 
-- (void)viewControllerLoadView:(nonnull Data*)value;
-
-- (void)updateButtonTitle:(nonnull Data*)value;
-- (void)updateLabelText:(nonnull Data*)value;
-- (void)updateTextFieldText:(nonnull Data*)value;
-- (void)updateImageViewImage:(nonnull Data*)value;
++ (void)updateButtonTitle:(nonnull Data*)value;
++ (void)updateLabelText:(nonnull Data*)value;
++ (void)updateTextFieldText:(nonnull Data*)value;
++ (void)updateImageViewImage:(nonnull Data*)value;
 
 @end

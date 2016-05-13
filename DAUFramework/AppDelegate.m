@@ -14,6 +14,8 @@
 #import "UIWrapper.h"
 #import "GlobalViewModel.h"
 
+#import "AFNetworking.h"
+
 @interface AppDelegate ()
 
 @end
@@ -22,16 +24,21 @@
 
 - (void)removeViewController:(id)param
 {
-    [self.window setRootViewController:nil];
+    UIWrapper * userName = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView.userNameText"];
+    UIWrapper * userPassword = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView.userPasswordText"];
+    
+    [[AFHTTPSessionManager manager] POST:@"https://api" parameters:@{@"id":@"100"} progress:nil success:nil failure:nil];
+
+//    [self.window setRootViewController:nil];
 //    [[ObjectManager shareInstance] removeAllObject];
 }
 
 - (void)initGlobalInfo
 {
-    NSDictionary * jsonDict = [[DAUManager shareInstance] getDictionaryFromJsonFile:@"ObjectCreator"];
+    NSDictionary * jsonDict = [DAUManager getDictionaryFromJsonFile:@"ObjectCreator"];
     [[ObjectManager shareInstance] loadObjectCreator:jsonDict];
     
-    jsonDict = [[DAUManager shareInstance] getDictionaryFromJsonFile:@"ModelDefine"];
+    jsonDict = [DAUManager getDictionaryFromJsonFile:@"ModelDefine"];
     [[DAUManager shareInstance] loadModelDefine:jsonDict];
 }
 
@@ -41,18 +48,17 @@
     [self initGlobalInfo];
     
     
-    UIWrapper * controller = [[DAUManager shareInstance] createDAUViewController:@"RegisterViewController"];
+    UIWrapper * controller = [DAUViewController createDAUViewController:@"RegisterViewController"];
 
-    GlobalViewModel * viewModel = [[GlobalViewModel alloc] init];
-    [controller addAction:viewModel withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
-    [controller addAction:viewModel withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
+    [controller addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
+    [controller addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:controller.ui];
     [self.window makeKeyAndVisible];
     
     UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView"];
-    [button addAction:[Action actionWithSelector:@"removeViewController:" withTarget:self withParam:nil withScope:button.scope] withTrigger:@"onTap"];
+    [button addAction:self withSelector:@"removeViewController:" withTrigger:@"onTap"];
     
     return YES;
 }

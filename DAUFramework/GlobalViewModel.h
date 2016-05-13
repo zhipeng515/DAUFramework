@@ -11,7 +11,7 @@
 
 @interface GlobalViewModel : Data
 
-- (void)viewDidLoad:(nullable Data*)param;
++ (void)viewDidLoad:(nullable Data*)param;
 
 @end
 

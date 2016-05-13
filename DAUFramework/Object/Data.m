@@ -78,7 +78,7 @@
     id oldObject = self.propertys[aKey];
     if([oldObject isEqual:anObject])
         return;
-    [[DAUManager shareInstance] dataChanged:self withKey:aKey withObject:anObject];
+    [DAUManager dataChanged:self withKey:aKey withObject:anObject];
     [self.propertys setObject:anObject forKeyedSubscript:aKey];
 }
 
@@ -87,7 +87,7 @@
     id oldValue = self.propertys[key];
     if([oldValue isEqual:value])
         return;
-    [[DAUManager shareInstance] dataChanged:self withKey:key withObject:value];
+    [DAUManager dataChanged:self withKey:key withObject:value];
     [self.propertys setValue:value forKey:key];
 }
 
@@ -96,7 +96,7 @@
     id oldObject = self.propertys[aKey];
     if([oldObject isEqual:anObject])
         return;
-    [[DAUManager shareInstance] dataChanged:self withKey:aKey withObject:anObject];
+    [DAUManager dataChanged:self withKey:aKey withObject:anObject];
     [self.propertys setObject:anObject forKey:aKey];
 }
 

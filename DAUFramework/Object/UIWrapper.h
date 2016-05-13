@@ -36,7 +36,7 @@
 - (void)watchData:(nonnull Data*)data withAction:(nullable Action*)action withKey:(nonnull NSString*)key,...NS_REQUIRES_NIL_TERMINATION;
 - (void)unwatchData:(nonnull Data*)data withKey:(nonnull NSString*)key;
 
-- (void)addAction:(id)target withSelector:(nonnull NSString*)selector withTrigger:(nonnull NSString*)trigger;
+- (void)addAction:(nonnull id)target withSelector:(nonnull NSString*)selector withTrigger:(nonnull NSString*)trigger;
 - (void)addAction:(nonnull Action*)action withTrigger:(nonnull NSString*)trigger;
 - (void)removeAction:(nonnull NSString*)trigger;
 - (void)removeAllActions;

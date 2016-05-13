@@ -57,14 +57,13 @@
 
 - (void)watchData:(nonnull Data*)data withKey:(nonnull NSString*)key
 {
-    UICommonAction * target = [UICommonAction shareInstance];
-    NSString * selector = [target objectToUpdateSelector:self.ui];
+    NSString * selector = [UICommonAction objectToUpdateSelector:self.ui];
     assert(selector != nil);
     
 #ifdef DEBUG
     assert(![self hasWatched:data withKey:key]);
 #endif
-    [self watchData:data withAction:[Action actionWithSelector:selector withTarget:target withParam:nil withScope:self.scope] withKey:key, nil];
+    [self watchData:data withAction:[Action actionWithSelector:selector withTarget:[UICommonAction class] withParam:nil withScope:self.scope] withKey:key, nil];
 }
 
 - (void)watchData:(nonnull Data*)data withAction:(Action*)action withKey:(nonnull NSString*)key,...NS_REQUIRES_NIL_TERMINATION
@@ -184,6 +183,17 @@
     param[@"self"] = self;
     NSString * actionKey = [NSString stringWithFormat:@"dataSourceChanged.%@", key];
     [binder doAction:actionKey withParam:param];
+}
+
+- (id)forwardingTargetForSelector:(SEL)aSelector
+{
+    NSLog(@"UIWrapper _cmd: %@", NSStringFromSelector(_cmd));
+    
+    if([self.ui respondsToSelector: aSelector]) {
+        return self.ui;
+    }
+    
+    return [super forwardingTargetForSelector: aSelector];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

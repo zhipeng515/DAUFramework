@@ -42,33 +42,12 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 
 @implementation GlobalViewModel
 
-- (void)updateButtonTitleValue:(Data*)data
-{
-    UIWrapper * uiWrapper = data[@"self"];
-    id key = data[@"key"];
-    id value = data[@"value"];
-    
-    [uiWrapper.ui setTitle:value forState:UIControlStateNormal];
-    
-    NSLog(@"updateUIValue %p %@ %@", uiWrapper, key, value);
-}
-
-- (void)updateUIValue:(Data*)data
-{
-    UIWrapper * uiWrapper = data[@"self"];
-    id key = data[@"key"];
-    id value = data[@"value"];
-    
-    NSLog(@"updateButtonValue %p %@ %@", uiWrapper, key, value);
-}
-
-
-- (void)presentDAU:(Action*)action
++ (void)presentDAU:(Action*)action
 {
 //    DAUViewController * viewController = [[DAUViewController alloc] init];
 }
 
-- (void)benchmark
++ (void)benchmark
 {
     CGFloat time = BNRTimeBlock(^{
         NSString *path = [[NSBundle mainBundle] pathForResource:@"testdata" ofType:@"json"];
@@ -96,7 +75,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     NSLog(@"time: %f", time);
 }
 
-- (void)viewDidLoad:(nullable Data*)param {
++ (void)viewDidLoad:(nullable Data*)param {
     // Do any additional setup after loading the view, typically from a nib.
     
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -245,7 +224,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    [[DAUManager shareInstance] bind:imageView withData:tap];
 }
 
-- (void)viewWillAppear:(nullable Data*)param
++ (void)viewWillAppear:(nullable Data*)param
 {
 //    DAUViewController * controller = param[@"self"];
     

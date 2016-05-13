@@ -12,12 +12,26 @@
 #import "DAUManager.h"
 #import "Action.h"
 #import "UIWrapper.h"
+#import "UICommonAction.h"
 
 @interface DAUViewController ()
 
 @end
 
 @implementation DAUViewController
+
++ (nullable id)createDAUViewController:(nullable NSString*)controllerName
+{
+    NSString * controllerScope = [NSString stringWithFormat:@"%@.%@", CONTROLLER_SCOPE, controllerName];
+    UIWrapper * controller = [[ObjectManager shareInstance] createObject:@{@"name":controllerName} withKey:@"createDAUViewController" withScope:controllerScope];
+    [[ObjectManager shareInstance] setObject:controller withKey:controllerName withScope:controllerScope];
+    
+    // 添加默认加载视图方法
+    [controller addAction:[Action actionWithSelector:@"loadLayoutFromJson:" withTarget:[UICommonAction class] withParam:nil withScope:controllerScope] withTrigger:@"loadView"];
+    
+    return controller;
+}
+
 
 - (void)loadView
 {
