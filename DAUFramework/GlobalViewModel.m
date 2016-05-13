@@ -152,7 +152,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     Action * customfunc = [[ObjectManager shareInstance] createObject:@{} withKey:@"createAction" withScope:GLOBAL_SCOPE];
     [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
 
-    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.registerViewController.rootView"];
+    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView"];
     
     Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
     d1[@"ffffff"] = @"ggggggg";
@@ -165,15 +165,15 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     device[@"deviceId"] = @"123123123123123";
     
     
-    [button addAction:[Action actionWithSelector:@"presentDAU:" withTarget:self withParam:nil withScope:button.scope] withTrigger:@"onTap"];
+    [button addAction:self withSelector:@"presentDAU:" withTrigger:@"onTap"];
     [button addAction:tapimage withTrigger:@"onTap"];
     [button addAction:customfunc withTrigger:@"onTap"];
     [button watchData:device withKey:@"deviceType"];
     
-    UIWrapper * userNameText = [UIWrapper getUIWrapper:@"userNameText" withScope:@"controllers.registerViewController.rootView"];
+    UIWrapper * userNameText = [UIWrapper getUIWrapper:@"userNameText" withScope:@"controllers.RegisterViewController.rootView"];
     [userNameText watchData:device withKey:@"deviceId"];
-    [userNameText addAction:[Action actionWithSelector:@"textField_shouldChangeCharactersInRange_replacementString:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textField:shouldChangeCharactersInRange:replacementString"];
-    [userNameText addAction:[Action actionWithSelector:@"textFieldDidEndEditing:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textFieldDidEndEditing"];
+//    [userNameText addAction:[Action actionWithSelector:@"textField_shouldChangeCharactersInRange_replacementString:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textField:shouldChangeCharactersInRange:replacementString"];
+//    [userNameText addAction:[Action actionWithSelector:@"textFieldDidEndEditing:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textFieldDidEndEditing"];
     
     
     
@@ -184,7 +184,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    [button watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
 //    [button watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:button.scope]];
 //
-//    UIWrapper * rootView = [UIWrapper getUIWrapper:@"rootView" withScope:@"controllers.registerViewController"];
+//    UIWrapper * rootView = [UIWrapper getUIWrapper:@"rootView" withScope:@"controllers.RegisterViewController"];
 //    [rootView watchData:device withKey:@"deviceId" withAction:[Action actionWithSelector:@"updateUIValue:" withTarget:self withParam:nil withScope:rootView.scope]];
     
 //    [button unwatchData:device withKey:@"deviceType"];
@@ -198,7 +198,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    NSLog(@"%@", [ObjectManager shareInstance].objects);
     
     
-//    UIWrapper * controller = [[ObjectManager shareInstance] getObject:@"registerViewController" withScope:@"registerViewController"];
+//    UIWrapper * controller = [[ObjectManager shareInstance] getObject:@"RegisterViewController" withScope:@"RegisterViewController"];
 //    [controller addAction:customfunc withTrigger:@"viewDidLoad"];
 //    [controller addAction:tapimage withTrigger:@"viewDidLoad"];
 //    [controller addAction:customfunc withTrigger:@"viewWillAppear"];
@@ -274,7 +274,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
 //    
 //    [[ObjectManager shareInstance] removeAllObject:@"RegisterView"];
     
-//    UIWrapper * controller = [[ObjectManager shareInstance] getObject:@"registerViewController" withScope:@"registerViewController"];
+//    UIWrapper * controller = [[ObjectManager shareInstance] getObject:@"RegisterViewController" withScope:@"RegisterViewController"];
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self presentViewController:controller.ui animated:NO completion:nil];
 //    });

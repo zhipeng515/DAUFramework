@@ -40,30 +40,18 @@
     // Override point for customization after application launch.
     [self initGlobalInfo];
     
-    NSDictionary * jsonDic = nil;
-    NSArray * layoutInfo = nil;
     
-//    @autoreleasepool {
-        jsonDic = [[DAUManager shareInstance] getDictionaryFromJsonFile:@"RegisterViewLayout"];
-        layoutInfo = [[DAUManager shareInstance] parseLayoutModel:[jsonDic objectForKey:@"layoutInfo"] withParent:nil withScope:CONTROLLER_SCOPE];
-//    }
-   
+    UIWrapper * controller = [[DAUManager shareInstance] createDAUViewController:@"RegisterViewController"];
+
     GlobalViewModel * viewModel = [[GlobalViewModel alloc] init];
-    UIWrapper * controller = [UIWrapper getUIWrapper:@"registerViewController" withScope:CONTROLLER_SCOPE];
-//    DAUViewController * viewController = [UIWrapper getUIObject:@"registerViewController" withScope:CONTROLLER_SCOPE];
+    [controller addAction:viewModel withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
+    [controller addAction:viewModel withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
     
-    
-    [controller addAction:[Action actionWithSelector:@"viewDidLoad:" withTarget:viewModel withParam:nil withScope:controller.scope] withTrigger:@"viewDidLoad"];
-    [controller addAction:[Action actionWithSelector:@"viewWillAppear:" withTarget:viewModel withParam:nil withScope:controller.scope] withTrigger:@"viewWillAppear"];
-    
-    [[DAUManager shareInstance] createLayoutModel:layoutInfo withParent:nil];
-
-
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:controller.ui];
     [self.window makeKeyAndVisible];
     
-    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.registerViewController.rootView"];
+    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView"];
     [button addAction:[Action actionWithSelector:@"removeViewController:" withTarget:self withParam:nil withScope:button.scope] withTrigger:@"onTap"];
     
     return YES;

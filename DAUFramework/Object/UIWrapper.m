@@ -113,11 +113,17 @@
 
 - (void)unwatchData:(nonnull Data*)data withKey:(nonnull NSString*)key
 {
-    Binder * dataBinder = [Binder binderWithObject:data withScope:data.scope];
+    Binder * dataBinder = [Binder getBinder:data withScope:data.scope];
     [dataBinder removeObjectForKey:key];
 
     NSString * actionKey = [NSString stringWithFormat:@"dataSourceChanged.%@", key];
     [self removeAction:actionKey];
+}
+
+- (void)addAction:(id)target withSelector:(NSString*)selector withTrigger:(NSString*)trigger
+{
+    Action * action = [Action actionWithSelector:selector withTarget:target withParam:nil withScope:self.scope];
+    [self addAction:action withTrigger:trigger];
 }
 
 - (void)addAction:(nonnull Action*)action withTrigger:(NSString*)trigger
@@ -128,13 +134,13 @@
 
 - (void)removeAction:(nonnull NSString*)trigger
 {
-    Binder * binder = [Binder binderWithObject:self withScope:self.scope];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     [binder removeObjectForKey:trigger];
 }
 
 - (void)removeAllActions
 {
-    Binder * binder = [Binder binderWithObject:self withScope:self.scope];
+    Binder * binder = [Binder getBinder:self withScope:self.scope];
     [binder removeAllObjects];
 }
 
@@ -196,127 +202,128 @@
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// UITextField
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    Binder * binder = [Binder getBinder:self withScope:self.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return YES;
-    Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"textField"] = textField;
-    NSArray * resultArray = [binder doAction:@"textFieldShouldBeginEditing" withParam:param];
-    if([resultArray count] > 0)
-        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
-    
-    return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    Binder * binder = [Binder getBinder:self withScope:self.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return;
-    Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"textField"] = textField;
-    [binder doAction:@"textFieldDidBeginEditing" withParam:param];
-}
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    Binder * binder = [Binder getBinder:self withScope:self.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return YES;
-    Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"textField"] = textField;
-    NSArray * resultArray = [binder doAction:@"textFieldShouldEndEditing" withParam:param];
-    if([resultArray count] > 0)
-        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
-    return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    Binder * binder = [Binder getBinder:self withScope:self.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return;
-    Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"textField"] = textField;
-    [binder doAction:@"textFieldDidEndEditing" withParam:param];
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    Binder * binder = [Binder getBinder:self withScope:self.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return YES;
-    Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"data"] = binder[self];
-    param[@"textField"] = textField;
-    param[@"shouldChangeCharactersInRange"] = NSStringFromRange(range);
-    param[@"replacementString"] = string;
-    NSArray * resultArray = [binder doAction:@"textField:shouldChangeCharactersInRange:replacementString" withParam:param];
-    if([resultArray count] > 0)
-        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
-    return YES;
-}
-
-- (BOOL)textFieldShouldClear:(UITextField *)textField
-{
-    Binder * binder = [Binder getBinder:self withScope:self.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return YES;
-    Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"textField"] = textField;
-    NSArray * resultArray = [binder doAction:@"textFieldShouldClear" withParam:param];
-    if([resultArray count] > 0)
-        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
-    return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    Binder * binder = [Binder getBinder:self withScope:self.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return YES;
-    Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"textField"] = textField;
-    NSArray * resultArray = [binder doAction:@"textFieldShouldReturn" withParam:param];
-    if([resultArray count] > 0)
-        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
-    return YES;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-// UITableView
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    Binder * binder = [Binder getBinder:self withScope:self.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return 0;
-    Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"tableView"] = tableView;
-    param[@"section"] = [NSNumber numberWithInteger:section];
-    NSArray * resultArray = [binder doAction:@"tableView:numberOfRowsInSection" withParam:param];
-    return [[resultArray valueForKeyPath:@"@sum.integerValue"] integerValue];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    Binder * binder = [Binder getBinder:self withScope:self.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return nil;
-    Data * param = [[Data alloc] initWithScope:self.scope];
-    param[@"tableView"] = tableView;
-    param[@"indexPath"] = indexPath;
-    return [binder doAction:@"tableView:cellForRowAtIndexPath" withParam:param][0];
-}
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+//// UITextField
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+//{
+//    Binder * binder = [Binder getBinder:self withScope:self.scope];
+//    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+//        return YES;
+//    Data * param = [[Data alloc] initWithScope:self.scope];
+//    param[@"textField"] = textField;
+//    NSArray * resultArray = [binder doAction:@"textFieldShouldBeginEditing" withParam:param];
+//    if([resultArray count] > 0)
+//        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
+//    
+//    return YES;
+//}
+//
+//- (void)textFieldDidBeginEditing:(UITextField *)textField
+//{
+//    Binder * binder = [Binder getBinder:self withScope:self.scope];
+//    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+//        return;
+//    Data * param = [[Data alloc] initWithScope:self.scope];
+//    param[@"textField"] = textField;
+//    [binder doAction:@"textFieldDidBeginEditing" withParam:param];
+//}
+//
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+//{
+//    Binder * binder = [Binder getBinder:self withScope:self.scope];
+//    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+//        return YES;
+//    Data * param = [[Data alloc] initWithScope:self.scope];
+//    param[@"textField"] = textField;
+//    NSArray * resultArray = [binder doAction:@"textFieldShouldEndEditing" withParam:param];
+//    if([resultArray count] > 0)
+//        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
+//    return YES;
+//}
+//
+//- (void)textFieldDidEndEditing:(UITextField *)textField
+//{
+//    Binder * binder = [Binder getBinder:self withScope:self.scope];
+//    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+//        return;
+//    Data * data = binder[self][0];
+//    Data * param = [[Data alloc] initWithScope:self.scope];
+//    param[@"textField"] = textField;
+//    [binder doAction:@"textFieldDidEndEditing" withParam:param];
+//}
+//
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    Binder * binder = [Binder getBinder:self withScope:self.scope];
+//    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+//        return YES;
+//    Data * param = [[Data alloc] initWithScope:self.scope];
+//    param[@"data"] = binder[self];
+//    param[@"textField"] = textField;
+//    param[@"shouldChangeCharactersInRange"] = NSStringFromRange(range);
+//    param[@"replacementString"] = string;
+//    NSArray * resultArray = [binder doAction:@"textField:shouldChangeCharactersInRange:replacementString" withParam:param];
+//    if([resultArray count] > 0)
+//        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
+//    return YES;
+//}
+//
+//- (BOOL)textFieldShouldClear:(UITextField *)textField
+//{
+//    Binder * binder = [Binder getBinder:self withScope:self.scope];
+//    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+//        return YES;
+//    Data * param = [[Data alloc] initWithScope:self.scope];
+//    param[@"textField"] = textField;
+//    NSArray * resultArray = [binder doAction:@"textFieldShouldClear" withParam:param];
+//    if([resultArray count] > 0)
+//        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
+//    return YES;
+//}
+//
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField
+//{
+//    Binder * binder = [Binder getBinder:self withScope:self.scope];
+//    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+//        return YES;
+//    Data * param = [[Data alloc] initWithScope:self.scope];
+//    param[@"textField"] = textField;
+//    NSArray * resultArray = [binder doAction:@"textFieldShouldReturn" withParam:param];
+//    if([resultArray count] > 0)
+//        return [[resultArray valueForKeyPath:@"@min.integerValue"] integerValue] > 0;
+//    return YES;
+//}
+//
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+/////////////////////////////////////////////////////////////////////////////////////////////
+//// UITableView
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    Binder * binder = [Binder getBinder:self withScope:self.scope];
+//    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+//        return 0;
+//    Data * param = [[Data alloc] initWithScope:self.scope];
+//    param[@"tableView"] = tableView;
+//    param[@"section"] = [NSNumber numberWithInteger:section];
+//    NSArray * resultArray = [binder doAction:@"tableView:numberOfRowsInSection" withParam:param];
+//    return [[resultArray valueForKeyPath:@"@sum.integerValue"] integerValue];
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    Binder * binder = [Binder getBinder:self withScope:self.scope];
+//    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
+//        return nil;
+//    Data * param = [[Data alloc] initWithScope:self.scope];
+//    param[@"tableView"] = tableView;
+//    param[@"indexPath"] = indexPath;
+//    return [binder doAction:@"tableView:cellForRowAtIndexPath" withParam:param][0];
+//}
+//
 
 @end

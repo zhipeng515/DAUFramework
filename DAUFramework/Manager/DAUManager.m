@@ -12,6 +12,9 @@
 #import "Data.h"
 #import "UIWrapper.h"
 #import "ModelDefine.h"
+#import "DAUViewController.h"
+#import "UICommonAction.h"
+#import "Action.h"
 
 @implementation DAUManager
 
@@ -171,6 +174,19 @@
             [self parseDataModel:object withScope:scope];
         }
     }
+}
+
+- (nullable id)createDAUViewController:(nullable NSString*)controllerName
+{
+    NSString * controllerScope = [NSString stringWithFormat:@"%@.%@", CONTROLLER_SCOPE, controllerName];
+    UIWrapper * controller = [[ObjectManager shareInstance] createObject:@{@"name":controllerName} withKey:@"createDAUViewController" withScope:controllerScope];
+    [[ObjectManager shareInstance] setObject:controller withKey:controllerName withScope:controllerScope];
+    
+    // 添加默认加载视图方法
+    UICommonAction * target = [UICommonAction shareInstance];
+    [controller addAction:[Action actionWithSelector:@"viewControllerLoadView:" withTarget:target withParam:nil withScope:controllerScope] withTrigger:@"loadView"];
+    
+    return controller;
 }
 
 -(NSArray*)parseLayoutModel:(NSArray*)layouts withParent:(id)parent withScope:(NSString*)scope

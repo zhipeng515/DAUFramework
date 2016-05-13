@@ -9,6 +9,7 @@
 #import "DAUViewController.h"
 #import "Binder.h"
 #import "ObjectManager.h"
+#import "DAUManager.h"
 #import "Action.h"
 #import "UIWrapper.h"
 
@@ -21,8 +22,7 @@
 - (void)loadView
 {
     [super loadView];
-
-    // Do any additional setup after loading the view.
+    
     Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
     if(![binder isKindOfClass:[UIWrapperActionBinder class]])
         return;

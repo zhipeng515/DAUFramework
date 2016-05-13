@@ -17,6 +17,8 @@
 
 - (nullable NSString*)objectToUpdateSelector:(nonnull id)object;
 
+- (void)viewControllerLoadView:(nonnull Data*)value;
+
 - (void)updateButtonTitle:(nonnull Data*)value;
 - (void)updateLabelText:(nonnull Data*)value;
 - (void)updateTextFieldText:(nonnull Data*)value;

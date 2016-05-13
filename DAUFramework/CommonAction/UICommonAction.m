@@ -9,6 +9,8 @@
 #import "UICommonAction.h"
 #import "Data.h"
 #import "UIWrapper.h"
+#import "DAUManager.h"
+#import "DAUViewController.h"
 
 @implementation UICommonAction
 
@@ -37,6 +39,14 @@
     return selector;
 }
 
+- (void)viewControllerLoadView:(Data*)value
+{
+    //根据json文件加载页面布局
+    DAUViewController * viewController = value[@"self"];
+    NSDictionary * jsonDic = [[DAUManager shareInstance] getDictionaryFromJsonFile:viewController.controllerName];
+    NSArray * layoutInfo = [[DAUManager shareInstance] parseLayoutModel:[jsonDic objectForKey:@"layoutInfo"] withParent:nil withScope:viewController.uiWrapper.scope];
+    [[DAUManager shareInstance] createLayoutModel:layoutInfo withParent:viewController.uiWrapper];
+}
 
 - (void)updateButtonTitle:(Data*)value
 {
@@ -69,20 +79,5 @@
     assert([uiWrapper.ui isKindOfClass:[UIImageView class]]);
     [uiWrapper.ui setImage:image];
 }
-
-- (void)textFieldDidEndEditing:(nonnull Data*)param
-{
-    UITextField * textField = param[@"textField"];
-    NSLog(@"textField text %@", textField.text);
-}
-
-- (NSNumber*)textField_shouldChangeCharactersInRange_replacementString:(nonnull Data*)param
-{
-    UITextField * textField = param[@"textField"];
-    NSRange range = NSRangeFromString(param[@"shouldChangeCharactersInRange"]);
-    NSString * replacementString = param[@"replacementString"];
-    return [NSNumber numberWithBool:YES];
-}
-
 
 @end

@@ -22,7 +22,7 @@
 		85A10FDC1CCA13C8008626FA /* UICreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC51CCA13C8008626FA /* UICreator.m */; };
 		85A10FDD1CCA13C8008626FA /* DAUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC81CCA13C8008626FA /* DAUManager.m */; };
 		85A10FDE1CCA13C8008626FA /* ObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FCA1CCA13C8008626FA /* ObjectManager.m */; };
-		85A10FE51CCA161B008626FA /* RegisterViewLayout.json in Resources */ = {isa = PBXBuildFile; fileRef = 85A10FE41CCA161B008626FA /* RegisterViewLayout.json */; };
+		85A10FE51CCA161B008626FA /* RegisterViewController.json in Resources */ = {isa = PBXBuildFile; fileRef = 85A10FE41CCA161B008626FA /* RegisterViewController.json */; };
 		85C750C21CCE27E200481D36 /* ModelDefine.json in Resources */ = {isa = PBXBuildFile; fileRef = 85C750C11CCE27E200481D36 /* ModelDefine.json */; };
 		85C750C41CCF15AA00481D36 /* FirstViewLayout.json in Resources */ = {isa = PBXBuildFile; fileRef = 85C750C31CCF15AA00481D36 /* FirstViewLayout.json */; };
 		85C750CD1CCF1C4500481D36 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C750C61CCF1C4500481D36 /* Action.m */; };
@@ -87,7 +87,7 @@
 		85A10FC81CCA13C8008626FA /* DAUManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAUManager.m; sourceTree = "<group>"; };
 		85A10FC91CCA13C8008626FA /* ObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectManager.h; sourceTree = "<group>"; };
 		85A10FCA1CCA13C8008626FA /* ObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectManager.m; sourceTree = "<group>"; };
-		85A10FE41CCA161B008626FA /* RegisterViewLayout.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RegisterViewLayout.json; sourceTree = "<group>"; };
+		85A10FE41CCA161B008626FA /* RegisterViewController.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RegisterViewController.json; sourceTree = "<group>"; };
 		85C750C11CCE27E200481D36 /* ModelDefine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ModelDefine.json; sourceTree = "<group>"; };
 		85C750C31CCF15AA00481D36 /* FirstViewLayout.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FirstViewLayout.json; sourceTree = "<group>"; };
 		85C750C51CCF1C4500481D36 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = DAUFramework/Object/Action.h; sourceTree = SOURCE_ROOT; };
@@ -181,7 +181,7 @@
 			children = (
 				85C750C31CCF15AA00481D36 /* FirstViewLayout.json */,
 				85A10FBA1CCA13C8008626FA /* ObjectCreator.json */,
-				85A10FE41CCA161B008626FA /* RegisterViewLayout.json */,
+				85A10FE41CCA161B008626FA /* RegisterViewController.json */,
 				85C750C11CCE27E200481D36 /* ModelDefine.json */,
 				85C750D41CCF354400481D36 /* testdata.json */,
 				852A0BF51CD1BBD90081B206 /* testdata_1.json */,
@@ -441,7 +441,7 @@
 				852A0C021CD356170081B206 /* RegisterViewAction.json in Resources */,
 				85DD9E3B1CC9244200DF09FB /* Main.storyboard in Resources */,
 				85C750C41CCF15AA00481D36 /* FirstViewLayout.json in Resources */,
-				85A10FE51CCA161B008626FA /* RegisterViewLayout.json in Resources */,
+				85A10FE51CCA161B008626FA /* RegisterViewController.json in Resources */,
 				85C750D51CCF354400481D36 /* testdata.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

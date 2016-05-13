@@ -10,6 +10,7 @@
 
 @interface DAUViewController : UIViewController
 
-//@property (nonatomic, retain, nonnull)NSString * controllerName;
+@property (nonatomic, retain, nonnull)NSString * controllerName;
+
 
 @end

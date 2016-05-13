@@ -10,4 +10,10 @@
 
 @implementation CommonAction
 
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+}
+
+
 @end

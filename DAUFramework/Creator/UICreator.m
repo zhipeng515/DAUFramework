@@ -145,7 +145,7 @@
     __autoreleasing UITextField * textField = [[UITextField alloc] init];
     [self parseProperty:dict withObject:textField];
     UIWrapper * ui = [[UIWrapper alloc] init:textField withScope:scope];
-    textField.delegate = ui;
+//    textField.delegate = ui;
     return ui;
 }
 
@@ -222,6 +222,7 @@
 -(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
 {
     __autoreleasing DAUViewController * viewController = [[DAUViewController alloc] init];
+    viewController.controllerName = dict[@"name"];
     UIWrapper * ui = [[UIWrapper alloc] init:viewController withScope:scope];
     viewController.uiWrapper = ui;
     return ui;

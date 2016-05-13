@@ -110,8 +110,8 @@
                 break;
             }
         }
-//        if([valueArray count] <= 0)
-//            [self.propertys removeObjectForKey:key];
+        if([valueArray count] <= 0)
+            [self.propertys removeObjectForKey:key];
     }];
 }
 
@@ -121,6 +121,22 @@
     if(valueArray == nil)
         return;
     [valueArray removeAllObjects];
+}
+
+- (nullable NSArray*)getKeysForObject:(nonnull id)anObject
+{
+    NSMutableArray * resultArray = [[NSMutableArray alloc] init];
+    [self.propertys enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSMutableArray * valueArray = (NSMutableArray*)obj;
+        for(id value in valueArray)
+        {
+            if(value == anObject)
+            {
+                [resultArray addObject:key];
+            }
+        }
+    }];
+    return resultArray;
 }
 
 - (BOOL)hasBinded:(nonnull id)anObject forKey:(nonnull id)aKey
