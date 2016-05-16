@@ -37,17 +37,25 @@ UINavigationController * naviController;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self initGlobalInfo];
+
+    Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
+    d1[@"ffffff"] = @"ggggggg";
+    Data * d2 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
+    d2[@"fffff"] = @"hhhhhhh";
+    d2[0] = @"aaaa";
+    d2[1] = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
+
+    NSLog(@"%@", [ObjectManager shareInstance].objects);
     
-    
-    UIWrapper * controller = [DAUViewController createDAUViewController:@"RegisterViewController"];
-    [controller addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
-    [controller addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
-    
-    naviController = [[UINavigationController alloc] initWithRootViewController:controller.ui];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window setRootViewController:naviController];
-    [self.window makeKeyAndVisible];
+//    UIWrapper * controller = [DAUViewController createDAUViewController:@"RegisterViewController"];
+//    [controller addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
+//    [controller addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
+//    
+//    naviController = [[UINavigationController alloc] initWithRootViewController:controller.ui];
+//    
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    [self.window setRootViewController:naviController];
+//    [self.window makeKeyAndVisible];
     
     return YES;
 }

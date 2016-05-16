@@ -133,7 +133,10 @@
 {
     NSMutableArray * array = [self.propertys objectForKey:@"self.array"];
     if(array == nil)
-        [self.propertys setObject:[[NSMutableArray alloc] init] forKey:@"self.array"];
+    {
+        array = [[NSMutableArray alloc] init];
+        [self.propertys setObject:array forKey:@"self.array"];
+    }
 
     array[idx] = obj;
 }

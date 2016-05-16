@@ -85,6 +85,7 @@ extern UINavigationController * naviController;
 }
 
 + (void)viewDidLoad:(nullable Data*)param {
+    
     // Do any additional setup after loading the view, typically from a nib.
     
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -140,7 +141,8 @@ extern UINavigationController * naviController;
 //    Action * customfunc = [[ObjectManager shareInstance] createObject:@{@"customfunc":@"customfunc"} withKey:@"createAction" withScope:GLOBAL_SCOPE];
 //    [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
 
-    UIWrapper * button = [param[@"self"] getUIWrapper:@"registerButton" withScope:@"rootView"];
+    UIWrapper * controller = param[@"self"];
+    UIWrapper * button = [controller getUIWrapper:@"registerButton" withScope:@"rootView"];
     
     Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
     d1[@"ffffff"] = @"ggggggg";
@@ -158,7 +160,7 @@ extern UINavigationController * naviController;
 //    [button addAction:customfunc withTrigger:@"onTap"];
     [button watchData:device withKey:@"deviceType"];
     
-    UIWrapper * userNameText = [UIWrapper getUIWrapper:@"userNameText" withScope:@"controllers.RegisterViewController.rootView"];
+    UIWrapper * userNameText = [controller getUIWrapper:@"userNameText" withScope:@"rootView"];
     [userNameText watchData:device withKey:@"deviceId"];
 //    [userNameText addAction:[Action actionWithSelector:@"textField_shouldChangeCharactersInRange_replacementString:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textField:shouldChangeCharactersInRange:replacementString"];
 //    [userNameText addAction:[Action actionWithSelector:@"textFieldDidEndEditing:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textFieldDidEndEditing"];

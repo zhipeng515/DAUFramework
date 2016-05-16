@@ -24,7 +24,7 @@
     if(self = [super init])
     {
         self.objectCreators = [[NSMutableDictionary alloc] init];
-        self.objects = [[Data alloc] initWithScope:nil];
+        self.objects = [[Data alloc] initWithScope:@"root"];
     }
     return self;
 }
@@ -90,10 +90,7 @@
     Data * scopeDict = objDict[key];
     if(create && scopeDict == nil)
     {
-        NSString * scopeKey = key;
-        if(objDict.scope)
-            scopeKey = [NSString stringWithFormat:@"%@.%@", objDict.scope, key];
-        scopeDict = [[Data alloc] initWithScope:scopeKey];
+        scopeDict = [[Data alloc] initWithScope:objDict.scope];
         [objDict setObject:scopeDict forKey:key];
     }
     if(![remainKey isEqualToString:@""])
