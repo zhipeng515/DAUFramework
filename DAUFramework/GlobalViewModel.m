@@ -88,7 +88,7 @@ extern UINavigationController * naviController;
     // Do any additional setup after loading the view, typically from a nib.
     
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self benchmark];
+//        [self benchmark];
 //    });
 
 //    id notes = [[ObjectManager shareInstance] getObject:@"notes" withScope:@"RegisterView"];
@@ -118,13 +118,13 @@ extern UINavigationController * naviController;
     
     
     
-    NSMutableDictionary * image = [[NSMutableDictionary alloc ]init];
-    [image setValue:@"10" forKey:@"x"];
-    [image setValue:@"20" forKey:@"y"];
-    [image setValue:@"100" forKey:@"width"];
-    [image setValue:@"100" forKey:@"height"];
-    UIWrapper * imageView = [[ObjectManager shareInstance] createObject:image withKey:@"createImageView" withScope:GLOBAL_SCOPE];
-    [[ObjectManager shareInstance] setObject:imageView withKey:@"userAvatar" withScope:GLOBAL_SCOPE];
+//    NSMutableDictionary * image = [[NSMutableDictionary alloc ]init];
+//    [image setValue:@"10" forKey:@"x"];
+//    [image setValue:@"20" forKey:@"y"];
+//    [image setValue:@"100" forKey:@"width"];
+//    [image setValue:@"100" forKey:@"height"];
+//    UIWrapper * imageView = [[ObjectManager shareInstance] createObject:image withKey:@"createImageView" withScope:GLOBAL_SCOPE];
+//    [[ObjectManager shareInstance] setObject:imageView withKey:@"userAvatar" withScope:GLOBAL_SCOPE];
     
 
     
@@ -135,12 +135,12 @@ extern UINavigationController * naviController;
 
 //    [[ObjectManager shareInstance] removeAllObject];
     
-    Action * tapimage = [[ObjectManager shareInstance] createObject:@{} withKey:@"createAction" withScope:GLOBAL_SCOPE];
-    [[ObjectManager shareInstance] setObject:tapimage withKey:@"tapimage" withScope:GLOBAL_SCOPE];
-    Action * customfunc = [[ObjectManager shareInstance] createObject:@{} withKey:@"createAction" withScope:GLOBAL_SCOPE];
-    [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
+//    Action * tapimage = [[ObjectManager shareInstance] createObject:@{@"tapimage":@"tapimage"} withKey:@"createAction" withScope:GLOBAL_SCOPE];
+//    [[ObjectManager shareInstance] setObject:tapimage withKey:@"tapimage" withScope:GLOBAL_SCOPE];
+//    Action * customfunc = [[ObjectManager shareInstance] createObject:@{@"customfunc":@"customfunc"} withKey:@"createAction" withScope:GLOBAL_SCOPE];
+//    [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
 
-    UIWrapper * button = [UIWrapper getUIWrapper:@"registerButton" withScope:@"controllers.RegisterViewController.rootView"];
+    UIWrapper * button = [param[@"self"] getUIWrapper:@"registerButton" withScope:@"rootView"];
     
     Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
     d1[@"ffffff"] = @"ggggggg";
@@ -154,8 +154,8 @@ extern UINavigationController * naviController;
     
     
     [button addAction:self withSelector:@"presentDAU:" withTrigger:@"onTap"];
-    [button addAction:tapimage withTrigger:@"onTap"];
-    [button addAction:customfunc withTrigger:@"onTap"];
+//    [button addAction:tapimage withTrigger:@"onTap"];
+//    [button addAction:customfunc withTrigger:@"onTap"];
     [button watchData:device withKey:@"deviceType"];
     
     UIWrapper * userNameText = [UIWrapper getUIWrapper:@"userNameText" withScope:@"controllers.RegisterViewController.rootView"];
@@ -254,7 +254,7 @@ extern UINavigationController * naviController;
 //    
 //    id data = [[ObjectManager shareInstance] getObject:@"debugString" withScope:@"RegisterView"];
 //    
-    NSLog(@"%@", [ObjectManager shareInstance].objects);
+//    NSLog(@"%@", [ObjectManager shareInstance].objects);
 //
 //    UI * label = [[ObjectManager shareInstance] getObject:@"debugInfo" withScope:@"RegisterView"];
 //    ((UITextView*)label.ui).attributedText = data;

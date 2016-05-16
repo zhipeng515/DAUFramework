@@ -14,6 +14,11 @@
 #import "UIWrapper.h"
 #import "UICommonAction.h"
 
+int randControllerId()
+{
+    return (arc4random() % 1000) + 1000;
+}
+
 @interface DAUViewController ()
 
 @end
@@ -22,7 +27,7 @@
 
 + (nullable id)createDAUViewController:(nullable NSString*)controllerName
 {
-    NSString * controllerScope = [NSString stringWithFormat:@"%@.%@", CONTROLLER_SCOPE, controllerName];
+    NSString * controllerScope = [NSString stringWithFormat:@"%@.%d.%@", CONTROLLER_SCOPE, randControllerId(), controllerName];
     UIWrapper * controller = [[ObjectManager shareInstance] createObject:@{@"name":controllerName} withKey:@"createDAUViewController" withScope:controllerScope];
     [[ObjectManager shareInstance] setObject:controller withKey:controllerName withScope:controllerScope];
     
@@ -143,6 +148,7 @@
 
 - (void)dealloc
 {
+    NSLog(@"DAUViewController dealloc %@", self.uiWrapper.scope);
     [[ObjectManager shareInstance] removeAllObject:self.uiWrapper.scope];
 //    NSLog(@"%@", [ObjectManager shareInstance].objects);
 }

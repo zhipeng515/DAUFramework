@@ -24,6 +24,17 @@
     objc_setAssociatedObject(self, @selector(uiWrapper), uiWrapper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (id)forwardingTargetForSelector:(SEL)aSelector
+{
+//    NSLog(@"UIResponder _cmd: %@", NSStringFromSelector(_cmd));
+    
+    if([self.uiWrapper respondsToSelector: aSelector]) {
+        return self.uiWrapper;
+    }
+    
+    return [super forwardingTargetForSelector: aSelector];
+}
+
 @end
 
 @implementation UIWrapper
@@ -37,6 +48,12 @@
 + (nonnull id)getUIWrapper:(nonnull id)key withScope:(nonnull NSString*)scope
 {
     return [[ObjectManager shareInstance] getObject:key withScope:scope];
+}
+
+- (nonnull id)getUIWrapper:(nonnull id)key withScope:(nonnull NSString*)scope
+{
+    NSString * uiScope = [NSString stringWithFormat:@"%@.%@", self.scope, scope];
+    return [[ObjectManager shareInstance] getObject:key withScope:uiScope];
 }
 
 
@@ -113,7 +130,7 @@
 - (void)unwatchData:(nonnull Data*)data withKey:(nonnull NSString*)key
 {
     Binder * dataBinder = [Binder getBinder:data withScope:data.scope];
-    [dataBinder removeObjectForKey:key];
+    [dataBinder removeObject:self forKey:key];
 
     NSString * actionKey = [NSString stringWithFormat:@"dataSourceChanged.%@", key];
     [self removeAction:actionKey];
@@ -187,7 +204,7 @@
 
 - (id)forwardingTargetForSelector:(SEL)aSelector
 {
-    NSLog(@"UIWrapper _cmd: %@", NSStringFromSelector(_cmd));
+//    NSLog(@"UIWrapper _cmd: %@", NSStringFromSelector(_cmd));
     
     if([self.ui respondsToSelector: aSelector]) {
         return self.ui;

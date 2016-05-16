@@ -26,6 +26,8 @@
 + (nonnull id)getUIObject:(nonnull id)key withScope:(nonnull NSString*)scope;
 + (nonnull id)getUIWrapper:(nonnull id)key withScope:(nonnull NSString*)scope;
 
+- (nonnull id)getUIWrapper:(nonnull id)key withScope:(nonnull NSString*)scope;
+
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)mutableCopyWithZone:(nullable NSZone *)zone;
 

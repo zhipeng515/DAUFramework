@@ -123,7 +123,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"Action dealloc <%@> %@ %@", NSStringFromClass([self class]), self[@"target"], self[@"selector"]);
+    NSLog(@"Action dealloc %@ <%@> %@ %@", self.scope, NSStringFromClass([self class]), self[@"target"], self[@"selector"]);
 }
 
 @end
