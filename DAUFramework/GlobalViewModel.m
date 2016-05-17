@@ -142,7 +142,7 @@ extern UINavigationController * naviController;
 //    [[ObjectManager shareInstance] setObject:customfunc withKey:@"customfunc" withScope:GLOBAL_SCOPE];
 
     UIWrapper * controller = param[@"self"];
-    UIWrapper * button = [controller getUIWrapper:@"registerButton" withScope:@"rootView"];
+    UIWrapper * button = [controller getUIWrapper:@"rootView.registerButton"];
     
     Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
     d1[@"ffffff"] = @"ggggggg";
@@ -160,7 +160,7 @@ extern UINavigationController * naviController;
 //    [button addAction:customfunc withTrigger:@"onTap"];
     [button watchData:device withKey:@"deviceType"];
     
-    UIWrapper * userNameText = [controller getUIWrapper:@"userNameText" withScope:@"rootView"];
+    UIWrapper * userNameText = [controller getUIWrapper:@"rootView.userNameText"];
     [userNameText watchData:device withKey:@"deviceId"];
 //    [userNameText addAction:[Action actionWithSelector:@"textField_shouldChangeCharactersInRange_replacementString:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textField:shouldChangeCharactersInRange:replacementString"];
 //    [userNameText addAction:[Action actionWithSelector:@"textFieldDidEndEditing:" withTarget:[UICommonAction shareInstance] withParam:nil withScope:userNameText.scope] withTrigger:@"textFieldDidEndEditing"];

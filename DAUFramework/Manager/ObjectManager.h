@@ -28,7 +28,7 @@
 
 - (nullable id)createObject:(nonnull NSDictionary*)data withKey:(nonnull id)key withScope:(nonnull NSString*)scope;
 - (void)setObject:(nonnull id)model withKey:(nonnull id)key withScope:(nonnull NSString*)scope;
-- (nullable id)getObject:(nonnull id)key withScope:(nonnull NSString*)scope;
+- (nullable id)getObject:(nullable id)key withScope:(nonnull NSString*)scope;
 - (void)removeObject:(nonnull id)key withScope:(nonnull NSString*)scope;
 - (void)removeAllObject;
 - (void)removeAllObject:(nonnull NSString*)scope;

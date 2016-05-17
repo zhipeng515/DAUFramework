@@ -24,7 +24,7 @@
     if(self = [super init])
     {
         self.objectCreators = [[NSMutableDictionary alloc] init];
-        self.objects = [[Data alloc] initWithScope:@"root"];
+        self.objects = [[Data alloc] initWithScope:nil];
     }
     return self;
 }
@@ -69,36 +69,31 @@
 
 -(id)getObjectScope:(NSString*)scope withobjects:(Data*)objDict createPath:(BOOL)create
 {
-    if(scope == nil)
-        return nil;
+    if(scope == nil || [scope isEqualToString:@""])
+        return objDict;
     
     NSString * key;
     NSString * remainKey;
     NSRange range = [scope rangeOfString:@"."];
-    if(range.location == NSNotFound)
-    {
+    if(range.location == NSNotFound) {
         key = scope;
-        remainKey = @"";
     }
-    else
-    {
+    else {
         key = [scope substringWithRange:NSMakeRange(0, range.location)];
         NSUInteger location = range.location + range.length;
         remainKey = [scope substringWithRange:NSMakeRange(location, scope.length - location)];
     }
     
     Data * scopeDict = objDict[key];
-    if(create && scopeDict == nil)
-    {
-        scopeDict = [[Data alloc] initWithScope:objDict.scope];
+    if(create && scopeDict == nil) {
+        NSString * dataScope = key;
+        if(objDict.scope != nil)
+            dataScope = [NSString stringWithFormat:@"%@.%@", objDict.scope, key];
+        scopeDict = [[Data alloc] initWithScope:dataScope];
         [objDict setObject:scopeDict forKey:key];
     }
-    if(![remainKey isEqualToString:@""])
-    {
-        return [self getObjectScope:remainKey withobjects:scopeDict createPath:create];
-    }
-    
-    return scopeDict;
+
+    return [self getObjectScope:remainKey withobjects:scopeDict createPath:create];
 }
 
 -(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope

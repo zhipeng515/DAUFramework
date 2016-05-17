@@ -50,10 +50,21 @@
     return [[ObjectManager shareInstance] getObject:key withScope:scope];
 }
 
++ (nonnull id)getUIWrapper:(nonnull id)keyAndScope
+{
+    return [[ObjectManager shareInstance] getObject:nil withScope:keyAndScope];
+}
+
 - (nonnull id)getUIWrapper:(nonnull id)key withScope:(nonnull NSString*)scope
 {
     NSString * uiScope = [NSString stringWithFormat:@"%@.%@", self.scope, scope];
     return [[ObjectManager shareInstance] getObject:key withScope:uiScope];
+}
+
+- (nonnull id)getUIWrapper:(nonnull id)keyAndScope
+{
+    NSString * uiScope = [NSString stringWithFormat:@"%@.%@", self.scope, keyAndScope];
+    return [[ObjectManager shareInstance] getObject:nil withScope:uiScope];
 }
 
 
