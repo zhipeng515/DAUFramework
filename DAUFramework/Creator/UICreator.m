@@ -11,6 +11,8 @@
 #import "UIWrapper.h"
 #import "UIColor+HexString.h"
 #import "DAUViewController.h"
+#import "DAUNavigationController.h"
+#import "DAUTabbarController.h"
 
 @implementation UICreator
 
@@ -208,7 +210,7 @@
 
 @end
 
-@implementation DAUUIViewControllerCreator
+@implementation DAUViewControllerCreator
 
 -(id)init
 {
@@ -248,6 +250,66 @@
 {
 	__autoreleasing UINavigationController * naviController = [[UINavigationController alloc] init];
 	UIWrapper * ui = [[UIWrapper alloc] init:naviController withScope:scope];
+    return ui;
+}
+
+
+
+@end
+
+@implementation DAUNavigationControllerCreator
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
+{
+    id rootViewController = dict[@"rootViewController"];
+    if([rootViewController isKindOfClass:[UIWrapper class]])
+        rootViewController = [rootViewController ui];
+    __autoreleasing DAUNavigationController * naviController = [[DAUNavigationController alloc] initWithRootViewController:rootViewController];
+    naviController.controllerName = dict[@"name"];
+    UIWrapper * ui = [[UIWrapper alloc] init:naviController withScope:scope];
+    naviController.uiWrapper = ui;
+    return ui;
+}
+
+
+
+@end
+
+@implementation DAUTabbarControllerCreator
+
+-(id)init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
+-(id)create:(NSString*)key withData:(NSDictionary*)dict withScope:(nonnull NSString*)scope
+{
+    NSArray * viewControllersArray = dict[@"viewControllers"];
+    NSMutableArray * viewControllers = [[NSMutableArray alloc] initWithCapacity:[viewControllersArray count]];
+    for(id controller in viewControllersArray) {
+        if([controller isKindOfClass:[UIWrapper class]])
+            [viewControllers addObject:[controller ui]];
+        else
+            [viewControllers addObject:controller];
+    }
+    __autoreleasing DAUTabbarController * tabbarController = [[DAUTabbarController alloc] init];
+    [tabbarController setViewControllers:viewControllers animated:NO];
+    tabbarController.controllerName = dict[@"name"];
+    UIWrapper * ui = [[UIWrapper alloc] init:tabbarController withScope:scope];
+    tabbarController.uiWrapper = ui;
     return ui;
 }
 

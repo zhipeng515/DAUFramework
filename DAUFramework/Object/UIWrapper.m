@@ -37,6 +37,30 @@
 
 @end
 
+@implementation UIViewController (UIWrapper)
+
+- (id)controllerName {
+    return objc_getAssociatedObject(self, @selector(controllerName));
+}
+
+- (void)setControllerName:(id)controllerName {
+    objc_setAssociatedObject(self, @selector(controllerName), controllerName, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (id)forwardingTargetForSelector:(SEL)aSelector
+{
+    //    NSLog(@"UIResponder _cmd: %@", NSStringFromSelector(_cmd));
+    
+    if([self.uiWrapper respondsToSelector: aSelector]) {
+        return self.uiWrapper;
+    }
+    
+    return [super forwardingTargetForSelector: aSelector];
+}
+
+@end
+
+
 @implementation UIWrapper
 
 + (nonnull id)getUIObject:(nonnull id)key withScope:(nonnull NSString*)scope

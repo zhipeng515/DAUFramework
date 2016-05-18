@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DAUViewController : UIViewController
+extern int randControllerId();
 
-@property (nonatomic, retain, nonnull)NSString * controllerName;
+@interface DAUViewController : UIViewController
 
 + (nullable id)createDAUViewController:(nullable NSString*)controllerName;
 

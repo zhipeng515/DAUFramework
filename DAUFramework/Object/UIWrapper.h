@@ -19,6 +19,14 @@
 
 @end
 
+
+@interface UIViewController (UIWrapper)
+
+@property(nonatomic, retain, nonnull)NSString * controllerName;
+
+@end
+
+
 @interface UIWrapper : Data
 
 @property(nonatomic, nullable, weak)id ui;

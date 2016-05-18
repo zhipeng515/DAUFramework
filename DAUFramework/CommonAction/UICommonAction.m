@@ -39,6 +39,11 @@
     [DAUManager createLayoutModel:layoutInfo withParent:viewController.uiWrapper];
 }
 
++ (void)defaultNavigationControllerViewWillAppear:(Data*)value
+{
+    [DAUManager shareInstance].currentNaviController = value[@"self"];
+}
+
 + (void)updateButtonTitle:(Data*)value
 {
     UIWrapper * uiWrapper = value[@"self"];

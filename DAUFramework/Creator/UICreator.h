@@ -49,10 +49,19 @@
 
 @end
 
-@interface DAUUIViewControllerCreator : UIViewControllerCreator
+@interface DAUViewControllerCreator : UIViewControllerCreator
 
 @end
 
-@interface UINavigationControllerCreator : UIViewControllerCreator
+@interface UINavigationControllerCreator : UICreator
 
 @end
+
+@interface DAUNavigationControllerCreator : UIViewControllerCreator
+
+@end
+
+@interface DAUTabbarControllerCreator : UIViewControllerCreator
+
+@end
+

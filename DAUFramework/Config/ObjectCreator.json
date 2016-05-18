@@ -30,13 +30,21 @@
 			"creatorName" : "createViewController"
 		},
         {
-            "className" : "DAUUIViewControllerCreator",
+            "className" : "DAUViewControllerCreator",
             "creatorName" : "createDAUViewController"
         },
 		{
 			"className" : "UINavigationControllerCreator",
 			"creatorName" : "createNavigationController"
 		},
+        {
+            "className" : "DAUNavigationControllerCreator",
+            "creatorName" : "createDAUNavigationController"
+        },
+        {
+            "className" : "DAUTabbarControllerCreator",
+            "creatorName" : "createDAUTabbarController"
+        },
 		{
 			"className" : "DataCreator",
 			"creatorName" : "createData"

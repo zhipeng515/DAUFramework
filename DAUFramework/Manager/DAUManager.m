@@ -235,4 +235,12 @@
     [binder dataChanged:data withKey:key withValue:anObject];
 }
 
+- (void)pushViewController:(nonnull id)viewController animated:(BOOL)animated
+{
+    if([viewController isKindOfClass:[UIWrapper class]])
+        viewController = [viewController ui];
+    
+    [self.currentNaviController pushViewController:viewController animated:animated];
+}
+
 @end

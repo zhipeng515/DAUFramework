@@ -47,13 +47,13 @@ extern UINavigationController * naviController;
 
 + (void)presentDAU:(Action*)action
 {
+//    [UIApplication sharedApplication].keyWindow.rootViewController = nil;
+
     UIWrapper * controller = [DAUViewController createDAUViewController:@"RegisterViewController"];
     [controller addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
     [controller addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
     
-    [naviController pushViewController:controller.ui animated:YES];
-    
-//    DAUViewController * viewController = [[DAUViewController alloc] init];
+    [[DAUManager shareInstance] pushViewController:controller.ui animated:YES];
 }
 
 + (void)benchmark

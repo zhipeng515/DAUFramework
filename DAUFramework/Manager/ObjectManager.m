@@ -67,7 +67,7 @@
     return [creator create:key withData:data withScope:scope];
 }
 
--(id)getObjectScope:(NSString*)scope withobjects:(Data*)objDict createPath:(BOOL)create
+-(id)getObjectScope:(NSString*)scope withObjects:(Data*)objDict withParentScope:(NSString*)parentScope createPath:(BOOL)create
 {
     if(scope == nil || [scope isEqualToString:@""])
         return objDict;
@@ -86,31 +86,34 @@
     
     Data * scopeDict = objDict[key];
     if(create && scopeDict == nil) {
-        NSString * dataScope = key;
-        if(objDict.scope != nil)
-            dataScope = [NSString stringWithFormat:@"%@.%@", objDict.scope, key];
-        scopeDict = [[Data alloc] initWithScope:dataScope];
+        scopeDict = [[Data alloc] initWithScope:parentScope];
         [objDict setObject:scopeDict forKey:key];
+        if(parentScope == nil) {
+            parentScope = key;
+        }
+        else {
+            parentScope = [NSString stringWithFormat:@"%@.%@", parentScope, key];
+        }
     }
 
-    return [self getObjectScope:remainKey withobjects:scopeDict createPath:create];
+    return [self getObjectScope:remainKey withObjects:scopeDict withParentScope:parentScope createPath:create];
 }
 
 -(void)setObject:(id)model withKey:(id)key withScope:(NSString*)scope
 {
-    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects createPath:YES];
+    Data * scopeDict = [self getObjectScope:scope withObjects:self.objects withParentScope:nil createPath:YES];
     [scopeDict setObject:model forKey:key];
 }
 
 -(void)removeObject:(id)key withScope:(NSString*)scope
 {
-    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects createPath:NO];
+    Data * scopeDict = [self getObjectScope:scope withObjects:self.objects withParentScope:nil createPath:NO];
     [scopeDict removeObjectForKey:key];
 }
 
 -(id)getObject:(id)key withScope:(NSString*)scope
 {
-    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects createPath:NO];
+    Data * scopeDict = [self getObjectScope:scope withObjects:self.objects withParentScope:nil createPath:NO];
     if(key == nil)
         return scopeDict;
     return [scopeDict objectForKey:key];
@@ -123,7 +126,7 @@
 
 -(void)removeAllObject:(NSString*)scope
 {
-    Data * scopeDict = [self getObjectScope:scope withobjects:self.objects createPath:NO];
+    Data * scopeDict = [self getObjectScope:scope withObjects:self.objects withParentScope:nil createPath:NO];
     [scopeDict removeAllObjects];
 //    [self.objects removeObjectForKey:scope];
 }

@@ -16,6 +16,7 @@
 + (nullable NSString*)objectToUpdateSelector:(nonnull id)object;
 
 + (void)loadLayoutFromJson:(nonnull Data*)value;
++ (void)defaultNavigationControllerViewWillAppear:(nonnull Data*)value;
 
 + (void)updateButtonTitle:(nonnull Data*)value;
 + (void)updateLabelText:(nonnull Data*)value;

@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "DAUViewController.h"
+#import "DAUNavigationController.h"
+#import "DAUTabbarController.h"
 #import "DAUManager.h"
 #import "ObjectManager.h"
 #import "Action.h"
@@ -15,8 +17,6 @@
 #import "GlobalViewModel.h"
 
 #import "AFNetworking.h"
-
-UINavigationController * naviController;
 
 @interface AppDelegate ()
 
@@ -37,24 +37,28 @@ UINavigationController * naviController;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self initGlobalInfo];
-
-//    Data * d1 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
-//    d1[@"ffffff"] = @"ggggggg";
-//    Data * d2 = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
-//    d2[@"fffff"] = @"hhhhhhh";
-//    d2[0] = @"aaaa";
-//    d2[1] = [Data dataWithKey:@"ffff" withScope:@"a.bb.ccc.dddd.eeeee"];
-//
-//    NSLog(@"%@", [ObjectManager shareInstance].objects);
     
-    UIWrapper * controller = [DAUViewController createDAUViewController:@"RegisterViewController"];
-    [controller addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
-    [controller addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
+    UIWrapper * controller1 = [DAUViewController createDAUViewController:@"RegisterViewController"];
+    [controller1.ui setTitle:@"注册1"];
+    [controller1 addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
+    [controller1 addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
+    UIWrapper * controller2 = [DAUViewController createDAUViewController:@"RegisterViewController"];
+    [controller2.ui setTitle:@"注册2"];
+    [controller2 addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
+    [controller2 addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
+    UIWrapper * controller3 = [DAUViewController createDAUViewController:@"RegisterViewController"];
+    [controller3.ui setTitle:@"注册3"];
+    [controller3 addAction:[GlobalViewModel class] withSelector:@"viewDidLoad:" withTrigger:@"viewDidLoad"];
+    [controller3 addAction:[GlobalViewModel class] withSelector:@"viewWillAppear:" withTrigger:@"viewWillAppear"];
     
-    naviController = [[UINavigationController alloc] initWithRootViewController:controller.ui];
+    UIWrapper * naviController1 = [DAUNavigationController createDAUNavigationController:@"RootNavigationController" withRootViewController:controller1];
+    UIWrapper * naviController2 = [DAUNavigationController createDAUNavigationController:@"RootNavigationController" withRootViewController:controller2];
+    UIWrapper * naviController3 = [DAUNavigationController createDAUNavigationController:@"RootNavigationController" withRootViewController:controller3];
+    
+    UIWrapper * tabbarController = [DAUTabbarController createDAUTabbarController:@"RootTabbarController" withViewControllers:@[naviController1, naviController2, naviController3]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window setRootViewController:naviController];
+    [self.window setRootViewController:tabbarController.ui];
     [self.window makeKeyAndVisible];
     
     return YES;
