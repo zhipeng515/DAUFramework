@@ -12,6 +12,8 @@
 		852A0C001CD353FD0081B206 /* DAUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852A0BFF1CD353FD0081B206 /* DAUViewController.m */; };
 		852A0C021CD356170081B206 /* RegisterViewAction.json in Resources */ = {isa = PBXBuildFile; fileRef = 852A0C011CD356170081B206 /* RegisterViewAction.json */; };
 		852A0C041CD356990081B206 /* RegisterViewModel.json in Resources */ = {isa = PBXBuildFile; fileRef = 852A0C031CD356990081B206 /* RegisterViewModel.json */; };
+		8545F52B1D0033A1004BB4F6 /* DAUNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8545F5281D0033A1004BB4F6 /* DAUNavigationController.m */; };
+		8545F52C1D0033A1004BB4F6 /* DAUTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8545F52A1D0033A1004BB4F6 /* DAUTabbarController.m */; };
 		8581B5071CE449A100467D70 /* UICommonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8581B5061CE449A100467D70 /* UICommonAction.m */; };
 		8581B50A1CE473D300467D70 /* CommonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8581B5091CE473D300467D70 /* CommonAction.m */; };
 		85A10FD71CCA13C8008626FA /* ObjectCreator.json in Resources */ = {isa = PBXBuildFile; fileRef = 85A10FBA1CCA13C8008626FA /* ObjectCreator.json */; };
@@ -68,6 +70,10 @@
 		852A0BFF1CD353FD0081B206 /* DAUViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAUViewController.m; sourceTree = "<group>"; };
 		852A0C011CD356170081B206 /* RegisterViewAction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RegisterViewAction.json; sourceTree = "<group>"; };
 		852A0C031CD356990081B206 /* RegisterViewModel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RegisterViewModel.json; sourceTree = "<group>"; };
+		8545F5271D0033A1004BB4F6 /* DAUNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAUNavigationController.h; sourceTree = "<group>"; };
+		8545F5281D0033A1004BB4F6 /* DAUNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAUNavigationController.m; sourceTree = "<group>"; };
+		8545F5291D0033A1004BB4F6 /* DAUTabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAUTabbarController.h; sourceTree = "<group>"; };
+		8545F52A1D0033A1004BB4F6 /* DAUTabbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAUTabbarController.m; sourceTree = "<group>"; };
 		8581B5051CE449A100467D70 /* UICommonAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICommonAction.h; sourceTree = "<group>"; };
 		8581B5061CE449A100467D70 /* UICommonAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICommonAction.m; sourceTree = "<group>"; };
 		8581B5081CE473D300467D70 /* CommonAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonAction.h; sourceTree = "<group>"; };
@@ -158,6 +164,10 @@
 		852A0BFD1CD353E30081B206 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				8545F5271D0033A1004BB4F6 /* DAUNavigationController.h */,
+				8545F5281D0033A1004BB4F6 /* DAUNavigationController.m */,
+				8545F5291D0033A1004BB4F6 /* DAUTabbarController.h */,
+				8545F52A1D0033A1004BB4F6 /* DAUTabbarController.m */,
 				852A0BFE1CD353FD0081B206 /* DAUViewController.h */,
 				852A0BFF1CD353FD0081B206 /* DAUViewController.m */,
 			);
@@ -521,7 +531,9 @@
 				852A0C001CD353FD0081B206 /* DAUViewController.m in Sources */,
 				85A10FD91CCA13C8008626FA /* BinderCreator.m in Sources */,
 				85C750D31CCF1CA600481D36 /* ModelDefine.m in Sources */,
+				8545F52B1D0033A1004BB4F6 /* DAUNavigationController.m in Sources */,
 				852A0BFC1CD202FE0081B206 /* JJRSObjectDescription.m in Sources */,
+				8545F52C1D0033A1004BB4F6 /* DAUTabbarController.m in Sources */,
 				85A10FDE1CCA13C8008626FA /* ObjectManager.m in Sources */,
 				85DD9E381CC9244200DF09FB /* GlobalViewModel.m in Sources */,
 				85C750D01CCF1C4500481D36 /* UIWrapper.m in Sources */,
