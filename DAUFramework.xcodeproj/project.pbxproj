@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		850A61A71D5D996C001FD09E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 850A61A61D5D996C001FD09E /* README.md */; };
 		852A0BF61CD1BBD90081B206 /* testdata_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 852A0BF51CD1BBD90081B206 /* testdata_1.json */; };
 		852A0BFC1CD202FE0081B206 /* JJRSObjectDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 852A0BFB1CD202FE0081B206 /* JJRSObjectDescription.m */; };
 		852A0C001CD353FD0081B206 /* DAUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852A0BFF1CD353FD0081B206 /* DAUViewController.m */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		0E4D02ED57D47348E84D2A06 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		850A61A61D5D996C001FD09E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		852A0BF51CD1BBD90081B206 /* testdata_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata_1.json; sourceTree = "<group>"; };
 		852A0BFA1CD202FE0081B206 /* JJRSObjectDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJRSObjectDescription.h; sourceTree = "<group>"; };
 		852A0BFB1CD202FE0081B206 /* JJRSObjectDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJRSObjectDescription.m; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				852A0BF51CD1BBD90081B206 /* testdata_1.json */,
 				852A0C011CD356170081B206 /* RegisterViewAction.json */,
 				852A0C031CD356990081B206 /* RegisterViewModel.json */,
+				850A61A61D5D996C001FD09E /* README.md */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				85A10FDA1CCA13C8008626FA /* DataCreator.m in Sources */,
 				85C750CD1CCF1C4500481D36 /* Action.m in Sources */,
 				85C750CF1CCF1C4500481D36 /* Data.m in Sources */,
+				850A61A71D5D996C001FD09E /* README.md in Sources */,
 				85DD9E321CC9244100DF09FB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
