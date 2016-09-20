@@ -14,6 +14,24 @@
 		852A0C001CD353FD0081B206 /* DAUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852A0BFF1CD353FD0081B206 /* DAUViewController.m */; };
 		852A0C021CD356170081B206 /* RegisterViewAction.json in Resources */ = {isa = PBXBuildFile; fileRef = 852A0C011CD356170081B206 /* RegisterViewAction.json */; };
 		852A0C041CD356990081B206 /* RegisterViewModel.json in Resources */ = {isa = PBXBuildFile; fileRef = 852A0C031CD356990081B206 /* RegisterViewModel.json */; };
+		8533813F1D8FFA2F0031EE97 /* UICommonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8581B5061CE449A100467D70 /* UICommonAction.m */; };
+		853381401D8FFA2F0031EE97 /* CommonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8581B5091CE473D300467D70 /* CommonAction.m */; };
+		853381411D8FFA2F0031EE97 /* ActionCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FBD1CCA13C8008626FA /* ActionCreator.m */; };
+		853381421D8FFA2F0031EE97 /* BinderCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FBF1CCA13C8008626FA /* BinderCreator.m */; };
+		853381431D8FFA2F0031EE97 /* DataCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC11CCA13C8008626FA /* DataCreator.m */; };
+		853381441D8FFA2F0031EE97 /* ObjectCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC31CCA13C8008626FA /* ObjectCreator.m */; };
+		853381451D8FFA2F0031EE97 /* UICreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC51CCA13C8008626FA /* UICreator.m */; };
+		853381461D8FFA2F0031EE97 /* DAUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FC81CCA13C8008626FA /* DAUManager.m */; };
+		853381471D8FFA2F0031EE97 /* ObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A10FCA1CCA13C8008626FA /* ObjectManager.m */; };
+		853381481D8FFA2F0031EE97 /* DAUNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8545F5281D0033A1004BB4F6 /* DAUNavigationController.m */; };
+		853381491D8FFA2F0031EE97 /* DAUTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8545F52A1D0033A1004BB4F6 /* DAUTabbarController.m */; };
+		8533814A1D8FFA2F0031EE97 /* DAUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 852A0BFF1CD353FD0081B206 /* DAUViewController.m */; };
+		8533814B1D8FFA2F0031EE97 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C750C61CCF1C4500481D36 /* Action.m */; };
+		8533814C1D8FFA2F0031EE97 /* Binder.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C750C81CCF1C4500481D36 /* Binder.m */; };
+		8533814D1D8FFA2F0031EE97 /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C750CA1CCF1C4500481D36 /* Data.m */; };
+		8533814E1D8FFA2F0031EE97 /* UIWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C750CC1CCF1C4500481D36 /* UIWrapper.m */; };
+		8533814F1D8FFA2F0031EE97 /* ModelDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C750D21CCF1CA600481D36 /* ModelDefine.m */; };
+		853381501D8FFA2F0031EE97 /* JJRSObjectDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 852A0BFB1CD202FE0081B206 /* JJRSObjectDescription.m */; };
 		8545F52B1D0033A1004BB4F6 /* DAUNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8545F5281D0033A1004BB4F6 /* DAUNavigationController.m */; };
 		8545F52C1D0033A1004BB4F6 /* DAUTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8545F52A1D0033A1004BB4F6 /* DAUTabbarController.m */; };
 		8581B5071CE449A100467D70 /* UICommonAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8581B5061CE449A100467D70 /* UICommonAction.m */; };
@@ -63,6 +81,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		853381341D8FFA0C0031EE97 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0E4D02ED57D47348E84D2A06 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		0F2F0A82C5A198C8CCE92474 /* libPods-DAUFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DAUFramework.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +106,7 @@
 		852A0BFF1CD353FD0081B206 /* DAUViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAUViewController.m; sourceTree = "<group>"; };
 		852A0C011CD356170081B206 /* RegisterViewAction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RegisterViewAction.json; sourceTree = "<group>"; };
 		852A0C031CD356990081B206 /* RegisterViewModel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RegisterViewModel.json; sourceTree = "<group>"; };
+		853381361D8FFA0C0031EE97 /* libDAUFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDAUFramework.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8545F5271D0033A1004BB4F6 /* DAUNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAUNavigationController.h; sourceTree = "<group>"; };
 		8545F5281D0033A1004BB4F6 /* DAUNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAUNavigationController.m; sourceTree = "<group>"; };
 		8545F5291D0033A1004BB4F6 /* DAUTabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAUTabbarController.h; sourceTree = "<group>"; };
@@ -134,6 +165,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		853381331D8FFA0C0031EE97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		85DD9E2A1CC9244100DF09FB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,6 +322,7 @@
 				85DD9E2D1CC9244100DF09FB /* DAUFramework.app */,
 				85DD9E461CC9244200DF09FB /* DAUFrameworkTests.xctest */,
 				85DD9E511CC9244200DF09FB /* DAUFrameworkUITests.xctest */,
+				853381361D8FFA0C0031EE97 /* libDAUFramework.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -350,6 +389,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		853381351D8FFA0C0031EE97 /* libDAUFramework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8533813E1D8FFA0C0031EE97 /* Build configuration list for PBXNativeTarget "libDAUFramework" */;
+			buildPhases = (
+				853381321D8FFA0C0031EE97 /* Sources */,
+				853381331D8FFA0C0031EE97 /* Frameworks */,
+				853381341D8FFA0C0031EE97 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libDAUFramework;
+			productName = libDAUFramework;
+			productReference = 853381361D8FFA0C0031EE97 /* libDAUFramework.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		85DD9E2C1CC9244100DF09FB /* DAUFramework */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 85DD9E5A1CC9244200DF09FB /* Build configuration list for PBXNativeTarget "DAUFramework" */;
@@ -415,6 +471,11 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = zhipeng;
 				TargetAttributes = {
+					853381351D8FFA0C0031EE97 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = DZQ9HC6K8E;
+						ProvisioningStyle = Automatic;
+					};
 					85DD9E2C1CC9244100DF09FB = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = DZQ9HC6K8E;
@@ -445,6 +506,7 @@
 				85DD9E2C1CC9244100DF09FB /* DAUFramework */,
 				85DD9E451CC9244200DF09FB /* DAUFrameworkTests */,
 				85DD9E501CC9244200DF09FB /* DAUFrameworkUITests */,
+				853381351D8FFA0C0031EE97 /* libDAUFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -533,6 +595,31 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		853381321D8FFA0C0031EE97 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8533813F1D8FFA2F0031EE97 /* UICommonAction.m in Sources */,
+				853381401D8FFA2F0031EE97 /* CommonAction.m in Sources */,
+				853381411D8FFA2F0031EE97 /* ActionCreator.m in Sources */,
+				853381421D8FFA2F0031EE97 /* BinderCreator.m in Sources */,
+				853381431D8FFA2F0031EE97 /* DataCreator.m in Sources */,
+				853381441D8FFA2F0031EE97 /* ObjectCreator.m in Sources */,
+				853381451D8FFA2F0031EE97 /* UICreator.m in Sources */,
+				853381461D8FFA2F0031EE97 /* DAUManager.m in Sources */,
+				853381471D8FFA2F0031EE97 /* ObjectManager.m in Sources */,
+				853381481D8FFA2F0031EE97 /* DAUNavigationController.m in Sources */,
+				853381491D8FFA2F0031EE97 /* DAUTabbarController.m in Sources */,
+				8533814A1D8FFA2F0031EE97 /* DAUViewController.m in Sources */,
+				8533814B1D8FFA2F0031EE97 /* Action.m in Sources */,
+				8533814C1D8FFA2F0031EE97 /* Binder.m in Sources */,
+				8533814D1D8FFA2F0031EE97 /* Data.m in Sources */,
+				8533814E1D8FFA2F0031EE97 /* UIWrapper.m in Sources */,
+				8533814F1D8FFA2F0031EE97 /* ModelDefine.m in Sources */,
+				853381501D8FFA2F0031EE97 /* JJRSObjectDescription.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		85DD9E291CC9244100DF09FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -613,6 +700,66 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8533813C1D8FFA0C0031EE97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEVELOPMENT_TEAM = DZQ9HC6K8E;
+				EXECUTABLE_PREFIX = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/UIColor-HexString\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UIColor-HexString\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8533813D1D8FFA0C0031EE97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEVELOPMENT_TEAM = DZQ9HC6K8E;
+				EXECUTABLE_PREFIX = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/UIColor-HexString\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UIColor-HexString\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		85DD9E581CC9244200DF09FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -776,6 +923,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8533813E1D8FFA0C0031EE97 /* Build configuration list for PBXNativeTarget "libDAUFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8533813C1D8FFA0C0031EE97 /* Debug */,
+				8533813D1D8FFA0C0031EE97 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		85DD9E281CC9244100DF09FB /* Build configuration list for PBXProject "DAUFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

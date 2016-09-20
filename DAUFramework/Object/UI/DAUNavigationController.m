@@ -33,61 +33,61 @@
     return controller;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [UICommonAction viewDidLoad:self];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return;
-    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-    param[@"self"] = self;
-    param[@"animated"] = [NSNumber numberWithBool:animated];
-    [binder doAction:@"viewWillAppear" withParam:param];
+    [UICommonAction viewWillAppear:animated withController:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return;
-    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-    param[@"self"] = self;
-    param[@"animated"] = [NSNumber numberWithBool:animated];
-    [binder doAction:@"viewDidAppear" withParam:param];
+    [UICommonAction viewDidAppear:animated withController:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return;
-    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-    param[@"self"] = self;
-    param[@"animated"] = [NSNumber numberWithBool:animated];
-    [binder doAction:@"viewWillDisappear" withParam:param];
+    [UICommonAction viewWillDisappear:animated withController:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     
-    Binder * binder = [Binder getBinder:self.uiWrapper withScope:self.uiWrapper.scope];
-    if(![binder isKindOfClass:[UIWrapperActionBinder class]])
-        return;
-    Data * param = [[Data alloc] initWithScope:self.uiWrapper.scope];
-    param[@"self"] = self;
-    param[@"animated"] = [NSNumber numberWithBool:animated];
-    [binder doAction:@"viewDidDisappear" withParam:param];
+    [UICommonAction viewDidDisappear:animated withController:self];
 }
 
-- (void)didReceiveMemoryWarning {
+- (BOOL)shouldAutorotate
+{
+    return [UICommonAction shouldAutorotate:self];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return [UICommonAction supportedInterfaceOrientations:self];
+}
+
+// Returns interface orientation masks.
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return [UICommonAction preferredInterfaceOrientationForPresentation:self];
+}
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    [UICommonAction didReceiveMemoryWarning:self];
 }
 
 - (void)dealloc

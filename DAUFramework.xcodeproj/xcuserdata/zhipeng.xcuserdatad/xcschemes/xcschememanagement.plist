@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>libDAUFramework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>853381351D8FFA0C0031EE97</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>85DD9E2C1CC9244100DF09FB</key>
 		<dict>
 			<key>primary</key>
